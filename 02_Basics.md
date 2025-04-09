@@ -917,3 +917,222 @@ else:
 Enter your marks: 85  
 Grade: B
 ```
+
+Day 02
+
+Looping Statements
+
+To avoid repetitive work, to avoid time spending again and again, we can use Loops.
+ There are two types of loops in Python:
+ - while Loop
+ - for Loop
+
+Example of while loop:
+
+i = 1
+ while i<11 :
+ print(i)
+ i=i+1
+
+ 
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+ 10
+
+—
+
+
+ i = 10
+
+while i > 0:
+ print(i)
+ i = i - 1
+
+ 
+ 10
+ 9
+ 8
+ 7
+ 6
+ 5
+ 4
+ 3
+ 2
+ 1
+
+WAP to add all the numbers from 1 to 10
+ 
+
+i = 1
+ sum = 0
+ while(i < 11):
+ sum += i
+ i += 1
+
+ 
+ print(f"Sum of numbers from 1 to 10 is: {sum}")
+ Sum of numbers from 1 to 10 is: 55
+ 
+
+while-else in while loop:
+ 
+
+ans = 0
+ i = 1
+ while i < 11:
+ ans += i
+ i += 1
+ else:
+ print("Ans is: ", ans)
+
+ 
+ Ans is: 55
+
+You cannot add a string and a number.
+
+print("hello + ans)
+It will throw error.
+
+One way is to convert the data type of the ans to string.
+
+```python
+print("hello " + str(ans))
+```
+
+```
+hello 55
+```
+```python
+print("hello", ans)
+hello 55
+
+i = 1
+while i<11:
+    if i%2 ==0:
+        print(i)
+    i=i+1
+
+    
+2
+4
+6
+8
+10
+
+```python
+
+# Calculate factorial of given number
+#5 = 5*4*3*2*1
+
+n = int(input("Enter a number: "))
+num = n
+fact = 1
+while(n > 1):
+    fact *= n
+    n -= 1
+
+    
+print(f"\nFactorial of {num} is: {fact}")
+```
+
+```
+
+Enter a number: 5
+
+Factorial of 5 is: 120
+
+Enter a number: 6
+
+Factorial of 6 is: 720
+
+Enter a number: 20
+
+Factorial of 20 is: 2432902008176640000
+```
+
+Using for loop:
+
+```python
+n = int(input("Enter a number: "))
+
+i = 1
+
+while(i < n+1):
+    num = i
+    fact = 1
+    while(num >= 1):
+        fact *= num
+        num -= 1
+    print(f"\nFactorial of {i} is: {fact}")
+    i+=1
+```
+
+Output:
+```bash
+Enter a number: 5
+
+Factorial of 1 is: 1
+
+Factorial of 2 is: 2
+
+Factorial of 3 is: 6
+
+Factorial of 4 is: 24
+
+Factorial of 5 is: 120
+```
+
+WAP to print all numbers from 1 to 10.
+```python
+for i in range(1, 11):
+    print(i)
+```
+
+WAP to print above numbers in reverse order.
+```python
+for i in range(10, 0, -1):
+    print(i)
+```
+
+WAP to add numbers from 1 to 10
+```python
+sum = 0
+
+for i in range(1, 11):
+    sum += i
+print(sum)
+```
+
+WAP to print all odd numbers from 1 to 10
+```python
+for i in range(1, 11):
+    if (i % 2 != 0):
+        print(i)
+```
+Alternate Method:
+```
+for i in range(1, 11, 2):
+    print(i)
+```
+
+WAP to print factorial of given number
+```python
+num = int(input("Enter a number: "))
+n = num
+
+for i in range(1, n+1):
+    num = i
+    fact = 1
+
+    for j in range(1, num+1):
+        fact *= j
+
+    print(fact)
+```
