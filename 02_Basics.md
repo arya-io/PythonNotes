@@ -918,118 +918,191 @@ Enter your marks: 85
 Grade: B
 ```
 
-Day 02
+# 🌀 Day 02
 
-Looping Statements
+## Looping Statements
 
-To avoid repetitive work, to avoid time spending again and again, we can use Loops.
- There are two types of loops in Python:
- - while Loop
- - for Loop
+To avoid repetitive work and save time, we use **loops**.
 
-Example of while loop:
+Python provides two primary types of loops:
+- `while` Loop
+- `for` Loop
 
-i = 1
- while i<11 :
- print(i)
- i=i+1
+---
 
- 
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
- 10
-
-—
-
-
- i = 10
-
-while i > 0:
- print(i)
- i = i - 1
-
- 
- 10
- 9
- 8
- 7
- 6
- 5
- 4
- 3
- 2
- 1
-
-WAP to add all the numbers from 1 to 10
- 
-
-i = 1
- sum = 0
- while(i < 11):
- sum += i
- i += 1
-
- 
- print(f"Sum of numbers from 1 to 10 is: {sum}")
- Sum of numbers from 1 to 10 is: 55
- 
-
-while-else in while loop:
- 
-
-ans = 0
- i = 1
- while i < 11:
- ans += i
- i += 1
- else:
- print("Ans is: ", ans)
-
- 
- Ans is: 55
-
-You cannot add a string and a number.
-
-print("hello + ans)
-It will throw error.
-
-One way is to convert the data type of the ans to string.
+### 🔁 Example of `while` loop (1 to 10):
 
 ```python
+i = 1
+while i < 11:
+    print(i)
+    i = i + 1
+```
+
+📌 Output:
+```
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+
+### 🔁 Example of `while` loop (10 to 1):
+
+```python
+i = 10
+while i > 0:
+    print(i)
+    i = i - 1
+```
+
+📌 Output:
+```
+10  
+9  
+8  
+7  
+6  
+5  
+4  
+3  
+2  
+1
+```
+
+💡 **Tip:** Loops are extremely helpful in automating repetitive tasks and reducing lines of code!
+
+### ✅ WAP to Add All Numbers from 1 to 10
+
+```python
+i = 1
+sum = 0
+while(i < 11):
+    sum += i
+    i += 1
+
+print(f"Sum of numbers from 1 to 10 is: {sum}")
+```
+
+📌 **Output:**
+```
+Sum of numbers from 1 to 10 is: 55
+```
+ 
+
+### ✅ while-else in Python
+
+The `else` block after a `while` loop runs **only when the loop ends normally** (i.e., not via a `break`).
+
+```python
+ans = 0
+i = 1
+while i < 11:
+    ans += i
+    i += 1
+else:
+    print("Ans is:", ans)
+```
+
+📌 **Output:**
+```bash
+Ans is: 55
+```
+
+💡 **Note:**  
+The `else` block is useful for **post-processing** once the loop completes fully.
+
+✅ It will only run if the loop **was not terminated by a `break`**.
+
+---
+
+### ❌ If a `break` occurs, the `else` block is skipped:
+
+```python
+i = 1
+while i <= 10:
+    if i == 5:
+        break
+    print(i)
+    i += 1
+else:
+    print("Loop completed without break.")
+```
+
+📌 **Output:**
+```bash
+1
+2
+3
+4
+```
+
+🚫 **The `else` block did not run** because the loop was exited with `break`.
+
+✅ Use this structure when you want to **detect early termination** inside loops!
+
+This is particularly useful in search operations, validations, or checking conditions where you want to know whether the loop ran to completion or exited midway.
+
+🚫 You cannot add a string and a number directly in Python:
+
+```python
+print("hello" + ans)
+```
+
+🚫 This will throw a `TypeError` because Python doesn't allow concatenation of a string with an integer.
+
+---
+
+✅ **Solution**: Convert the number to a string using `str()`:
+
+```python
+ans = 55
 print("hello " + str(ans))
 ```
 
-```
+```nginx
 hello 55
 ```
+
+✅ **Alternative**: Use a comma `,` which automatically adds a space and handles type conversion:
+
 ```python
 print("hello", ans)
+```
+```nginx
 hello 55
+```
 
+### ✅ Program to Print Even Numbers from 1 to 10 using `while` loop
+
+```python
 i = 1
-while i<11:
-    if i%2 ==0:
+while i < 11:
+    if i % 2 == 0:
         print(i)
-    i=i+1
+    i = i + 1
+```
 
-    
+📌 **Output:**
+```
 2
 4
 6
 8
 10
+```
+
+💡 **Tip**: You can also start from `2` and increment by `2` to optimize it.
 
 ```python
-
 # Calculate factorial of given number
-#5 = 5*4*3*2*1
+# 5! = 5 * 4 * 3 * 2 * 1
 
 n = int(input("Enter a number: "))
 num = n
@@ -1038,26 +1111,21 @@ while(n > 1):
     fact *= n
     n -= 1
 
-    
 print(f"\nFactorial of {num} is: {fact}")
 ```
 
-```
-
+```yaml
 Enter a number: 5
-
 Factorial of 5 is: 120
 
 Enter a number: 6
-
 Factorial of 6 is: 720
 
 Enter a number: 20
-
 Factorial of 20 is: 2432902008176640000
 ```
 
-Using for loop:
+### 🧮 Factorial of Numbers from 1 to n using while loop
 
 ```python
 n = int(input("Enter a number: "))
@@ -1071,10 +1139,11 @@ while(i < n+1):
         fact *= num
         num -= 1
     print(f"\nFactorial of {i} is: {fact}")
-    i+=1
+    i += 1
 ```
 
-Output:
+### 📌 Output Example:
+
 ```bash
 Enter a number: 5
 
@@ -1089,19 +1158,81 @@ Factorial of 4 is: 24
 Factorial of 5 is: 120
 ```
 
-WAP to print all numbers from 1 to 10.
+## 🔁 `for` Loop in Python
+
+The `for` loop in Python is commonly used with the `range()` function.
+
+### 🧱 Syntax:
+```python
+range(start, stop, step)
+```
+
+### 🔍 Understanding `range(start, stop, step)` in Python
+
+- **start** → Starting number (**inclusive**)
+- **stop** → Ending number (**exclusive**)
+- **step** → Increment/Decrement (default is `1`)
+
+---
+
+### ✅ Examples:
+
+```python
+# Prints numbers from 1 to 10
+for i in range(1, 11, 1):
+    print(i)
+```
+
+```python
+# Prints numbers from 10 to 1 in reverse
+for i in range(10, 0, -1):
+    print(i)
+```
+
+### ✅ WAP to print all numbers from 1 to 10
+
 ```python
 for i in range(1, 11):
     print(i)
 ```
 
-WAP to print above numbers in reverse order.
+📌 **Output:**
+```bash
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+
+### 🔁 WAP to print numbers from 10 to 1 (Reverse Order)
+
 ```python
 for i in range(10, 0, -1):
     print(i)
 ```
 
-WAP to add numbers from 1 to 10
+📌 **Output:**
+```bash
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+```
+
+### ➕ WAP to Add Numbers from 1 to 10
+
 ```python
 sum = 0
 
@@ -1110,19 +1241,79 @@ for i in range(1, 11):
 print(sum)
 ```
 
-WAP to print all odd numbers from 1 to 10
+📌 **Output:**
+```bash
+55
+```
+
+💡 **Tip:** `sum += i` is shorthand for `sum = sum + i`, which adds each number to the total.
+
+## ✅ Why Prefer `for` Loop Over `while` Loop?
+
+`for` loops are generally preferred when:
+
+1. **You Know the Number of Iterations**  
+   - Example: Printing numbers from 1 to 100  
+   - `for` loops are cleaner and more readable for such cases.
+
+2. **Automatic Counter Handling**  
+   - The `for` loop internally manages loop variables (like `i` in `range()`), reducing the chance of infinite loops due to forgetting `i += 1`.
+
+3. **Compact Syntax**  
+   - Everything (initialization, condition, increment) is handled in one line using `range()`.
+
+4. **Better for Iterating Over Collections**  
+   - Perfect for iterating over lists, tuples, dictionaries, etc.
+
+---
+
+### 🔁 Example: Print 1 to 5
+
+Using `for` loop:
 ```python
-for i in range(1, 11):
-    if (i % 2 != 0):
-        print(i)
-```
-Alternate Method:
-```
-for i in range(1, 11, 2):
+for i in range(1, 6):
     print(i)
 ```
 
-WAP to print factorial of given number
+## 🔁 Using `while` Loop
+
+```python
+i = 1
+while i < 6:
+    print(i)
+    i += 1
+```
+
+## 📌 Conclusion
+
+✅ Use **for loops** when the **iteration count is known** or you're working with **sequences** (like lists, ranges, strings).
+
+✅ Use **while loops** when you need to **loop based on a condition** rather than a fixed count  
+(e.g., waiting for user input, looping until a certain state is reached).
+
+### ✅ WAP to Print All Odd Numbers from 1 to 10
+
+```python
+for i in range(1, 11):
+    if i % 2 != 0:
+        print(i)
+```
+
+📌 **Output:**
+```bash
+1
+3
+5
+7
+9
+```
+
+💡 **Tip:** `%` is the **modulus operator** — it gives the **remainder**.  
+Odd numbers have a remainder of `1` when divided by `2`.
+
+
+### ✅ WAP to Print Factorial of Given Number Using Nested for Loops
+
 ```python
 num = int(input("Enter a number: "))
 n = num
@@ -1134,10 +1325,23 @@ for i in range(1, n+1):
     for j in range(1, num+1):
         fact *= j
 
-    print(fact)
+    print(f"Factorial of {num} is: {fact}")
 ```
 
-WAP to check if a number is prime number.
+📌 **Sample Output:**
+```bash
+Enter a number: 5
+Factorial of 1 is: 1
+Factorial of 2 is: 2
+Factorial of 3 is: 6
+Factorial of 4 is: 24
+Factorial of 5 is: 120
+```
+
+💡 **Tip:** Use nested loops to calculate factorials for a series of numbers from `1` to `n`.
+
+### ✅ WAP to Check if a Number is a Prime Number
+
 ```python
 flag = 1
 num = int(input("Enter a number: "))
@@ -1146,35 +1350,40 @@ for i in range(2, num):
         print(f"\n{num} is not a prime number")
         flag = 0
         break
-    
+
 if flag and num >= 2:
     print(f"\n{num} is a prime number")
 ```
 
-Output:
+📌 **Output:**
 ```bash
 Enter a number: 5
 
 5 is a prime number
 ```
 
-WAP to prime numbers from 1 to 100.
+💡 **Tip:**
+
+- A **prime number** has only two factors — `1` and **itself**.
+- The loop checks for any **divisors** between `2` and `num - 1`.
+- If a divisor is found, the number is **not prime** and the loop exits using `break`.
+
+## ✅ WAP to print all prime numbers from 1 to 100
 
 ```python
 for i in range(1, 101):
     flag = 1
     for j in range(2, i):
         if (i % j == 0):
-            # print(f"\n{i} is not a prime number")
             flag = 0
             break
-    
+
     if flag and i >= 2:
         print(f"\n{i} is a prime number")
 ```
 
-Output:
-```
+📌 **Output:**
+```bash
 2 is a prime number
 
 3 is a prime number
@@ -1225,3 +1434,6 @@ Output:
 
 97 is a prime number
 ```
+
+💡 **Tip:** This approach uses **nested loops** — the outer loop checks each number from 1 to 100, and the inner loop checks if it's divisible by any number other than 1 and itself.
+
