@@ -1437,3 +1437,464 @@ for i in range(1, 101):
 
 💡 **Tip:** This approach uses **nested loops** — the outer loop checks each number from 1 to 100, and the inner loop checks if it's divisible by any number other than 1 and itself.
 
+# 🔁 Loop Control Statements in Python
+
+Python provides three loop control statements that can change the flow of loops:
+
+---
+
+## ✅ 1. break Statement
+Used to **exit the loop immediately**, even if the condition is still True.
+
+```python
+for i in range(1, 10):
+    if i == 5:
+        break
+    print(i)
+```
+
+📌 **Output:**
+
+```bash
+1
+2
+3
+4
+```
+
+## ✅ 2. continue Statement
+Used to **skip the current iteration** and continue with the next one.
+
+```python
+for i in range(1, 6):
+    if i == 3:
+        continue
+    print(i)
+```
+
+📌 **Output:**
+```python
+1
+2
+4
+5
+```
+
+## ✅ 3. `pass` Statement
+
+The `pass` statement is used as a placeholder to indicate that a block of code is intentionally left blank — typically because you'll add logic there in the future.
+
+```python
+for i in range(1, 4):
+    if i == 2:
+        pass  # Intention of writing something in future
+    print(i)
+```
+
+📌 **Output:**
+```bash
+1
+2
+3
+```
+
+## 💡 Use Case Summary
+
+- `break` → Exit the loop early  
+- `continue` → Skip the current iteration  
+- `pass` → Placeholder for future code (no action)
+
+✨ These help you control your loop’s flow effectively!
+
+### 🧠 Why Use Lists in Python?
+
+Imagine storing data in **100 variables** — that would be highly inconvenient and messy!  
+✅ Python provides **lists** to store multiple items in a single variable.
+
+---
+
+### ❓ Why No Traditional Arrays in Python?
+
+- Traditional arrays (like in C or Java) store **homogeneous data** (all elements of the same type).
+- Python is a **dynamically-typed** language — data types can change at runtime.
+- Hence, Python lists are more flexible — they can store **heterogeneous data** (mixed types).
+
+---
+
+### ✅ Advantages of Lists:
+- **Single name access**: You can access all data using one list name.
+- **Dynamic typing**: Store integers, strings, and even other lists — all in one list.
+- **Dynamic size**: No need to define size beforehand.
+
+```python
+data = [10, "hello", 3.14, True]
+print(data[1])  # Output: hello
+```
+
+# 🧺 Python Collections
+
+Python offers several **built-in collection data types** to store groups of items.  
+Each has different **features and use cases**.
+
+---
+
+## 1. 📋 List
+- **Ordered**, **mutable**, allows **duplicates**
+- Can store **heterogeneous** data
+
+```python
+my_list = [1, "apple", 3.14, True]
+```
+
+## 2. 🔐 Tuple
+
+- **Ordered**
+- **Immutable**
+- Allows **duplicates**
+- Slightly **faster than lists** due to immutability
+
+```python
+my_tuple = (1, "banana", 3.14)
+print(my_tuple[1])  # Output: banana
+```
+
+💡 **Tuples** are great for data that shouldn't change — like **days of the week** or **coordinates**.
+
+### 3. 🔁 Set
+- **Unordered**, **mutable**, **no duplicates** allowed  
+- Useful for **membership testing** and **eliminating duplicates**
+
+```python
+my_set = {1, 2, 3, 2}
+print(my_set)  # Output: {1, 2, 3}
+```
+
+💡 **Tip:** Sets are ideal for storing unique values and performing operations like **union**, **intersection**, and **difference**.
+
+---
+
+### 4. 📖 Dictionary
+- **Key-value pairs**
+- **Unordered** (in older Python versions), **mutable**, **no duplicate keys**
+
+```python
+my_dict = {"name": "Alice", "age": 25}
+print(my_dict["name"])  # Output: Alice
+```
+
+💡 **Tip:** Dictionaries are great when you want to associate values with **labels** or **identifiers**.
+
+---
+
+### 5. 🔤 Strings
+- **Immutable**, **ordered sequences** of characters  
+- Support **indexing**, **slicing**, and many **built-in functions**
+
+```python
+my_str = "Hello, World!"
+print(my_str[0])       # Output: H
+print(my_str.lower())  # Output: hello, world!
+```
+
+💡 **Tip:** Strings are widely used for **text processing**. Since they are **immutable**, every change creates a **new string**.
+
+## 📋 Python Lists
+
+### 🔹 What is a List?
+A **List** is an **ordered** and **indexed** collection of items.
+
+- Elements are separated by commas and enclosed in square brackets `[]`.
+- Lists are **mutable**, meaning their values can be changed after creation.
+- Can store **heterogeneous data types** (`int`, `str`, `float`, etc.)
+
+```python
+l = [10, 20, 30, 40, 50]
+```
+
+### 🔸 Accessing List Elements
+You can access list elements by **indexing**, starting from `0`.
+
+```python
+print(l)        # Output: [10, 20, 30, 40, 50]
+print(type(l))  # Output: <class 'list'>
+
+print(l[0])     # Output: 10
+print(l[1])     # Output: 20
+print(l[3])     # Output: 40
+print(len(l))   # Output: 5
+```
+
+⚠️ **Accessing an invalid index** (like `l[99]`) will throw:
+
+```python
+IndexError: list index out of range
+```
+
+### 🔁 Negative Indexing
+Python supports **negative indexing** to access elements from the end.
+
+```python
+print(l[-1])         # Output: 50 (last element)
+print(l[-len(l)])    # Output: 10 (first element)
+```
+
+📌 `-1` refers to the **last element**, `-2` to the **second last**, and so on.
+
+---
+
+### 💡 Why Use Lists?
+- Store multiple values in a single variable  
+- Useful when data needs to be **iterated**, **sorted**, **updated**, or **sliced**  
+- Can be **nested**, **combined**, and **manipulated** easily  
+
+---
+
+### ✅ Summary Table
+
+| Feature             | List Example        | Description                          |
+|---------------------|---------------------|--------------------------------------|
+| **Ordered**         | `l = [1, 2, 3]`     | Elements retain insertion order      |
+| **Indexed**         | `l[0] → 1`          | Access by position                   |
+| **Mutable**         | `l[0] = 10`         | Can change values                    |
+| **Heterogeneous**   | `[1, "hi", 3.14]`   | Supports multiple data types         |
+| **Negative Indexing** | `l[-1] → Last Item` | Access elements from the end         |
+
+### 🔁 Looping Through Lists in Python
+
+---
+
+#### ✅ Traditional Way Using Indexing
+You can loop through a list using `range()` and `len()`:
+
+```python
+l = [10, 20, 30, 40, 50]
+
+for i in range(0, len(l)):
+    print(l[i])
+```
+
+🧠 **What's happening?**
+
+- `range(0, len(l))` generates indices from `0` to `len(l) - 1`  
+- `l[i]` accesses the element at each index  
+
+---
+
+### ✅ Pythonic Way (Simpler & Cleaner)
+
+Python allows direct iteration over the list without using indexes:
+
+```python
+for i in l:
+    print(i)
+```
+
+🎉 **Why Python is Easy?**
+
+- You don't need to track indices manually  
+- The loop directly gives you each element — no need to write `l[i]`  
+- Less code, more readability  
+
+---
+
+### 🆚 Comparison
+
+| Feature        | `using range(len(l))`       | `using for i in l`         |
+|----------------|------------------------------|-----------------------------|
+| **Code Length** | Longer                       | Short and clean             |
+| **Readability** | Medium                       | High                        |
+| **Performance** | Slightly slower              | Slightly faster             |
+| **Use Case**    | Needed when using index      | Best for simple iteration   |
+
+---
+
+💡 **Tip**  
+Use `for i in l` when **index is not required**.  
+Use `for i in range(len(l))` if you **need the index** (e.g., to modify elements or track position).
+
+### 📦 Empty List in Python
+
+An empty list can be created in two ways:
+
+```python
+a = []
+```
+
+or using the `list()` constructor:
+
+```python
+a = list()
+print(a)  # Output: []
+```
+
+💡 **Tip:** Use an empty list when you plan to append elements later.
+
+---
+
+### 📋 List with Elements
+
+```python
+a = [10, 20, 30, 40, 50, 10, 10, 2, 6, 23]
+print(a)
+```
+
+✅ **Characteristics of a List:**
+
+- **Ordered:** Maintains the order of insertion  
+- **Allows duplicates:** Values like `10` can appear multiple times  
+- **Mutable:** You can change elements  
+- **Indexed:** You can access elements using index  
+
+---
+
+### 🧪 List with Multiple Data Types
+
+Python lists can store values of different types due to dynamic typing:
+
+```python
+x = [1, 1, 1, True, 1]
+print(x)  # Output: [1, 1, 1, True, 1]
+```
+
+🧠 **Why does `True` appear as `1`?**
+
+In Python, `True` is internally treated as `1` because **Boolean is a subtype of integer**.
+
+So, the expression `True == 1` returns `True`.
+
+---
+
+### ✅ Summary
+
+| Type           | Example                     | Notes                                      |
+|----------------|-----------------------------|--------------------------------------------|
+| Empty list     | `[]` or `list()`            | Useful as a placeholder                    |
+| Homogeneous    | `[10, 20, 30]`              | All elements of the same type              |
+| Heterogeneous  | `[1, 'hello', 3.14, True]`  | Python allows mixed data types in lists    |
+
+### ✂️ List Slicing in Python
+
+Slicing allows you to access a subset of elements from a list using the syntax:
+
+```python
+list[start:stop]
+```
+
+🧠 **Note:** The stop index is excluded from the result.
+
+---
+
+### 📌 Examples:
+
+```python
+a = [10, 20, 30, 40, 50, 60]
+
+a[0:3]  # Output: [10, 20, 30]
+# Starts from index 0
+# Includes 0, 1, 2 (not 3)
+
+a[2:5]  # Output: [30, 40, 50]
+# Starts from index 2
+# Includes 2, 3, 4 (not 5)
+```
+
+### 📦 Store Sliced List in a New Variable
+
+```python
+b = a[0:3]
+print(b)  # Output: [10, 20, 30]
+```
+
+### ✅ Shortcut Variants
+
+| Syntax | Meaning                     |
+|--------|-----------------------------|
+| `a[:3]` | From start to index 2       |
+| `a[2:]` | From index 2 to end         |
+| `a[:]`  | Entire list (makes a copy)  |
+
+---
+
+💡 **Tip:** Slicing is a powerful tool for extracting and copying parts of lists efficiently!
+
+## 🔢 Working with Lists in Python
+
+### ✅ 1. Print Prime Numbers from a List
+
+```python
+a = [10, 4, 3, 7, 8, 32, 33, 7, 6, 5, 5, 5, 7, 7]
+
+for i in a:
+    flag = 1
+    for j in range(2, i):
+        if (i % j == 0):
+            flag = 0
+            break
+
+    if flag and i >= 2:
+        print(f"{i} is a prime number")
+```
+
+📌 **Output:**
+```css
+3 is a prime number  
+7 is a prime number  
+7 is a prime number  
+5 is a prime number  
+5 is a prime number  
+5 is a prime number  
+7 is a prime number  
+7 is a prime number
+```
+
+### 🔶 2. Print Odd Numbers from a List
+
+```python
+for i in a:
+    if (i % 2 != 0):
+        print(i)
+```
+
+📌 **Output:**
+```
+3  
+7  
+33  
+7  
+5  
+5  
+5  
+7  
+7
+```
+
+### ➕ 3. List Concatenation and Element-wise Addition
+
+```python
+y = [4, 5, 6]
+z = [7, 8, 9]
+
+# Concatenation
+result = y + z
+print(result)  # Output: [4, 5, 6, 7, 8, 9]
+```
+
+```python
+# Element-wise addition
+for i in range(3):
+    print(y[i] + z[i])
+```
+
+📌 **Output:**
+```
+11  
+13  
+15
+```
+
+### 💡 Tips for Remembering
+
+- Use **nested loops** for logic like **prime number checks**.
+- `%` (modulus) helps identify **odd numbers** or **check divisibility**.
+- `+` with lists is used for **concatenation** (joining two lists).
+- To perform **element-wise addition**, loop through positions using `range(len(list))`.
