@@ -1898,3 +1898,482 @@ for i in range(3):
 - `%` (modulus) helps identify **odd numbers** or **check divisibility**.
 - `+` with lists is used for **concatenation** (joining two lists).
 - To perform **element-wise addition**, loop through positions using `range(len(list))`.
+
+---
+
+Day 03
+
+All Data Structures in Python are object.
+Reading error messages is also important.
+
+# Methods of list
+We call it list methods, not a function because it is inside class. Every method has 'this' keyword. When it is converted to static, we don't access 'this'. Function also has 'this', but not of that much preference.
+
+Copy Command
+
+b = [2, 3, 4, 5, 6, 7]
+a = b.copy()
+a
+[2, 3, 4, 5, 6, 7]
+c = b
+b[0] = 4
+a
+[2, 3, 4, 5, 6, 7]
+b
+[4, 3, 4, 5, 6, 7]
+c
+[4, 3, 4, 5, 6, 7]
+
+Any change in 'b' will not reflect in 'a'.
+b and c will change, but 'a' won't.
+
+clear command
+b.clear()
+b
+[]
+Use this command cautiously.
+
+append command
+a
+[2, 3, 4, 5, 6, 7]
+a.append(88)
+a
+[2, 3, 4, 5, 6, 7, 88]
+
+It does not ask about the location
+Append always at the end
+It is fast than the insert command
+
+insert command
+a
+[2, 3, 4, 5, 6, 7, 88]
+a.insert(0, 55)
+a
+[55, 2, 3, 4, 5, 6, 7, 88]
+
+It does not ask about location and data.
+
+Suppose we have 3 lakh entries in list and inserting data at first index would need 3 lakh entries to be shifted further.
+
+pop command
+opposite of append
+removes from end
+
+a
+[55, 2, 3, 4, 5, 6, 7, 88]
+a.pop()
+88
+
+a.remove()
+removes a particular (specified) method.
+For multiple values, first occurence will be deleted.
+a = [55, 2, 3, 4, 5, 6, 7, 88]
+a.remove(55)
+a
+[2, 3, 4, 5, 6, 7, 88]
+
+index command()
+To know index of a particular element.
+a.index(element)
+If there are more occurences of a particular element, it will give index of first element.
+a
+[2, 3, 4, 5, 6, 7, 88]
+a.index(4)
+2
+
+count()
+This will give the total out of particular element.
+a.count(element)
+If that element is not present, it will display 0.
+a
+[2, 3, 4, 5, 6, 7, 88, 3, 5, 7, 3, 3, 3, 3]
+a.count(3)
+6
+
+extend()
+To concat list in another list.
+b = a.copy()
+b
+[2, 3, 4, 5, 6, 7, 88, 3, 5, 7, 3, 3, 3, 3]
+a.extend(b)
+a
+[2, 3, 4, 5, 6, 7, 88, 3, 5, 7, 3, 3, 3, 3, 2, 3, 4, 5, 6, 7, 88, 3, 5, 7, 3, 3, 3, 3]
+This is better than doing (a+b) where both are lists.
+
+sort()
+This function will only work when the elements are of same data type.
+a
+[2, 3, 4, 5, 6, 7, 88, 3, 5, 7, 3, 3, 3, 3, 2, 3, 4, 5, 6, 7, 88, 3, 5, 7, 3, 3, 3, 3]
+a.sort()
+a
+[2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 88, 88]
+
+Descending order
+a.sort(reverse = True)
+a
+[88, 88, 7, 7, 7, 7, 6, 6, 5, 5, 5, 5, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2]
+
+By default sorting is done in Ascending order.
+
+reverse()
+This function will reverse the order in the list.
+b
+[2, 3, 4, 5, 6, 7, 88, 3, 5, 7, 3, 3, 3, 3]
+b.reverse()
+b
+[3, 3, 3, 3, 7, 5, 3, 88, 7, 6, 5, 4, 3, 2]
+
+Alternate method is:
+b[::-1]
+[2, 3, 4, 5, 6, 7, 88, 3, 5, 7, 3, 3, 3, 3]
+
+# Assignment
+
+# 1. Create a list of all elements from 1 to 10
+
+for i in range(1, 11):
+    l.append(i)
+
+    
+l
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+# 2. Create a list of odd elements from 1 to 100.
+
+odd_list = []
+
+for i in range(1, 101, 2):
+    odd_list.append(i)
+
+    
+odd_list
+[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99]
+
+
+# 3. Create a list of prime numbers from 1 to 100.
+
+prime_list = []
+
+for i in range(2, 101):
+    flag = 1
+    for j in range(2, i):
+        if (i % j == 0):
+            flag = 0
+            break
+
+    if flag and i >= 2:
+        prime_list.append(i)
+
+        
+prime_list
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+
+# 4. Create a list of numbers from 1 to 100 but it should have odd numbers till 50 and even numbers above 50.
+
+even_odd = []
+
+for i in range(1, 101):
+    if(i <= 50):
+        if(i % 2 != 0):
+            even_odd.append(i)
+    if(i > 50):
+        if(i % 2 == 0):
+            even_odd.append(i)
+
+            
+even_odd
+[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100]
+
+
+# Alternate Method 1:
+
+eo = []
+
+for i in range(1, 101):
+    if(i <= 50) and (i % 2 != 0):
+        eo.append(i)
+    if(i > 50) and (i % 2 == 0):
+        eo.append(i)
+
+eo
+[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100]
+
+# Alternate Method 2:
+
+e_o = []
+
+for i in range(1, 101):
+    if(i <= 50) and (i % 2 != 0):
+        e_o.append(i)
+    if(i > 50) and (not(i % 2)):
+        e_o.append(i)
+
+e_o
+[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100]
+
+---
+
+Count of duplicates:
+
+str="Hello bhai kaise ho how are you how is your mom how are your parents where are you from what is your name what is you dob"
+
+words = str.split(" ")
+alphastring = []
+
+for i in words:
+    # print(f"{i}: {words.count(i)}")
+    alphastring.append((f"{i}: {words.count(i)}"))
+    
+print(alphastring)
+
+['Hello: 1', 'bhai: 1', 'kaise: 1', 'ho: 1', 'how: 3', 'are: 3', 'you: 3', 'how: 3', 'is: 3', 'your: 3', 'mom: 1', 'how: 3', 'are: 3', 'your: 3', 'parents: 1', 'where: 1', 'are: 3', 'you: 3', 'from: 1', 'what: 2', 'is: 3', 'your: 3', 'name: 1', 'what: 2', 'is: 3', 'you: 3', 'dob: 1']
+
+Tuple:
+It is indexed, ordered collection of data separated by comma and enclosed in round brackets.
+Tuples are immutable.
+We can't sort, delete, append, pop, reverse.
+We can't reverse but if this function is used, a new tuple is created, which is a bad practice.
+c = (2, 3, 4, 3, 2, 9)
+c = c[::-1]
+c
+(9, 2, 3, 4, 3, 2)
+
+If you want your data to be safe, and do not modify, handle critical data, use tuple.
+
+We can convert it into list to modify
+x = list(a)
+
+Strings:
+Most widely used class, functionality in the world.
+Single and double quotes are same in python. Just remember to start and end with the same type of quotes.
+We can have quotes inside quotes.
+Triple (Double Quotes) are also allowed.
+We can write multiple lines using this.
+Same slicing and indexing can be used like lists.
+s = "Hello World"
+s[1:3]
+'el'
+for i in s:
+    print(i)
+
+    
+H
+e
+l
+l
+o
+ 
+W
+o
+r
+l
+d
+
+NULL means absence of value. No ASCII values. No ASCII value means no comparison.
+(Declared a variable, but not initialised -> it stores NULL)
+
+len() -> count characters using spaces.
+
+x = ""
+for i in range(len(s) - 1, -1, -1):
+    x = x + s[i]
+
+    
+x
+'dlroW olleH'
+type(s)
+<class 'str'>
+
+'?
+s.capitalize()
+'Hello world'
+s.upper()
+'HELLO WORLD'
+s.lower()
+'hello world'
+
+s.casefold()
+'hello world'
+Used for other languages as well. Works same as lower()
+s.count("h")
+0
+s.count("world")
+0
+s.index("o")
+4
+
+Modified version of lower()
+s.find("bye")
+-1
+
+-1 means exception handled.
+
+s.startswith("h")
+False
+s
+'Hello World'
+s.endswith("d")
+True
+s.replace("H", "*")
+'*ello World'
+s.replace("l", "L")
+'HeLLo WorLd'
+
+Replaces all occurences
+
+s.replace("o", "O", 1)
+'HellO World'
+
+Replaces only one occurence.
+
+a = "123"
+a.isnumeric()
+True
+a.isdigit()
+True
+a = "1.5"
+a.isnumeric()
+False
+a.isdigit()
+False
+a.isalpha()
+False
+x = "abc"
+x.isalpha()
+True
+x = "Hello World"
+x.isalpha()
+False
+x = "123abc"
+x.isalnum()
+True
+x.isspace()
+True
+
+a="Hello 12 world hi 1 how are 8 you"
+b=''
+c=''
+for i in a:
+    if i.isnumeric():
+        # b.append(i)
+        b += i
+    else :
+        # c.append(i)
+        c += i
+print("b:", b)
+print("c:", c)
+        
+a="Hello"
+print(a.isnumeric())
+
+sum
+
+a="Hello 12 world hi 1 how are 8 you"
+b=''
+sum = 0
+for i in a:
+    if i.isnumeric():
+        sum += int(i)
+print(sum)
+
+a = "Hello how are you"
+a.split(" ")
+['Hello', 'how', 'are', 'you']
+l = a.split(" ")
+len(l)
+4
+l
+['Hello', 'how', 'are', 'you']
+" ".join(l)
+'Hello how are you'
+"*".join(l)
+'Hello*how*are*you'
+
+Strings are Immutable.
+
+Strings are mostly used in Big Data where unstructured Data is present.
+
+Question: Separate the words from the string.
+
+Structured Data means the data with rows and columns.
+Unstructured Data means the data without any structured. e.g., "hellohowareyou" (text)
+Semi-structured data. e.g., "hello#are*you,how@an(I)you"
+
+str = "HELLO BHAI KAISE HO"
+sAns = ""
+for i in str.split(" "):
+    sAns += (i[::-1]) + " "
+print(sAns)
+
+#############################
+
+str="Hello bhai kaise ho how are you how is your mom how are your parents where are you from what is your name what is you dob"
+
+words = str.split(" ")
+alphastring = []
+
+for i in words:
+    # print(f"{i}: {words.count(i)}")
+    alphastring.append((f"{i}: {words.count(i)}"))
+    
+print(alphastring)
+
+
+i = 0
+while i < len(alphastring):
+    if alphastring.count(alphastring[i]) > 1:
+        alphastring.remove(alphastring[i])
+    else:
+        i += 1
+
+print(alphastring)
+
+
+a = "hello*there#how,are(you)where#is@my#car"
+s = "hellotherehowareyouwhereismycar"
+
+b = a.split("*")
+b = " ".join(b)
+b = b.split("#")
+b = " ".join(b)
+b = b.split(",")
+b = " ".join(b)
+b = b.split("(")
+b = " ".join(b)
+b = b.split(")")
+b = " ".join(b)
+b = b.split("@")
+b = " ".join(b)
+
+b =b.split(" ")
+print(b)
+
+symbols = ["*", "#", ",", "(", ")", "@"]
+b = a
+
+for i in symbols:
+    if i in a:
+        b = b.split(i)
+        b = " ".join(b)
+b = b.split(" ")
+print(b)
+
+symbols = ["*", "#", ",", "(", ")", "@"]
+
+a = "hello*there#how,are(you)where#is@my#car"
+
+b = a
+
+for i in symbols:
+    if i in a:
+        b = b.split(i)
+        b = " ".join(b)
+b = b.split(" ")
+
+print(b.sort())
+
+
+
+
+
