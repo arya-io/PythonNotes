@@ -233,3 +233,34 @@ Before diving deep, ask yourself:
   - Cultural understanding
 
 ---
+
+What is Vibe Coding?
+
+Literal Pool in String
+
+Integer a = 127
+Integer b = 127
+
+a == b?
+TRUE
+
+What if 128?
+
+Try to aim for jobs in Indian Startups.
+There's so much to learn.
+No fear of layoffs.
+Even if you get less salary but getting to learn a lot, just do it.
+But never do anything for free, when you feel you are worth getting that money.
+MNCs are rising for the moment.
+
+There are three points of triangle:
+Quality
+Time
+Cost
+
+Everytime, only 2 things will work simultaneously and efficiently.
+
+Primary importance should be given to performance in programming.
+Make less use of variables, assignments, nesting.
+
+See the real-life application of every command you are learning and using.
