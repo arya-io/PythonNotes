@@ -2858,7 +2858,246 @@ b = b.split(" ")
 
 print(b.sort())
 
+Day 04
+
+How is memory managed in Java?
+How is memory managed in Python?
+
+Employee e = new Employee()
+del a
+Both have a logic of Reference
+
+Array
+Advantage: fast search
+Disadvantage: random inserts and delete
+
+LinkedList
+Advantage: random insert and delete
+Disadvantage: random search (compromise of usage)
+
+Optimal utilisation of free memory in Linked List
+
+So, if we want both the advantages in one entity, then what to do?
+Use Hash Table.
+which calculates index number dynamically.
+
+We use mod, e.g., 50%5 to store the data.
+
+Python Dictionary is highly modified Hash Table.
+Keys are Unique, Values can be duplicated.
+
+Dictionary:
+a = {}
+Dictionary is a collection of ordered (unindexed) key-value pairs.
+
+a = {}
+type(a)
+<class 'dict'>
+a = {1: "re", 2: "dskjfla", 3: "89r739", 4: "jjj", 7: "aioekod"}
+a
+{1: 're', 2: 'dskjfla', 3: '89r739', 4: 'jjj', 7: 'aioekod'}
+a[7]
+'aioekod'
+a[8] = "eight"
+b = a.copy()
+b
+{1: 're', 2: 'dskjfla', 3: '89r739', 4: 'jjj', 7: 'aioekod', 8: 'eight'}
+b.clear()
+b
+{}
+a.get(7)
+'aioekod'
+a.values()
+dict_values(['re', 'dskjfla', '89r739', 'jjj', 'aioekod', 'eight'])
+a.items()
+dict_items([(1, 're'), (2, 'dskjfla'), (3, '89r739'), (4, 'jjj'), (7, 'aioekod'), (8, 'eight')])
+a.keys()
+dict_keys([1, 2, 3, 4, 7, 8])
+d = {}
+l = [2, 3, 2, 4, 4, 3, 6, 4, 9]
+d.fromkeys(l)
+{2: None, 3: None, 4: None, 6: None, 9: None}
+x = d.fromkeys(l)
 
 
+x
+{2: None, 3: None, 4: None, 6: None, 9: None}
+d
+{}
+d[7] = 'abc'
+d[10] = 'abc'
+x[10] = 'abc'
+x
+{2: None, 3: None, 4: None, 6: None, 9: None, 10: 'abc'}
+d
+{7: 'abc', 10: 'abc'}
+a
+{1: 're', 2: 'dskjfla', 3: '89r739', 4: 'jjj', 7: 'aioekod', 8: 'eight'}
+for i in a:
+    print(i)
+
+    
+1
+2
+3
+4
+7
+8
+for i in a.values():
+    print(i)
+
+    
+re
+dskjfla
+89r739
+jjj
+aioekod
+eight
+
+Keys must be unique
+Values can be duplicate
+
+Where do we use dictionary?
+Fast random insert, fast random search
+Used for complex data
+
+Keys are immutable, values are mutable.
+Technically, Dictionaries are Immutable.
+
+If key is not matched,
+a[99]
+Traceback (most recent call last):
+  File "<pyshell#35>", line 1, in <module>
+    a[99]
+KeyError: 99
+a.get(99)
+It gives no error.
+
+setdefault():
+x
+{2: None, 3: None, 4: None, 6: None, 9: None, 10: 'abc'}
+x.setdefault(75, "kkk")
+'kkk'
+x
+{2: None, 3: None, 4: None, 6: None, 9: None, 10: 'abc', 75: 'kkk'}
+x.setdefault(64)
+x
+{2: None, 3: None, 4: None, 6: None, 9: None, 10: 'abc', 75: 'kkk', 64: None}
+It returns the value or if the given key is not present in dictionary.
+If key is present then it updates this value to associated key.
+
+Set:
+Set is unordered, unindexed, collection of unique values separated by comma enclosed in curly braces.
+tobeList = [10, 10, 10, 20, 20, 30, 30]
+m = set(tobeList)
+m
+{10, 20, 30}
+
+Set is internally stored in the form of dictionary.
+
+m.pop()
+10
+m
+{20, 30}
+m.remove(30)
+m
+{20}
+m.add(24)
+m
+{24, 20}
+
+Keys are internally used in sets.
+
+Difference between Set and Dictionary:
+
+Sets are unordered and Dictionaries are unordered.
+Values can be duplicate in Dictionaries.
+
+---
+
+Assignment:
+
+1. Check if given string is pangram:
+"The quick brown fox jumps over the lazy frog"
+
+string = "The quick brown fox jumps over the$ lazy dog"
+print(string)
+
+flag = 1
+for i in string:
+   if not((i >= 'a' and i <= 'z') or (i >= 'A' and i <= 'Z') or i == ' '):
+        flag = 0
+        break
+
+if flag:
+    print("Given string is pangram")
+else:
+    print("Given string is not a pangram.")
+
+Alternate Method:
+
+string = "The quick brown fox jumps over the $lazy dog"
+print(string)
+
+flag = 0
+for i in string:
+    if ((i >= 'a' and i <= 'z') or (i >= 'A' and i <= 'Z') or i == ' '):
+        flag = 1
+    else:
+        flag = 0
+        break
+
+if flag:
+    print("Given string is pangram")
+else:
+    print("Given string is not a pangram.")
+
+---
+
+2. In cryptography, a Caesar Cipher is a very simple encryption techniques in which each letter in the plain text is replaced by a letter some fixed number of positions down the alphabet. For example, with a shift of 3, A would be replaced by D, B would become E, and so on. The method is named after Julius Caesar, who used it to communicate with his generals. ROT-13 ("rotate by 13 places") is a widely used example of a Caesar cipher where the shift is 13. In Python, the key for ROT-13 may be represented by means of the following dictionary:
 
 
+Your task in this exercise is to implement an encoder/decoder of ROT-13. Once you're done, you will be able to read the following secret message:
+Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!
+
+Note that since English has 26 characters, your ROT-13 program will be able to both encode and decode texts written in English.
+
+key = {'a': 'n', 'b': 'o', 'c': 'p', 'd': 'q', 'e': 'r', 'f': 's', 'g': 't', 'h': 'u', 'i': 'v', 'j': 'w', 'k': 'x', 'l': 'y', 'm': 'z', 'n': 'a', 'o': 'b', 'p': 'c', 'q': 'd', 'r': 'e', 's': 'f', 't': 'g', 'u': 'h', 'v': 'i', 'w': 'j', 'x': 'k', 'y': 'l', 'z': 'm',
+       'A': 'N', 'B': 'O', 'C': 'P', 'D': 'Q', 'E': 'R', 'F': 'S', 'G': 'T', 'H': 'U', 'I': 'V', 'J': 'W', 'K': 'X', 'L': 'Y', 'M': 'Z', 'N': 'A', 'O': 'B', 'P': 'C', 'Q': 'D', 'R': 'E', 'S': 'F', 'T': 'G', 'U': 'H', 'V': 'I', 'W': 'J', 'X': 'K', 'Y': 'L', 'Z': 'M'}
+
+Solution:
+
+key = {'a': 'n', 'b': 'o', 'c': 'p', 'd': 'q', 'e': 'r', 'f': 's', 'g': 't', 'h': 'u', 'i': 'v', 'j': 'w', 'k': 'x', 'l': 'y', 'm': 'z', 'n': 'a', 'o': 'b', 'p': 'c', 'q': 'd', 'r': 'e', 's': 'f', 't': 'g', 'u': 'h', 'v': 'i', 'w': 'j', 'x': 'k', 'y': 'l', 'z': 'm',
+       'A': 'N', 'B': 'O', 'C': 'P', 'D': 'Q', 'E': 'R', 'F': 'S', 'G': 'T', 'H': 'U', 'I': 'V', 'J': 'W', 'K': 'X', 'L': 'Y', 'M': 'Z', 'N': 'A', 'O': 'B', 'P': 'C', 'Q': 'D', 'R': 'E', 'S': 'F', 'T': 'G', 'U': 'H', 'V': 'I', 'W': 'J', 'X': 'K', 'Y': 'L', 'Z': 'M'}
+
+string = "Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!"
+
+decode = ""
+for i in string:
+    if i not in key:
+        decode += i
+    else:
+        decode += key[i]
+print(decode)
+
+---
+
+3. Invert dictionary of list
+
+d = {"colours": ["orange", "black", "blue"],
+     "fruits": ["apple", "orange", "banana"],
+     "vegetables": ["onion", "potato"]}
+
+4. p = ['hi', 'hello', 'oye', 'h', 'world']
+   Sort these words by length into dictionary.
+
+5. Merge two lists without duplicates (Do not use sets)
+
+   a = [1, 2, 3, 4]
+   b = [4, 5, 6, 7]
+
+   ans = [1, 2, 3, 4, 5, 6, 7]
+
+6. In given string double the occurence of consonants and place "o" in between.
+   e.g., "This"
+   "ToThohisos"
