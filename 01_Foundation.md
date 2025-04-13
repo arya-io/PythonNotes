@@ -491,3 +491,11 @@ Every project is governed by **three core constraints**:
 
 Keep performance in mind from day one. Clean code is great — **fast and meaningful code is better.**
 
+static, final, static and final
+
+When you read someone else's code and are able to write the code, it is a big achievement.
+It is good if you are getting frustrated if code is not working.
+People learn from mistakes. But do it fast.
+Best way to learn a language is to use it.
+e.g. We can speak our mother tongue effectively. Animals too have their own language.
+This is the key to be a better python programmer.
