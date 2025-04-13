@@ -3013,6 +3013,11 @@ Difference between Set and Dictionary:
 Sets are unordered and Dictionaries are unordered.
 Values can be duplicate in Dictionaries.
 
+Set's internal implementation is done through Dictionary only.
+
+What does it mean:
+Ternary Operator does not loop.
+
 ---
 
 Assignment:
@@ -3101,3 +3106,378 @@ d = {"colours": ["orange", "black", "blue"],
 6. In given string double the occurence of consonants and place "o" in between.
    e.g., "This"
    "ToThohisos"
+
+What are the use cases of:
+- List
+- Tuple
+- Dictionary (order number)
+- Set
+- Strings
+
+Create a list of odd numbers from 1 to 100.
+
+l = []
+
+for i in range(1, 101, 2):
+    l.append(i)
+    
+print(l)
+
+[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99]
+
+Virtual Environment:
+Used to create a virtual workspace with different version libraries.
+
+Never use built-in keyword names to create files.
+
+Install Pycharm:
+There are two versions.
+Professional and Community.
+Install the community one as it is free.
+Professional one has premium subscription with 30 days free trial.
+
+List Comprehension:
+Less lines of code.
+
+x = [i for i in range(1, 101, 2)]
+print(x)
+
+[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99]
+
+Even/Odd:
+
+# Comprehension in One line
+
+odd = []
+even = []
+
+[even.append(i) if i%2 == 0 else odd.append(i) for i in range(1, 101)]
+
+# [TRUE IF CONDITION FALSE LOOP]
+
+print(f"Even Numbers:  {even}")
+print(f"Odd Numbers:  {odd}")
+
+Even Numbers:  [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100]
+Odd Numbers:  [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99]
+
+Functions:
+
+Reusable block of code, which can be invoked as and when we need it without rewriting.
+
+def hello():
+    print("Hello World")
+    
+def add(a, b):
+    return (a+b)
+
+hello()
+print(add(10, 26))
+
+Hello World
+36
+
+Check if a number is even or odd:
+
+def evenOdd(num):
+    if(num % 2 == 0):
+        return "Even Number"
+    else:
+        return "Odd Number"
+
+num = int(input("Enter a number: "))
+print(evenOdd(num))
+
+Enter a number: 25
+Odd Number
+
+Calculate the factorial of a number:
+
+def factorial(num):
+    fact = 1
+    for i in range(num, 0, -1):
+        fact *= i
+    return fact
+
+num = int(input("Enter a number: "))
+print(factorial(num))
+
+Enter a number: 5
+120
+
+Create prime number function and add those range numbers in a list using comprehension
+
+def primeNum(num):
+    
+    for i in range(2, num):
+        if(num % i == 0):
+            return False
+    return True
+
+num = int(input("Enter range number: "))
+primeList = [i for i in range(2, num+1) if primeNum(i)]
+
+print(primeList)
+
+Enter range number: 100
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+
+Create factorial number function and add those range numbers in a list using comprehension:
+
+def factorial(num):
+    fact = 1
+    
+    for i in range(num, 0, -1):
+        fact *= i
+    return fact
+
+num = int(input("Enter number: "))
+
+factorialList = [factorial(i) for i in range(1, num+1)]
+print(factorialList)
+
+Output:
+
+Enter number: 10
+[1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800]
+
+iter(), next() should be used when you have extremely large data.
+
+l = [10, 456, 3, 22, 12, 57, 8]
+
+a = iter(l)
+
+print(next(a))
+print(next(a))
+print(next(a))
+print(next(a))
+print(next(a))
+print(next(a))
+print(next(a))
+
+10
+456
+3
+22
+12
+57
+8
+
+iterator puts all values in memory and access one by one.
+It has pointer -> next -> goes to next
+points at first position
+by default implemented in list
+
+generator:
+generator has slow access speed
+It is used in case of heavy data
+Slow access speed.
+Consumes less memory
+Does not give load on memory
+Brings one value at a time from memory.
+
+Function with parameters and arguments:
+
+def add(a, b):
+    return (a + b)
+
+print(add(2, 3))
+
+5
+
+But when we have multiple parameters, we can give arguments using variables called 'named arguments'.
+
+def add(a, b):
+    return (a + b)
+
+print(add(b = 5, a = 2))
+
+7
+
+We can change the sequences.
+
+We are allowed to keep argument space empty while invoking the function, if values are passed during defining the function.
+
+WAP to add 'n' number of inputs:
+
+Pass a list
+
+def printList(l):
+    for i in l:
+        print(i)
+        
+l = [2, 3, 4, 4, 6, 3, 6, 67]
+    
+printList(l)
+
+def sumList(l):
+    
+    sum = 0
+    
+    for i in l:
+        sum += i
+        
+    return sum
+        
+l = [2, 3, 4, 4, 6, 3, 6, 67]
+    
+print(sumList(l))
+
+95
+
+Another method to solve this problem is using star operator (asterisk):
+
+* This is used to declare var args type of argument which is variable in length you can pass 0 to n values to add function while calling it.
+We cannot have two var args.
+Because where will the first and second starts is unknown.
+If adding it using multiple parameter, add var args at the last.
+Because where it will end is unknown.
+
+def add(*args):
+    return sum(args)
+
+result = add(2, 3, 4, 4, 6, 3, 6, 67)
+print(result)
+
+95
+
+Boilerplate Code:
+
+Where does this name came from because it is not a programming word?
+We use Boilerplate Code in order to reduce memory usage, writing down less lines of code, lambda is used.
+
+add = lambda a, b: a + b
+sub = lambda a, b: a - b
+multiply = lambda a, b: a * b
+divide = lambda a, b: a // b
+
+print(add(10, 5))
+print(sub(10, 5))
+print(multiply(10, 5))
+print(divide(10, 5))
+
+15
+5
+50
+2
+
+Assignment:
+
+1. WAP to reverse a string using lambda function:
+
+revString = lambda string: string[::-1]
+print(revString("Hello World"))
+
+dlroW olleH
+
+2. WAP to count the number of each particular word in a string using lambda function.
+
+wordCount = lambda string: {i : string.count(i) for i in string.split()}
+
+print(wordCount("""Hello hi bye bye hello hi bye bye"""))
+
+{'Hello': 1, 'hi': 2, 'bye': 4, 'hello': 1}
+
+3. WAP to count the number of each particular word in a multiline string using lambda function.
+
+wordCount = lambda string: {i : string.count(i) for i in string.split()}
+
+print(wordCount("""Hello hi bye bye hello hi bye bye
+                hello hi bye bye hello hi bye bye"""))
+
+{'Hello': 1, 'hi': 4, 'bye': 8, 'hello': 3}
+
+4. WAP to reverse word at its position using lambda function.
+
+revWord = lambda string: " ".join(i[::-1] for i in string.split())
+
+print(revWord("Hello World"))
+
+olleH dlroW
+
+Day 5 Word Assignment:
+
+1. WAP to get sum of all digits in number (any length):
+
+def digitSum(num):
+    sum = 0
+    
+    while(num):
+        sum += num % 10
+        num = num // 10
+    return sum
+
+print(digitSum(12345))
+
+15
+
+2. Write function to reverse a number
+
+def revNum(num):
+    
+    reverseNum = 0
+    
+    while(num):
+        
+        reverseNum = (reverseNum * 10) + (num % 10)
+        num = num // 10
+    
+    return reverseNum
+
+print(revNum(12345))
+
+54321
+
+3. Write a function to flatten a list
+
+inputList = [1, [2, 3], [4, 5, 6]]
+
+def flatten(l):
+    
+    outputList = []
+    
+    for i in l:
+        if type(i) == int:
+            outputList.append(i)
+        else:
+            for j in i:
+                outputList.append(j)
+                
+    return outputList
+
+print(flatten(inputList))
+
+# Alternate Method:
+
+inputList = [1, [2, 3], [4, 5, 6]]
+
+def flatten(l):
+    
+    outputList = []
+    
+    for i in l:
+        if type(i) == int:
+            outputList.append(i)
+        else:
+            outputList.extend(i)
+                
+    return outputList
+
+print(flatten(inputList))
+
+[1, 2, 3, 4, 5, 6]
+
+4. Function to encode and decode yesterday's Caesar Cipher ROT-13 program
+
+key = {'a': 'n', 'b': 'o', 'c': 'p', 'd': 'q', 'e': 'r', 'f': 's', 'g': 't', 'h': 'u', 'i': 'v', 'j': 'w', 'k': 'x', 'l': 'y', 'm': 'z', 'n': 'a', 'o': 'b', 'p': 'c', 'q': 'd', 'r': 'e', 's': 'f', 't': 'g', 'u': 'h', 'v': 'i', 'w': 'j', 'x': 'k', 'y': 'l', 'z': 'm',
+       'A': 'N', 'B': 'O', 'C': 'P', 'D': 'Q', 'E': 'R', 'F': 'S', 'G': 'T', 'H': 'U', 'I': 'V', 'J': 'W', 'K': 'X', 'L': 'Y', 'M': 'Z', 'N': 'A', 'O': 'B', 'P': 'C', 'Q': 'D', 'R': 'E', 'S': 'F', 'T': 'G', 'U': 'H', 'V': 'I', 'W': 'J', 'X': 'K', 'Y': 'L', 'Z': 'M'}
+
+string = "Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!"
+
+decode = ""
+for i in string:
+    if i not in key:
+        decode += i
+    else:
+        decode += key[i]
+print(decode)
