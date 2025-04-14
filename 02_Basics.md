@@ -3469,15 +3469,389 @@ print(flatten(inputList))
 
 4. Function to encode and decode yesterday's Caesar Cipher ROT-13 program
 
+# Function to encode and decode yesterday's Caesar Cipher ROT-13 program
+
 key = {'a': 'n', 'b': 'o', 'c': 'p', 'd': 'q', 'e': 'r', 'f': 's', 'g': 't', 'h': 'u', 'i': 'v', 'j': 'w', 'k': 'x', 'l': 'y', 'm': 'z', 'n': 'a', 'o': 'b', 'p': 'c', 'q': 'd', 'r': 'e', 's': 'f', 't': 'g', 'u': 'h', 'v': 'i', 'w': 'j', 'x': 'k', 'y': 'l', 'z': 'm',
        'A': 'N', 'B': 'O', 'C': 'P', 'D': 'Q', 'E': 'R', 'F': 'S', 'G': 'T', 'H': 'U', 'I': 'V', 'J': 'W', 'K': 'X', 'L': 'Y', 'M': 'Z', 'N': 'A', 'O': 'B', 'P': 'C', 'Q': 'D', 'R': 'E', 'S': 'F', 'T': 'G', 'U': 'H', 'V': 'I', 'W': 'J', 'X': 'K', 'Y': 'L', 'Z': 'M'}
 
-string = "Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!"
+def encode(text):
+    encrypt = ""
+    for i in text:
+        if i not in key:
+            encrypt += i
+        else:
+            encrypt += key[i]
 
-decode = ""
-for i in string:
-    if i not in key:
-        decode += i
+    return encrypt
+
+def decode(text):
+    decrypt = ""
+    for i in text:
+        if i not in key:
+            decrypt += i
+        else:
+            decrypt += key[i]
+
+    return decrypt    
+    
+string = input("Enter something: ")
+
+print(f"Encoded String: {encode(string)}")
+print(f"Decoded String: {decode(encode(string))}")
+
+Output:
+Enter something: Rahul is a very good boy in DBDA 
+Encoded String: Enuhy vf n irel tbbq obl va QOQN
+Decoded String: Rahul is a very good boy in DBDA
+
+---
+
+5. Convert given string to Camel Case:
+
+def camelCase(string):
+    
+    ans = string[0].upper()
+    flag = 0
+    for i in range(1, len(string)):
+        if string[i] == "_":
+            flag = 1
+        elif flag == 1:
+            ans += string[i].upper()
+            flag = 0
+        else:
+            ans += string[i]
+            
+    return ans
+        
+
+print(camelCase("hello_world_demo"))
+
+Output: HelloWorldDemo
+
+---
+
+6. # Convert given string to Snake Case
+
+def snakeCase(string):
+    
+    ans = string[0].lower()
+    
+    for i in range(1, len(string)):
+        if(string[i].isupper()):
+            ans += f"_{string[i].lower()}"
+        else:
+            ans += string[i]
+            
+    return ans
+
+print(snakeCase("HelloWorldDemo"))
+
+Output: hello_world_demo
+
+---
+
+Factorial function using recursion:
+
+def fact(num):
+    if num == 1:
+        return 1
+    return num * fact(num - 1)
+
+print(fact(5))
+--------------------------
+
+Day 6:
+
+What if I want to use the function in other file?
+
+What is a script fiile?
+A file which is expected to run a code. It should execute a code.
+
+Module:
+Module is nothing but a .py file.
+It contains readymade set of functions and can be shared with others.
+When we are importing any library, we are using their module.
+Module is that python file that contains functions that is used by other file.
+It does not print anything.
+It contains libraries.
+
+You can't write print / write inside a module. # Important
+If it is necessary only, then only you can write those commands.
+You can't call/invoke a function in the module file itself. # Important
+
+Script file will act as a user of that library.
+We are importing a module.
+
+Instead of importing all the functions using import module, just use the particular function from the module
+
+from functionsTest01 import fact
+
+By using specific imports, you save a lot of memory.
+
+functionsTest01.py:
+def fact(num):
+    if num == 1:
+        return 1
+    return num * fact(num - 1)
+
+def add(a, b):
+    return a+b
+
+def sub(a, b):
+    return a-b
+
+def multiply(a, b):
+    return a*b
+
+def divide(a, b):
+    return a//b
+
+modules01.py:
+import functionsTest01
+from functionsTest01 import fact # importing specific function
+from functionsTest01 import add
+
+# We can rename a module
+import functionsTest01 as ft
+
+print(functionsTest01.fact(5))
+
+print(ft.fact(4))
+
+# Below function is been explicitly exported
+# Called from 'from functionsTest01 import fact'
+# print(fact(5))
+
+print(add(30, 50))
+print(functionsTest01.sub(30, 10)) # This function is directly called from import functionsTest01
+
+Output:
+120
+24
+80
+20
+
+---------------------------------------------------------
+
+To import a file present in another folder, we have to use init.
+And it will be known as packages, instead of modules.
+
+-----------------------------------------------------------
+
+Create a file with functions prime, even_odd, factorial, and then another file to use these functions.
+
+functionsTest02.py:
+
+def factorial(num):
+    fact = 1
+    for i in range(num, 0, -1):
+        fact *= i
+    return fact
+
+def primeNum(num):
+    
+    for i in range(2, num):
+        if(num % i == 0):
+            return False
+    return True
+
+def evenOdd(num):
+    if(num % 2 == 0):
+        return "Even Number"
     else:
-        decode += key[i]
-print(decode)
+        return "Odd Number"
+
+modules02.py:
+
+from functionsTest02 import primeNum, evenOdd, factorial
+
+print(primeNum(56))
+print(evenOdd(56))
+print(factorial(5))
+
+Output:
+False
+Even Number
+120
+
+------------------------------------------------------
+
+Important Note:
+Read / Write operations are fast in Lists.
+Search operations is slower than Dictionary.
+
+--------------------------------------------------------
+
+# Inbuilt Functions:
+
+abs() converts negative number to positive.
+chr(65) gives ASCII value of 65, i.e., 'A'
+str() converts to string.
+all(a) functions only returns True if every iterable element is True.
+any(a) if any value is True it returns True
+Here, a is list
+
+```
+print(f"Absolute Function: {abs(-10)}")
+print(f"chr() Function: {chr(65)}")
+
+a = [10, 20]
+a = str(a)
+print(f"str() Function: {a}")
+print(type(a[0]))
+
+a = [True, False, True]
+
+print(f"all() function: {all(a)}")
+print(f"any() function: {any(a)}")
+```
+
+Output:
+```
+Absolute Function: 10
+chr() Function: A
+str() Function: [10, 20]
+<class 'str'>
+all() function: False
+any() function: True
+```
+
+len is used as universal function
+reversed() is used for list
+sorted() is used for list
+Objects should be of same data type for sorted() to work
+
+max() is used to print max value
+min() is used to print min value
+
+```
+
+a  = [20, 10, 30, 60, 25]
+
+print(f"a: {a}")
+print(f"len(a) Function: {len(a)}")
+print(f"reversed(a) Function: {[i for i in reversed(a)]}")
+print(f"sorted(a) Function: {sorted(a)}")
+print(f"max(a) Function: {max(a)}")
+print(f"min(a) Function: {min(a)}")
+print(f"sum(a) Function: {sum(a)}")
+```
+
+Output:
+```
+a: [20, 10, 30, 60, 25]
+len(a) Function: 5
+reversed(a) Function: [25, 60, 30, 10, 20]
+sorted(a) Function: [10, 20, 25, 30, 60]
+max(a) Function: 60
+min(a) Function: 10
+sum(a) Function: 145
+```
+
+Slicing function for reverse [::-1] works in list, string and tuple. #Check
+
+
+Map Functions
+First parameter is iterable, which can be accessed through for loop
+it can be list, tuple
+
+This function will map every value in second parameter with the first value.
+
+Example:
+a = [10, 20, 4, 65, 78, 31, 3, 7, 11]
+
+def square(num):
+    return num * num
+
+print(list(map(square, a)))
+
+Output:
+[100, 400, 16, 4225, 6084, 961, 9, 49, 121]
+
+Example: Now check for Prime
+
+a = [10, 20, 4, 65, 78, 31, 3, 7, 11]
+
+def prime(num):
+    
+    for i in range(2, num):
+        if(num % i == 0):
+            return False
+    return True
+
+print(list(map(prime, a)))
+
+Output:
+[False, False, False, False, False, True, True, True, True]
+
+Example to check Even Odd Numbers:
+
+def evenOdd(num):
+    if(num % 2 == 0):
+        return "Even Number"
+    else:
+        return "Odd Number"
+    
+print(list(map(evenOdd, a)))
+
+Output:
+['Even Number', 'Even Number', 'Even Number', 'Odd Number', 'Even Number', 'Odd Number', 'Odd Number', 'Odd Number', 'Odd Number']
+
+Filter function:
+It outputs only those values which are True
+
+Now, with filter() function:
+
+def evenOdd(num):
+    if(num % 2 == 0):
+        return True
+    else:
+        return False
+    
+print(list(map(evenOdd, a)))
+
+print(list(filter(evenOdd, a))) # returns only those values which are True
+
+Output:
+
+[True, True, True, False, True, False, False, False, False]
+[10, 20, 4, 78]
+
+Now using map with factorial function:
+
+def factorial(num):
+    fact = 1
+    for i in range(num, 0, -1):
+        fact *= i
+    return fact
+
+print(list(map(factorial, a)))
+
+Output:
+[3628800, 2432902008176640000, 24, 8247650592082470666723170306785496252186258551345437492922123134388955774976000000000000000, 11324281178206297831457521158732046228731749579488251990048962825668835325234200766245086213177344000000000000000000, 8222838654177922817725562880000000, 6, 5040, 39916800]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
