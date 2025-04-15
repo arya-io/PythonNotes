@@ -2692,119 +2692,245 @@ s.count("h")       # Output: 0
 s.count("world")   # Output: 0
 ```
 
+---
 
+## 🔤 String Methods in Python
 
-s.startswith("h")
-False
-s
-'Hello World'
-s.endswith("d")
-True
-s.replace("H", "*")
-'*ello World'
-s.replace("l", "L")
-'HeLLo WorLd'
+### 🔍 `str.startswith(prefix)`
+Checks if the string starts with the specified prefix.
 
-Replaces all occurences
+```python
+s = "Hello World"
+s.startswith("h")  # False (case-sensitive)
+```
 
-s.replace("o", "O", 1)
-'HellO World'
+> ❗ **Note**: This method is **case-sensitive**.  
+`'Hello World'.startswith("h")` is `False`, but `.startswith("H")` would be `True`.
 
-Replaces only one occurence.
+---
 
+### 🔚 `str.endswith(suffix)`
+Checks if the string ends with the specified suffix.
+
+```python
+s = "Hello World"
+s.endswith("d")  # True
+```
+
+---
+
+### 🔁 `str.replace(old, new[, count])`
+Returns a copy of the string with all occurrences of `old` replaced by `new`.
+
+- If `count` is **not** provided → replaces **all** occurrences.
+- If `count` is provided → replaces **only that many** occurrences (from left to right).
+
+#### ✅ Replace all occurrences:
+```python
+s = "Hello World"
+s.replace("H", "*")       # '*ello World'
+s.replace("l", "L")       # 'HeLLo WorLd'
+```
+
+> 🔸 Replaces **all** matches of the substring.
+
+#### 🔢 Replace only one occurrence:
+```python
+s = "Hello World"
+s.replace("o", "O", 1)    # 'HellO World'
+```
+
+> 🔸 Replaces only the **first** match of `'o'` with `'O'`.
+
+---
+
+### 📝 Summary Table
+
+| Method                      | Description                                | Example                              | Output           |
+|----------------------------|--------------------------------------------|--------------------------------------|------------------|
+| `s.startswith("h")`        | Checks if string starts with `"h"`         | `"Hello World".startswith("h")`      | `False`          |
+| `s.endswith("d")`          | Checks if string ends with `"d"`           | `"Hello World".endswith("d")`        | `True`           |
+| `s.replace("H", "*")`      | Replace all `"H"` with `"*"`               | `"Hello World".replace("H", "*")`    | `'*ello World'`  |
+| `s.replace("l", "L")`      | Replace all `"l"` with `"L"`               | `"Hello World".replace("l", "L")`    | `'HeLLo WorLd'`  |
+| `s.replace("o", "O", 1)`   | Replace first `"o"` with `"O"`             | `"Hello World".replace("o", "O", 1)` | `'HellO World'`  |
+
+---
+
+## 🔡 String Character Checks in Python
+
+Python provides several built-in string methods to check the type of characters in a string. These are useful for input validation, parsing, and conditional logic.
+
+---
+
+### 🔢 `str.isnumeric()`
+Returns `True` if all characters in the string are numeric characters (0–9, superscripts, etc.).
+
+```python
 a = "123"
-a.isnumeric()
-True
-a.isdigit()
-True
+a.isnumeric()     # True
+
 a = "1.5"
-a.isnumeric()
-False
-a.isdigit()
-False
-a.isalpha()
-False
+a.isnumeric()     # False
+```
+
+---
+
+### 🔢 `str.isdigit()`
+Returns `True` if all characters in the string are digits (0–9). Similar to `isnumeric()`, but slightly more strict.
+
+```python
+a = "123"
+a.isdigit()       # True
+
+a = "1.5"
+a.isdigit()       # False
+```
+
+---
+
+### 🔠 `str.isalpha()`
+Returns `True` if all characters are alphabetic (A–Z or a–z). No numbers, spaces, or symbols allowed.
+
+```python
+a = "1.5"
+a.isalpha()       # False
+
 x = "abc"
-x.isalpha()
-True
+x.isalpha()       # True
+
 x = "Hello World"
-x.isalpha()
-False
+x.isalpha()       # False  # Because of the space
+```
+
+---
+
+### 🔤 `str.isalnum()`
+Returns `True` if all characters are alphanumeric (letters or digits). No spaces or symbols.
+
+```python
 x = "123abc"
-x.isalnum()
-True
-x.isspace()
-True
+x.isalnum()       # True
+```
 
-a="Hello 12 world hi 1 how are 8 you"
-b=''
-c=''
+---
+
+### ␣ `str.isspace()`
+Returns `True` if the string contains only whitespace characters (spaces, tabs, newlines, etc.).
+
+```python
+x = "   "
+x.isspace()       # True
+```
+
+---
+
+### 📝 Summary Table
+
+| Method            | Description                             | Example             | Output  |
+|------------------|-----------------------------------------|---------------------|---------|
+| `isnumeric()`     | Checks if all chars are numeric         | `"123".isnumeric()` | `True`  |
+| `isdigit()`       | Checks if all chars are digits          | `"123".isdigit()`   | `True`  |
+| `isalpha()`       | Checks if all chars are letters         | `"abc".isalpha()`   | `True`  |
+| `isalnum()`       | Checks if all chars are letters/digits  | `"123abc".isalnum()`| `True`  |
+| `isspace()`       | Checks if all chars are whitespace      | `"   ".isspace()`   | `True`  |
+
+> ❗ `isnumeric()` and `isdigit()` are often used interchangeably for simple numbers, but they differ when dealing with Unicode or full-width characters.
+
+---
+
+```markdown
+# 📘 Python Notes – Refined for Learning & Revision
+
+---
+
+## 🧵 Strings in Python
+
+### ✅ Basic Operations
+```python
+a = "Hello 12 world hi 1 how are 8 you"
+b = ''
+c = ''
+
 for i in a:
     if i.isnumeric():
-        # b.append(i)
-        b += i
-    else :
-        # c.append(i)
-        c += i
-print("b:", b)
-print("c:", c)
-        
-a="Hello"
-print(a.isnumeric())
+        b += i  # Collect numeric characters
+    else:
+        c += i  # Collect non-numeric characters
 
-sum
+print("Digits:", b)
+print("Text:", c)
+```
 
-a="Hello 12 world hi 1 how are 8 you"
-b=''
-sum = 0
+```python
+a = "Hello"
+print(a.isnumeric())  # Output: False
+```
+
+### 🔢 Sum of All Digits in a String
+```python
+a = "Hello 12 world hi 1 how are 8 you"
+total = 0
+
 for i in a:
     if i.isnumeric():
-        sum += int(i)
-print(sum)
+        total += int(i)
 
+print("Sum of digits:", total)
+```
+
+---
+
+## 🪄 String Manipulation
+
+### 🧠 Split & Join
+```python
 a = "Hello how are you"
-a.split(" ")
-['Hello', 'how', 'are', 'you']
 l = a.split(" ")
-len(l)
-4
-l
-['Hello', 'how', 'are', 'you']
-" ".join(l)
-'Hello how are you'
-"*".join(l)
-'Hello*how*are*you'
+print(len(l))      # 4
+print(l)           # ['Hello', 'how', 'are', 'you']
+print(" ".join(l)) # Hello how are you
+print("*".join(l)) # Hello*how*are*you
+```
 
-Strings are Immutable.
+> 🔸 **Strings are Immutable** in Python.
 
-Strings are mostly used in Big Data where unstructured Data is present.
+---
 
-Question: Separate the words from the string.
+## 📊 Structured vs Unstructured Data
 
-Structured Data means the data with rows and columns.
-Unstructured Data means the data without any structured. e.g., "hellohowareyou" (text)
-Semi-structured data. e.g., "hello#are*you,how@an(I)you"
+| Type             | Description                                                              | Example                            |
+|------------------|---------------------------------------------------------------------------|------------------------------------|
+| Structured       | Data with a clear format (rows/columns).                                  | Tables, SQL                        |
+| Unstructured     | Data without format.                                                      | `"hellohowareyou"`                |
+| Semi-structured  | Partial formatting, often separated by special characters.                | `"hello#are*you,how@an(I)you"`    |
 
-str = "HELLO BHAI KAISE HO"
-sAns = ""
-for i in str.split(" "):
-    sAns += (i[::-1]) + " "
-print(sAns)
+---
 
-#############################
+## ❓ Question: Reverse Each Word in a Sentence
 
-str="Hello bhai kaise ho how are you how is your mom how are your parents where are you from what is your name what is you dob"
+```python
+text = "HELLO BHAI KAISE HO"
+result = ""
 
-words = str.split(" ")
+for word in text.split(" "):
+    result += word[::-1] + " "
+
+print(result.strip())  # OLLEH IAHB ESI AK OH
+```
+
+---
+
+## 🔁 Word Frequency with Unique Output
+
+```python
+text = "Hello bhai kaise ho how are you how is your mom how are your parents where are you from what is your name what is you dob"
+words = text.split(" ")
 alphastring = []
 
-for i in words:
-    # print(f"{i}: {words.count(i)}")
-    alphastring.append((f"{i}: {words.count(i)}"))
-    
-print(alphastring)
+for word in words:
+    alphastring.append(f"{word}: {words.count(word)}")
 
-
+# Remove duplicates
 i = 0
 while i < len(alphastring):
     if alphastring.count(alphastring[i]) > 1:
@@ -2813,703 +2939,740 @@ while i < len(alphastring):
         i += 1
 
 print(alphastring)
-
-
-a = "hello*there#how,are(you)where#is@my#car"
-s = "hellotherehowareyouwhereismycar"
-
-b = a.split("*")
-b = " ".join(b)
-b = b.split("#")
-b = " ".join(b)
-b = b.split(",")
-b = " ".join(b)
-b = b.split("(")
-b = " ".join(b)
-b = b.split(")")
-b = " ".join(b)
-b = b.split("@")
-b = " ".join(b)
-
-b =b.split(" ")
-print(b)
-
-symbols = ["*", "#", ",", "(", ")", "@"]
-b = a
-
-for i in symbols:
-    if i in a:
-        b = b.split(i)
-        b = " ".join(b)
-b = b.split(" ")
-print(b)
-
-symbols = ["*", "#", ",", "(", ")", "@"]
-
-a = "hello*there#how,are(you)where#is@my#car"
-
-b = a
-
-for i in symbols:
-    if i in a:
-        b = b.split(i)
-        b = " ".join(b)
-b = b.split(" ")
-
-print(b.sort())
-
-Day 04
-
-How is memory managed in Java?
-How is memory managed in Python?
-
-Employee e = new Employee()
-del a
-Both have a logic of Reference
-
-Array
-Advantage: fast search
-Disadvantage: random inserts and delete
-
-LinkedList
-Advantage: random insert and delete
-Disadvantage: random search (compromise of usage)
-
-Optimal utilisation of free memory in Linked List
-
-So, if we want both the advantages in one entity, then what to do?
-Use Hash Table.
-which calculates index number dynamically.
-
-We use mod, e.g., 50%5 to store the data.
-
-Python Dictionary is highly modified Hash Table.
-Keys are Unique, Values can be duplicated.
-
-Dictionary:
-a = {}
-Dictionary is a collection of ordered (unindexed) key-value pairs.
-
-a = {}
-type(a)
-<class 'dict'>
-a = {1: "re", 2: "dskjfla", 3: "89r739", 4: "jjj", 7: "aioekod"}
-a
-{1: 're', 2: 'dskjfla', 3: '89r739', 4: 'jjj', 7: 'aioekod'}
-a[7]
-'aioekod'
-a[8] = "eight"
-b = a.copy()
-b
-{1: 're', 2: 'dskjfla', 3: '89r739', 4: 'jjj', 7: 'aioekod', 8: 'eight'}
-b.clear()
-b
-{}
-a.get(7)
-'aioekod'
-a.values()
-dict_values(['re', 'dskjfla', '89r739', 'jjj', 'aioekod', 'eight'])
-a.items()
-dict_items([(1, 're'), (2, 'dskjfla'), (3, '89r739'), (4, 'jjj'), (7, 'aioekod'), (8, 'eight')])
-a.keys()
-dict_keys([1, 2, 3, 4, 7, 8])
-d = {}
-l = [2, 3, 2, 4, 4, 3, 6, 4, 9]
-d.fromkeys(l)
-{2: None, 3: None, 4: None, 6: None, 9: None}
-x = d.fromkeys(l)
-
-
-x
-{2: None, 3: None, 4: None, 6: None, 9: None}
-d
-{}
-d[7] = 'abc'
-d[10] = 'abc'
-x[10] = 'abc'
-x
-{2: None, 3: None, 4: None, 6: None, 9: None, 10: 'abc'}
-d
-{7: 'abc', 10: 'abc'}
-a
-{1: 're', 2: 'dskjfla', 3: '89r739', 4: 'jjj', 7: 'aioekod', 8: 'eight'}
-for i in a:
-    print(i)
-
-    
-1
-2
-3
-4
-7
-8
-for i in a.values():
-    print(i)
-
-    
-re
-dskjfla
-89r739
-jjj
-aioekod
-eight
-
-Keys must be unique
-Values can be duplicate
-
-Where do we use dictionary?
-Fast random insert, fast random search
-Used for complex data
-
-Keys are immutable, values are mutable.
-Technically, Dictionaries are Immutable.
-
-If key is not matched,
-a[99]
-Traceback (most recent call last):
-  File "<pyshell#35>", line 1, in <module>
-    a[99]
-KeyError: 99
-a.get(99)
-It gives no error.
-
-setdefault():
-x
-{2: None, 3: None, 4: None, 6: None, 9: None, 10: 'abc'}
-x.setdefault(75, "kkk")
-'kkk'
-x
-{2: None, 3: None, 4: None, 6: None, 9: None, 10: 'abc', 75: 'kkk'}
-x.setdefault(64)
-x
-{2: None, 3: None, 4: None, 6: None, 9: None, 10: 'abc', 75: 'kkk', 64: None}
-It returns the value or if the given key is not present in dictionary.
-If key is present then it updates this value to associated key.
-
-Set:
-Set is unordered, unindexed, collection of unique values separated by comma enclosed in curly braces.
-tobeList = [10, 10, 10, 20, 20, 30, 30]
-m = set(tobeList)
-m
-{10, 20, 30}
-
-Set is internally stored in the form of dictionary.
-
-m.pop()
-10
-m
-{20, 30}
-m.remove(30)
-m
-{20}
-m.add(24)
-m
-{24, 20}
-
-Keys are internally used in sets.
-
-Difference between Set and Dictionary:
-
-Sets are unordered and Dictionaries are unordered.
-Values can be duplicate in Dictionaries.
-
-Set's internal implementation is done through Dictionary only.
-
-What does it mean:
-Ternary Operator does not loop.
+```
 
 ---
 
-Assignment:
+## 🔍 Cleaning & Tokenizing Semi-structured Text
 
-1. Check if given string is pangram:
-"The quick brown fox jumps over the lazy frog"
+### Method 1: Manual Split
+```python
+a = "hello*there#how,are(you)where#is@my#car"
 
+symbols = ["*", "#", ",", "(", ")", "@"]
+b = a
+
+for symbol in symbols:
+    b = " ".join(b.split(symbol))
+
+print(b.split())
+```
+
+### Method 2: Sort Output
+```python
+a = "hello*there#how,are(you)where#is@my#car"
+symbols = ["*", "#", ",", "(", ")", "@"]
+b = a
+
+for symbol in symbols:
+    b = " ".join(b.split(symbol))
+
+words = b.split(" ")
+words.sort()
+print(words)
+```
+
+---
+
+## 🧠 Memory Management
+
+### Java vs Python
+- **Java**: Uses garbage collection based on reference counting + mark and sweep.
+- **Python**: Uses reference counting and cyclic garbage collection.
+
+```java
+Employee e = new Employee();  // Java
+```
+
+```python
+del a  # Python
+```
+
+---
+
+## 📦 Data Structures
+
+### 🧮 Arrays
+- ✅ Fast Search
+- ❌ Expensive Insert/Delete (fixed size)
+
+### 🔗 Linked List
+- ✅ Efficient Insert/Delete
+- ❌ Slow Search
+
+> Want both? Use **Hash Tables**.
+
+---
+
+## 🧠 Python Dictionary (Hash Table)
+
+```python
+a = {}
+type(a)  # <class 'dict'>
+
+a = {1: "re", 2: "dskjfla", 3: "89r739", 4: "jjj", 7: "aioekod"}
+print(a[7])           # 'aioekod'
+
+a[8] = "eight"        # Add new key
+b = a.copy()          # Copy dictionary
+b.clear()             # Clear all items
+
+a.get(7)              # Safe getter
+a.values()            # All values
+a.items()             # All key-value pairs
+a.keys()              # All keys
+```
+
+### `fromkeys()` Usage
+```python
+l = [2, 3, 2, 4, 4, 3, 6, 4, 9]
+d = dict.fromkeys(l)
+print(d)
+# Output: {2: None, 3: None, 4: None, 6: None, 9: None}
+```
+
+### Iteration
+```python
+for key in a:
+    print(key)
+
+for value in a.values():
+    print(value)
+```
+
+> 🔑 Keys must be **unique**  
+> ✅ Values can be **duplicate**
+
+---
+
+Thanks! Here's the refined Markdown version of your extended notes on **Dictionaries, Sets, and Ternary Operators** — cleaned up, organized with clear headers, and clarified for better learning and quick revision:
+
+---
+
+```markdown
+
+## 🧠 Dictionary in Python
+
+### ✅ Where & Why We Use Dictionary
+- **Use Case**: When you need **fast random access** for inserts, lookups, and updates.
+- **Ideal For**: Complex structured data, configurations, frequency counts, and mapping relationships.
+- **Performance**: Fast random insert & search via hash-based implementation.
+- **Design Note**: Python Dictionary is a **modified Hash Table**.
+
+### 🧾 Key Properties
+- Keys must be **immutable** (e.g., `int`, `str`, `tuple`)
+- Values can be **mutable** (e.g., `list`, `dict`, `set`)
+- Dictionary itself is **mutable**, but **keys must remain immutable**.
+- Keys must be **unique**, values can be **duplicate**
+
+### ⚠️ Key Access – `.get()` vs `[]`
+```python
+a = {1: "one", 2: "two"}
+
+print(a[1])       # ✅ Returns "one"
+print(a[99])      # ❌ Raises KeyError
+
+print(a.get(99))  # ✅ Returns None without error
+```
+
+---
+
+## 🔧 `setdefault()` Method
+
+Returns the value of a key if it is in the dictionary.  
+If not, inserts the key with a specified default value.
+
+```python
+x = {2: None, 3: None, 4: None, 6: None, 9: None, 10: "abc"}
+
+x.setdefault(75, "kkk")  # Adds key 75 with value "kkk"
+# Output: 'kkk'
+
+x.setdefault(64)         # Adds key 64 with default value None
+
+print(x)
+# {2: None, 3: None, 4: None, 6: None, 9: None, 10: 'abc', 75: 'kkk', 64: None}
+```
+
+> 🔸 If the key **exists**, `setdefault()` **does not update the value**.
+
+---
+
+## 📦 Set in Python
+
+### ✅ Definition
+A **Set** is:
+- Unordered
+- Unindexed
+- Collection of **unique values**
+- Values are enclosed in **curly braces `{}`** and separated by commas
+
+### 🔍 Examples
+```python
+tobeList = [10, 10, 10, 20, 20, 30, 30]
+m = set(tobeList)
+print(m)  # Output: {10, 20, 30}
+```
+
+### ⚙️ Common Set Operations
+```python
+m.pop()        # Removes and returns a random element
+m.remove(30)   # Removes 30 from set
+m.add(24)      # Adds 24 to set
+```
+
+> 🔹 **Set is internally implemented using a Dictionary (keys-only).**
+
+---
+
+## 🆚 Set vs Dictionary
+
+| Feature               | Set                              | Dictionary                          |
+|----------------------|-----------------------------------|-------------------------------------|
+| Structure            | `{val1, val2}`                    | `{key1: val1, key2: val2}`          |
+| Unique values        | ✅ Yes                            | ❌ Values can repeat                |
+| Keys                 | ❌ No keys                        | ✅ Unique & Immutable               |
+| Internally Based On  | Dictionary                        | Hash Table                          |
+| Mutability           | Mutable                           | Mutable                             |
+
+---
+
+## ❓ Ternary Operator
+
+```python
+# Syntax
+result = value_if_true if condition else value_if_false
+```
+
+### 🧠 Note:
+> ⚠️ Ternary operator is **not a loop** — it just evaluates a condition and returns one of two values.
+
+```python
+x = 5
+status = "Even" if x % 2 == 0 else "Odd"
+print(status)  # Output: Odd
+```
+
+---
+
+```markdown
+# 📝 Python Assignment – Refined Notes and Solutions
+
+---
+
+## 1️⃣ Pangram Checker
+
+A **pangram** is a sentence containing every letter of the alphabet at least once.
+
+### ✅ Pangram Checker (Basic Character Check)
+```python
 string = "The quick brown fox jumps over the$ lazy dog"
 print(string)
 
 flag = 1
 for i in string:
-   if not((i >= 'a' and i <= 'z') or (i >= 'A' and i <= 'Z') or i == ' '):
+    if not((i >= 'a' and i <= 'z') or (i >= 'A' and i <= 'Z') or i == ' '):
         flag = 0
         break
 
 if flag:
-    print("Given string is pangram")
+    print("Valid characters used.")
 else:
-    print("Given string is not a pangram.")
+    print("Invalid characters found.")
+```
 
-Alternate Method:
+### ✅ Alternate Pangram Validation (with Alphabet Set Check)
+```python
+import string as s
 
-string = "The quick brown fox jumps over the $lazy dog"
-print(string)
+input_str = "The quick brown fox jumps over the lazy frog"
+alphabet = set(s.ascii_lowercase)
 
-flag = 0
-for i in string:
-    if ((i >= 'a' and i <= 'z') or (i >= 'A' and i <= 'Z') or i == ' '):
-        flag = 1
-    else:
-        flag = 0
-        break
+# Normalize string to lowercase and remove non-alpha characters
+normalized = ''.join(c.lower() for c in input_str if c.isalpha())
 
-if flag:
-    print("Given string is pangram")
+if set(normalized) >= alphabet:
+    print("✅ It is a pangram")
 else:
-    print("Given string is not a pangram.")
+    print("❌ It is not a pangram")
+```
 
 ---
 
-2. In cryptography, a Caesar Cipher is a very simple encryption techniques in which each letter in the plain text is replaced by a letter some fixed number of positions down the alphabet. For example, with a shift of 3, A would be replaced by D, B would become E, and so on. The method is named after Julius Caesar, who used it to communicate with his generals. ROT-13 ("rotate by 13 places") is a widely used example of a Caesar cipher where the shift is 13. In Python, the key for ROT-13 may be represented by means of the following dictionary:
+## 2️⃣ Caesar Cipher (ROT-13 Encoder/Decoder)
 
+### 🧠 What is ROT-13?
+A special Caesar Cipher with a fixed shift of **13 positions**.
 
-Your task in this exercise is to implement an encoder/decoder of ROT-13. Once you're done, you will be able to read the following secret message:
-Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!
+### 🔐 ROT-13 Implementation
+```python
+key = {
+    'a': 'n', 'b': 'o', 'c': 'p', 'd': 'q', 'e': 'r', 'f': 's', 'g': 't', 'h': 'u',
+    'i': 'v', 'j': 'w', 'k': 'x', 'l': 'y', 'm': 'z', 'n': 'a', 'o': 'b', 'p': 'c',
+    'q': 'd', 'r': 'e', 's': 'f', 't': 'g', 'u': 'h', 'v': 'i', 'w': 'j', 'x': 'k',
+    'y': 'l', 'z': 'm',
+    'A': 'N', 'B': 'O', 'C': 'P', 'D': 'Q', 'E': 'R', 'F': 'S', 'G': 'T', 'H': 'U',
+    'I': 'V', 'J': 'W', 'K': 'X', 'L': 'Y', 'M': 'Z', 'N': 'A', 'O': 'B', 'P': 'C',
+    'Q': 'D', 'R': 'E', 'S': 'F', 'T': 'G', 'U': 'H', 'V': 'I', 'W': 'J', 'X': 'K',
+    'Y': 'L', 'Z': 'M'
+}
 
-Note that since English has 26 characters, your ROT-13 program will be able to both encode and decode texts written in English.
+message = "Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!"
+decoded = ""
 
-key = {'a': 'n', 'b': 'o', 'c': 'p', 'd': 'q', 'e': 'r', 'f': 's', 'g': 't', 'h': 'u', 'i': 'v', 'j': 'w', 'k': 'x', 'l': 'y', 'm': 'z', 'n': 'a', 'o': 'b', 'p': 'c', 'q': 'd', 'r': 'e', 's': 'f', 't': 'g', 'u': 'h', 'v': 'i', 'w': 'j', 'x': 'k', 'y': 'l', 'z': 'm',
-       'A': 'N', 'B': 'O', 'C': 'P', 'D': 'Q', 'E': 'R', 'F': 'S', 'G': 'T', 'H': 'U', 'I': 'V', 'J': 'W', 'K': 'X', 'L': 'Y', 'M': 'Z', 'N': 'A', 'O': 'B', 'P': 'C', 'Q': 'D', 'R': 'E', 'S': 'F', 'T': 'G', 'U': 'H', 'V': 'I', 'W': 'J', 'X': 'K', 'Y': 'L', 'Z': 'M'}
+for ch in message:
+    decoded += key.get(ch, ch)  # Keep non-alphabetic chars unchanged
 
-Solution:
-
-key = {'a': 'n', 'b': 'o', 'c': 'p', 'd': 'q', 'e': 'r', 'f': 's', 'g': 't', 'h': 'u', 'i': 'v', 'j': 'w', 'k': 'x', 'l': 'y', 'm': 'z', 'n': 'a', 'o': 'b', 'p': 'c', 'q': 'd', 'r': 'e', 's': 'f', 't': 'g', 'u': 'h', 'v': 'i', 'w': 'j', 'x': 'k', 'y': 'l', 'z': 'm',
-       'A': 'N', 'B': 'O', 'C': 'P', 'D': 'Q', 'E': 'R', 'F': 'S', 'G': 'T', 'H': 'U', 'I': 'V', 'J': 'W', 'K': 'X', 'L': 'Y', 'M': 'Z', 'N': 'A', 'O': 'B', 'P': 'C', 'Q': 'D', 'R': 'E', 'S': 'F', 'T': 'G', 'U': 'H', 'V': 'I', 'W': 'J', 'X': 'K', 'Y': 'L', 'Z': 'M'}
-
-string = "Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!"
-
-decode = ""
-for i in string:
-    if i not in key:
-        decode += i
-    else:
-        decode += key[i]
-print(decode)
+print("Decoded Message:", decoded)
+# Output: Caesar cipher? I much prefer Caesar salad!
+```
 
 ---
 
-3. Invert dictionary of list
+## 3️⃣ Invert Dictionary of Lists
 
-d = {"colours": ["orange", "black", "blue"],
-     "fruits": ["apple", "orange", "banana"],
-     "vegetables": ["onion", "potato"]}
+### 🔁 From:
+```python
+d = {
+    "colours": ["orange", "black", "blue"],
+    "fruits": ["apple", "orange", "banana"],
+    "vegetables": ["onion", "potato"]
+}
+```
 
-4. p = ['hi', 'hello', 'oye', 'h', 'world']
-   Sort these words by length into dictionary.
+### 🔄 To:
+```python
+# Inverted dict where value becomes key
+inverted = {}
 
-5. Merge two lists without duplicates (Do not use sets)
+for key, values in d.items():
+    for item in values:
+        if item not in inverted:
+            inverted[item] = []
+        inverted[item].append(key)
 
-   a = [1, 2, 3, 4]
-   b = [4, 5, 6, 7]
+print(inverted)
+```
 
-   ans = [1, 2, 3, 4, 5, 6, 7]
+---
 
-6. In given string double the occurence of consonants and place "o" in between.
-   e.g., "This"
-   "ToThohisos"
+## 4️⃣ Sort Words by Length into Dictionary
 
-What are the use cases of:
-- List
-- Tuple
-- Dictionary (order number)
-- Set
-- Strings
+```python
+p = ['hi', 'hello', 'oye', 'h', 'world']
+length_dict = {}
 
-Create a list of odd numbers from 1 to 100.
+for word in p:
+    length = len(word)
+    if length not in length_dict:
+        length_dict[length] = []
+    length_dict[length].append(word)
 
+print(length_dict)
+# Output: {2: ['hi'], 5: ['hello', 'world'], 3: ['oye'], 1: ['h']}
+```
+
+---
+
+## 5️⃣ Merge Two Lists Without Duplicates (Without Using Sets)
+
+```python
+a = [1, 2, 3, 4]
+b = [4, 5, 6, 7]
+
+merged = a.copy()
+
+for i in b:
+    if i not in merged:
+        merged.append(i)
+
+print(merged)
+# Output: [1, 2, 3, 4, 5, 6, 7]
+```
+
+---
+
+## 6️⃣ Double Consonants and Add "o" Between Them
+
+```python
+string = "This"
+result = ""
+
+vowels = "aeiouAEIOU"
+
+for ch in string:
+    if ch.isalpha() and ch not in vowels:
+        result += ch + "o" + ch
+    else:
+        result += ch
+
+print(result)
+# Output: ToThohisos
+```
+---
+
+```markdown
+# 📘 Python Study Notes – Data Structures, Functions, and Key Concepts
+
+---
+
+## 🧰 Use Cases of Core Data Types
+
+### 🔹 List
+- **Mutable**, ordered collection
+- Allows duplicate elements
+- Use when you need dynamic collections (append, remove, etc.)
+- ✅ Use Case: Storing dynamic values like records, logs, or grouped values
+
+### 🔹 Tuple
+- **Immutable**, ordered collection
+- Faster than lists due to immutability
+- ✅ Use Case: Fixed data like coordinates, settings, or function return values
+
+### 🔹 Dictionary
+- Key-value pair structure
+- Keys must be **unique** and **immutable**
+- Values can be any type
+- ✅ Use Case: Fast lookup by keys, mapping names to values, caching results
+
+### 🔹 Set
+- Unordered, unindexed, unique values
+- ✅ Use Case: Membership tests, removing duplicates, set operations (union, intersection)
+
+### 🔹 String
+- Immutable sequence of characters
+- ✅ Use Case: Text processing, parsing, data cleaning
+
+---
+
+## 🔢 Create a List of Odd Numbers (1–100)
+
+### Traditional Loop
+```python
 l = []
 
 for i in range(1, 101, 2):
     l.append(i)
-    
+
 print(l)
+```
 
-[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99]
-
-Virtual Environment:
-Used to create a virtual workspace with different version libraries.
-
-Never use built-in keyword names to create files.
-
-Install Pycharm:
-There are two versions.
-Professional and Community.
-Install the community one as it is free.
-Professional one has premium subscription with 30 days free trial.
-
-List Comprehension:
-Less lines of code.
-
+### List Comprehension
+```python
 x = [i for i in range(1, 101, 2)]
 print(x)
+```
 
-[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99]
+---
 
-Even/Odd:
+## ♻️ Even / Odd Separation Using Comprehension
 
-# Comprehension in One line
-
+```python
 odd = []
 even = []
 
-[even.append(i) if i%2 == 0 else odd.append(i) for i in range(1, 101)]
-
-# [TRUE IF CONDITION FALSE LOOP]
+[even.append(i) if i % 2 == 0 else odd.append(i) for i in range(1, 101)]
 
 print(f"Even Numbers:  {even}")
 print(f"Odd Numbers:  {odd}")
+```
 
-Even Numbers:  [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100]
-Odd Numbers:  [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99]
+---
 
-Functions:
+## 🧪 Virtual Environment
 
-Reusable block of code, which can be invoked as and when we need it without rewriting.
+- Used to create isolated workspaces with different library versions.
+- Keeps dependencies project-specific.
+- Common Tools: `venv`, `virtualenv`, `pipenv`
 
+> ❗ Never use **built-in keywords** (like `list.py`, `str.py`) for filenames.
+
+---
+
+## 🧠 Pycharm Notes
+
+- Two Versions: **Community** (Free) and **Professional** (Trial + Paid)
+- Use **Community Edition** for learning & personal projects.
+
+---
+
+## 🔁 Functions
+
+### Basic Example
+```python
 def hello():
     print("Hello World")
-    
+
 def add(a, b):
-    return (a+b)
+    return a + b
 
 hello()
-print(add(10, 26))
+print(add(10, 26))  # 36
+```
 
-Hello World
-36
+---
 
-Check if a number is even or odd:
-
+### Even or Odd Checker
+```python
 def evenOdd(num):
-    if(num % 2 == 0):
-        return "Even Number"
-    else:
-        return "Odd Number"
+    return "Even Number" if num % 2 == 0 else "Odd Number"
 
-num = int(input("Enter a number: "))
-print(evenOdd(num))
+print(evenOdd(25))  # Odd Number
+```
 
-Enter a number: 25
-Odd Number
+---
 
-Calculate the factorial of a number:
-
+### Factorial Calculator
+```python
 def factorial(num):
     fact = 1
     for i in range(num, 0, -1):
         fact *= i
     return fact
 
-num = int(input("Enter a number: "))
-print(factorial(num))
+print(factorial(5))  # 120
+```
 
-Enter a number: 5
-120
+---
 
-Create prime number function and add those range numbers in a list using comprehension
-
+### Prime Numbers List (Comprehension + Function)
+```python
 def primeNum(num):
-    
     for i in range(2, num):
-        if(num % i == 0):
+        if num % i == 0:
             return False
     return True
 
-num = int(input("Enter range number: "))
+num = 100
 primeList = [i for i in range(2, num+1) if primeNum(i)]
-
 print(primeList)
+```
 
-Enter range number: 100
-[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+---
 
-Create factorial number function and add those range numbers in a list using comprehension:
-
+### Factorials in a Range (Using Comprehension)
+```python
 def factorial(num):
     fact = 1
-    
     for i in range(num, 0, -1):
         fact *= i
     return fact
 
-num = int(input("Enter number: "))
-
-factorialList = [factorial(i) for i in range(1, num+1)]
+num = 10
+factorialList = [factorial(i) for i in range(1, num + 1)]
 print(factorialList)
+```
 
-Output:
+---
 
-Enter number: 10
-[1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800]
+## ⚙️ Iterators and Generators
 
-iter(), next() should be used when you have extremely large data.
-
+### Iterator Example
+```python
 l = [10, 456, 3, 22, 12, 57, 8]
-
 a = iter(l)
 
-print(next(a))
-print(next(a))
-print(next(a))
-print(next(a))
-print(next(a))
-print(next(a))
-print(next(a))
+print(next(a))  # Repeated to print values one by one
+```
 
-10
-456
-3
-22
-12
-57
-8
+> ✅ **Iterator** stores all values in memory and uses `next()` to access them.
 
-iterator puts all values in memory and access one by one.
-It has pointer -> next -> goes to next
-points at first position
-by default implemented in list
+### Generator Notes
+- Used for **large data processing**
+- Fetches one value at a time → **Memory efficient**
+- Slower access speed but no memory overload
 
-generator:
-generator has slow access speed
-It is used in case of heavy data
-Slow access speed.
-Consumes less memory
-Does not give load on memory
-Brings one value at a time from memory.
+---
 
-Function with parameters and arguments:
+## 🧾 Function Parameters and Arguments
 
+```python
 def add(a, b):
-    return (a + b)
+    return a + b
 
-print(add(2, 3))
+print(add(2, 3))             # 5
+print(add(b=5, a=2))         # 7
+```
 
-5
+> ✅ Named arguments allow changing the order of arguments.
 
-But when we have multiple parameters, we can give arguments using variables called 'named arguments'.
+---
 
-def add(a, b):
-    return (a + b)
-
-print(add(b = 5, a = 2))
-
-7
-
-We can change the sequences.
-
-We are allowed to keep argument space empty while invoking the function, if values are passed during defining the function.
-
-WAP to add 'n' number of inputs:
-
-Pass a list
-
+### Pass List to Function
+```python
 def printList(l):
     for i in l:
         print(i)
-        
+
 l = [2, 3, 4, 4, 6, 3, 6, 67]
-    
 printList(l)
+```
 
+---
+
+### Sum of List Using Function
+```python
 def sumList(l):
-    
-    sum = 0
-    
-    for i in l:
-        sum += i
-        
-    return sum
-        
-l = [2, 3, 4, 4, 6, 3, 6, 67]
-    
-print(sumList(l))
+    return sum(l)
 
-95
+print(sumList([2, 3, 4, 4, 6, 3, 6, 67]))  # 95
+```
 
-Another method to solve this problem is using star operator (asterisk):
+---
 
-* This is used to declare var args type of argument which is variable in length you can pass 0 to n values to add function while calling it.
-We cannot have two var args.
-Because where will the first and second starts is unknown.
-If adding it using multiple parameter, add var args at the last.
-Because where it will end is unknown.
+## ✨ Variable Length Arguments using `*args`
 
+```python
 def add(*args):
     return sum(args)
 
-result = add(2, 3, 4, 4, 6, 3, 6, 67)
-print(result)
+print(add(2, 3, 4, 4, 6, 3, 6, 67))  # 95
+```
 
-95
+> ❗ You can have only one `*args` in a function. It should come **after all fixed arguments**.
 
-Boilerplate Code:
+---
 
-Where does this name came from because it is not a programming word?
-We use Boilerplate Code in order to reduce memory usage, writing down less lines of code, lambda is used.
+That is an **amazing compilation** of Python concepts, assignments, and functional programming applications!
 
+To make this more digestible and revision-friendly, here's your full **Day 5 & Day 6 Notes** wrapped in clean and structured **Markdown format**, enhanced with headings, explanations, and organized code blocks. You can copy, paste, or export it into a `.md` file:
+
+---
+
+---
+
+## 💡 Boilerplate Code
+
+**Why the term?**
+- Originates from the printing press where "boilerplate" referred to reusable plates of text.
+- In programming, it means **reusable and standard code** that's written frequently with little or no variation.
+
+> ✅ Boilerplate reduces code repetition and increases efficiency.
+
+### Lambda Examples
+```python
 add = lambda a, b: a + b
 sub = lambda a, b: a - b
 multiply = lambda a, b: a * b
 divide = lambda a, b: a // b
 
-print(add(10, 5))
-print(sub(10, 5))
-print(multiply(10, 5))
-print(divide(10, 5))
-
-15
-5
-50
-2
-
-Assignment:
-
-1. WAP to reverse a string using lambda function:
-
-revString = lambda string: string[::-1]
-print(revString("Hello World"))
-
-dlroW olleH
-
-2. WAP to count the number of each particular word in a string using lambda function.
-
-wordCount = lambda string: {i : string.count(i) for i in string.split()}
-
-print(wordCount("""Hello hi bye bye hello hi bye bye"""))
-
-{'Hello': 1, 'hi': 2, 'bye': 4, 'hello': 1}
-
-3. WAP to count the number of each particular word in a multiline string using lambda function.
-
-wordCount = lambda string: {i : string.count(i) for i in string.split()}
-
-print(wordCount("""Hello hi bye bye hello hi bye bye
-                hello hi bye bye hello hi bye bye"""))
-
-{'Hello': 1, 'hi': 4, 'bye': 8, 'hello': 3}
-
-4. WAP to reverse word at its position using lambda function.
-
-revWord = lambda string: " ".join(i[::-1] for i in string.split())
-
-print(revWord("Hello World"))
-
-olleH dlroW
-
-Day 5 Word Assignment:
-
-1. WAP to get sum of all digits in number (any length):
-
-def digitSum(num):
-    sum = 0
-    
-    while(num):
-        sum += num % 10
-        num = num // 10
-    return sum
-
-print(digitSum(12345))
-
-15
-
-2. Write function to reverse a number
-
-def revNum(num):
-    
-    reverseNum = 0
-    
-    while(num):
-        
-        reverseNum = (reverseNum * 10) + (num % 10)
-        num = num // 10
-    
-    return reverseNum
-
-print(revNum(12345))
-
-54321
-
-3. Write a function to flatten a list
-
-inputList = [1, [2, 3], [4, 5, 6]]
-
-def flatten(l):
-    
-    outputList = []
-    
-    for i in l:
-        if type(i) == int:
-            outputList.append(i)
-        else:
-            for j in i:
-                outputList.append(j)
-                
-    return outputList
-
-print(flatten(inputList))
-
-# Alternate Method:
-
-inputList = [1, [2, 3], [4, 5, 6]]
-
-def flatten(l):
-    
-    outputList = []
-    
-    for i in l:
-        if type(i) == int:
-            outputList.append(i)
-        else:
-            outputList.extend(i)
-                
-    return outputList
-
-print(flatten(inputList))
-
-[1, 2, 3, 4, 5, 6]
-
-4. Function to encode and decode yesterday's Caesar Cipher ROT-13 program
-
-# Function to encode and decode yesterday's Caesar Cipher ROT-13 program
-
-key = {'a': 'n', 'b': 'o', 'c': 'p', 'd': 'q', 'e': 'r', 'f': 's', 'g': 't', 'h': 'u', 'i': 'v', 'j': 'w', 'k': 'x', 'l': 'y', 'm': 'z', 'n': 'a', 'o': 'b', 'p': 'c', 'q': 'd', 'r': 'e', 's': 'f', 't': 'g', 'u': 'h', 'v': 'i', 'w': 'j', 'x': 'k', 'y': 'l', 'z': 'm',
-       'A': 'N', 'B': 'O', 'C': 'P', 'D': 'Q', 'E': 'R', 'F': 'S', 'G': 'T', 'H': 'U', 'I': 'V', 'J': 'W', 'K': 'X', 'L': 'Y', 'M': 'Z', 'N': 'A', 'O': 'B', 'P': 'C', 'Q': 'D', 'R': 'E', 'S': 'F', 'T': 'G', 'U': 'H', 'V': 'I', 'W': 'J', 'X': 'K', 'Y': 'L', 'Z': 'M'}
-
-def encode(text):
-    encrypt = ""
-    for i in text:
-        if i not in key:
-            encrypt += i
-        else:
-            encrypt += key[i]
-
-    return encrypt
-
-def decode(text):
-    decrypt = ""
-    for i in text:
-        if i not in key:
-            decrypt += i
-        else:
-            decrypt += key[i]
-
-    return decrypt    
-    
-string = input("Enter something: ")
-
-print(f"Encoded String: {encode(string)}")
-print(f"Decoded String: {decode(encode(string))}")
-
-Output:
-Enter something: Rahul is a very good boy in DBDA 
-Encoded String: Enuhy vf n irel tbbq obl va QOQN
-Decoded String: Rahul is a very good boy in DBDA
+print(add(10, 5))        # 15
+print(sub(10, 5))        # 5
+print(multiply(10, 5))   # 50
+print(divide(10, 5))     # 2
+```
 
 ---
 
-5. Convert given string to Camel Case:
+## 📘 Assignments Using Lambda
 
+### 1️⃣ Reverse a String
+```python
+revString = lambda string: string[::-1]
+print(revString("Hello World"))  # dlroW olleH
+```
+
+---
+
+### 2️⃣ Word Count in a Single Line
+```python
+wordCount = lambda string: {i : string.count(i) for i in string.split()}
+print(wordCount("Hello hi bye bye hello hi bye bye"))
+```
+
+---
+
+### 3️⃣ Word Count in Multi-line String
+```python
+wordCount = lambda string: {i : string.count(i) for i in string.split()}
+print(wordCount("""
+Hello hi bye bye hello hi bye bye
+hello hi bye bye hello hi bye bye
+"""))
+```
+
+---
+
+### 4️⃣ Reverse Each Word at Its Position
+```python
+revWord = lambda string: " ".join(i[::-1] for i in string.split())
+print(revWord("Hello World"))  # olleH dlroW
+```
+
+---
+
+## ✍️ Day 5 Word Assignment
+
+### 1️⃣ Sum of All Digits in Number
+```python
+def digitSum(num):
+    total = 0
+    while num:
+        total += num % 10
+        num //= 10
+    return total
+
+print(digitSum(12345))  # 15
+```
+
+---
+
+### 2️⃣ Reverse a Number
+```python
+def revNum(num):
+    reverse = 0
+    while num:
+        reverse = reverse * 10 + (num % 10)
+        num //= 10
+    return reverse
+
+print(revNum(12345))  # 54321
+```
+
+---
+
+### 3️⃣ Flatten a Nested List
+```python
+inputList = [1, [2, 3], [4, 5, 6]]
+
+def flatten(lst):
+    output = []
+    for item in lst:
+        if isinstance(item, int):
+            output.append(item)
+        else:
+            output.extend(item)
+    return output
+
+print(flatten(inputList))  # [1, 2, 3, 4, 5, 6]
+```
+
+---
+
+### 4️⃣ Caesar Cipher ROT-13 Encoder/Decoder
+
+```python
+key = {
+    **{chr(i): chr((i - 97 + 13) % 26 + 97) for i in range(97, 123)},
+    **{chr(i): chr((i - 65 + 13) % 26 + 65) for i in range(65, 91)}
+}
+
+def encode(text):
+    return ''.join(key.get(c, c) for c in text)
+
+def decode(text):
+    return ''.join(key.get(c, c) for c in text)
+
+string = input("Enter something: ")
+print(f"Encoded: {encode(string)}")
+print(f"Decoded: {decode(encode(string))}")
+```
+
+---
+
+### 5️⃣ Convert to CamelCase
+```python
 def camelCase(string):
-    
     ans = string[0].upper()
     flag = 0
     for i in range(1, len(string)):
@@ -3520,338 +3683,148 @@ def camelCase(string):
             flag = 0
         else:
             ans += string[i]
-            
     return ans
-        
 
-print(camelCase("hello_world_demo"))
-
-Output: HelloWorldDemo
+print(camelCase("hello_world_demo"))  # HelloWorldDemo
+```
 
 ---
 
-6. # Convert given string to Snake Case
-
+### 6️⃣ Convert to Snake_Case
+```python
 def snakeCase(string):
-    
     ans = string[0].lower()
-    
     for i in range(1, len(string)):
-        if(string[i].isupper()):
-            ans += f"_{string[i].lower()}"
+        if string[i].isupper():
+            ans += "_" + string[i].lower()
         else:
             ans += string[i]
-            
     return ans
 
-print(snakeCase("HelloWorldDemo"))
-
-Output: hello_world_demo
+print(snakeCase("HelloWorldDemo"))  # hello_world_demo
+```
 
 ---
 
-Factorial function using recursion:
-
+### 7️⃣ Factorial Using Recursion
+```python
 def fact(num):
-    if num == 1:
-        return 1
-    return num * fact(num - 1)
+    return 1 if num == 1 else num * fact(num - 1)
 
-print(fact(5))
---------------------------
+print(fact(5))  # 120
+```
 
-Day 6:
+---
 
-What if I want to use the function in other file?
+## 📦 Modules vs Script Files
 
-What is a script fiile?
-A file which is expected to run a code. It should execute a code.
+- **Script File**: Python file intended to **run code**
+- **Module**: Python file intended to **provide functions**, not execute directly
 
-Module:
-Module is nothing but a .py file.
-It contains readymade set of functions and can be shared with others.
-When we are importing any library, we are using their module.
-Module is that python file that contains functions that is used by other file.
-It does not print anything.
-It contains libraries.
+### 🔁 Example
 
-You can't write print / write inside a module. # Important
-If it is necessary only, then only you can write those commands.
-You can't call/invoke a function in the module file itself. # Important
+`functionsTest01.py`:
+```python
+def fact(num): return 1 if num == 1 else num * fact(num - 1)
+def add(a, b): return a + b
+def sub(a, b): return a - b
+def multiply(a, b): return a * b
+def divide(a, b): return a // b
+```
 
-Script file will act as a user of that library.
-We are importing a module.
-
-Instead of importing all the functions using import module, just use the particular function from the module
-
-from functionsTest01 import fact
-
-By using specific imports, you save a lot of memory.
-
-functionsTest01.py:
-def fact(num):
-    if num == 1:
-        return 1
-    return num * fact(num - 1)
-
-def add(a, b):
-    return a+b
-
-def sub(a, b):
-    return a-b
-
-def multiply(a, b):
-    return a*b
-
-def divide(a, b):
-    return a//b
-
-modules01.py:
+`modules01.py`:
+```python
 import functionsTest01
-from functionsTest01 import fact # importing specific function
-from functionsTest01 import add
-
-# We can rename a module
 import functionsTest01 as ft
+from functionsTest01 import fact, add
 
 print(functionsTest01.fact(5))
-
 print(ft.fact(4))
-
-# Below function is been explicitly exported
-# Called from 'from functionsTest01 import fact'
-# print(fact(5))
-
 print(add(30, 50))
-print(functionsTest01.sub(30, 10)) # This function is directly called from import functionsTest01
+print(functionsTest01.sub(30, 10))
+```
 
-Output:
-120
-24
-80
-20
+---
 
----------------------------------------------------------
+## 📁 Package Imports from Another Folder
 
-To import a file present in another folder, we have to use init.
-And it will be known as packages, instead of modules.
+- Use `__init__.py` to define **package**
+- Helps Python recognize the folder as a package
 
------------------------------------------------------------
+---
 
-Create a file with functions prime, even_odd, factorial, and then another file to use these functions.
+## 📂 Custom Functions from Module
 
-functionsTest02.py:
+`functionsTest02.py`:
+```python
+def factorial(num): ...
+def primeNum(num): ...
+def evenOdd(num): ...
+```
 
-def factorial(num):
-    fact = 1
-    for i in range(num, 0, -1):
-        fact *= i
-    return fact
-
-def primeNum(num):
-    
-    for i in range(2, num):
-        if(num % i == 0):
-            return False
-    return True
-
-def evenOdd(num):
-    if(num % 2 == 0):
-        return "Even Number"
-    else:
-        return "Odd Number"
-
-modules02.py:
-
+`modules02.py`:
+```python
 from functionsTest02 import primeNum, evenOdd, factorial
 
 print(primeNum(56))
 print(evenOdd(56))
 print(factorial(5))
-
-Output:
-False
-Even Number
-120
-
-------------------------------------------------------
-
-Important Note:
-Read / Write operations are fast in Lists.
-Search operations is slower than Dictionary.
-
---------------------------------------------------------
-
-# Inbuilt Functions:
-
-abs() converts negative number to positive.
-chr(65) gives ASCII value of 65, i.e., 'A'
-str() converts to string.
-all(a) functions only returns True if every iterable element is True.
-any(a) if any value is True it returns True
-Here, a is list
-
-```
-print(f"Absolute Function: {abs(-10)}")
-print(f"chr() Function: {chr(65)}")
-
-a = [10, 20]
-a = str(a)
-print(f"str() Function: {a}")
-print(type(a[0]))
-
-a = [True, False, True]
-
-print(f"all() function: {all(a)}")
-print(f"any() function: {any(a)}")
 ```
 
-Output:
-```
-Absolute Function: 10
-chr() Function: A
-str() Function: [10, 20]
-<class 'str'>
-all() function: False
-any() function: True
-```
+---
 
-len is used as universal function
-reversed() is used for list
-sorted() is used for list
-Objects should be of same data type for sorted() to work
+## 🚀 Performance Notes
 
-max() is used to print max value
-min() is used to print min value
+- **List** → Fast read/write, slower search
+- **Dict** → Fast key search
+- `abs()`, `chr()`, `str()`, `all()`, `any()` are useful in-built functions
 
-```
+---
 
-a  = [20, 10, 30, 60, 25]
+## 🔗 Map & Filter
 
-print(f"a: {a}")
-print(f"len(a) Function: {len(a)}")
-print(f"reversed(a) Function: {[i for i in reversed(a)]}")
-print(f"sorted(a) Function: {sorted(a)}")
-print(f"max(a) Function: {max(a)}")
-print(f"min(a) Function: {min(a)}")
-print(f"sum(a) Function: {sum(a)}")
-```
-
-Output:
-```
-a: [20, 10, 30, 60, 25]
-len(a) Function: 5
-reversed(a) Function: [25, 60, 30, 10, 20]
-sorted(a) Function: [10, 20, 25, 30, 60]
-max(a) Function: 60
-min(a) Function: 10
-sum(a) Function: 145
-```
-
-Slicing function for reverse [::-1] works in list, string and tuple. #Check
-
-
-Map Functions
-First parameter is iterable, which can be accessed through for loop
-it can be list, tuple
-
-This function will map every value in second parameter with the first value.
-
-Example:
+### ✅ `map()`
+```python
 a = [10, 20, 4, 65, 78, 31, 3, 7, 11]
 
-def square(num):
-    return num * num
-
+def square(num): return num ** 2
 print(list(map(square, a)))
 
-Output:
-[100, 400, 16, 4225, 6084, 961, 9, 49, 121]
-
-Example: Now check for Prime
-
-a = [10, 20, 4, 65, 78, 31, 3, 7, 11]
-
 def prime(num):
-    
     for i in range(2, num):
-        if(num % i == 0):
+        if num % i == 0:
             return False
     return True
 
 print(list(map(prime, a)))
 
-Output:
-[False, False, False, False, False, True, True, True, True]
-
-Example to check Even Odd Numbers:
-
 def evenOdd(num):
-    if(num % 2 == 0):
-        return "Even Number"
-    else:
-        return "Odd Number"
-    
+    return "Even" if num % 2 == 0 else "Odd"
+
 print(list(map(evenOdd, a)))
+```
 
-Output:
-['Even Number', 'Even Number', 'Even Number', 'Odd Number', 'Even Number', 'Odd Number', 'Odd Number', 'Odd Number', 'Odd Number']
+---
 
-Filter function:
-It outputs only those values which are True
+### ✅ `filter()`
+```python
+def isEven(num): return num % 2 == 0
 
-Now, with filter() function:
+print(list(map(isEven, a)))        # [True, True, True, ...]
+print(list(filter(isEven, a)))     # [10, 20, 4, 78]
+```
 
-def evenOdd(num):
-    if(num % 2 == 0):
-        return True
-    else:
-        return False
-    
-print(list(map(evenOdd, a)))
+---
 
-print(list(filter(evenOdd, a))) # returns only those values which are True
-
-Output:
-
-[True, True, True, False, True, False, False, False, False]
-[10, 20, 4, 78]
-
-Now using map with factorial function:
-
-def factorial(num):
+### ✅ Using `map()` with Factorial
+```python
+def factorial(n):
     fact = 1
-    for i in range(num, 0, -1):
+    for i in range(n, 0, -1):
         fact *= i
     return fact
 
 print(list(map(factorial, a)))
+```
 
-Output:
-[3628800, 2432902008176640000, 24, 8247650592082470666723170306785496252186258551345437492922123134388955774976000000000000000, 11324281178206297831457521158732046228731749579488251990048962825668835325234200766245086213177344000000000000000000, 8222838654177922817725562880000000, 6, 5040, 39916800]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
