@@ -135,6 +135,163 @@ containment: When one object contains another object
 e.g. Car HAS A engine.
 Computer HAS A Harddisk.
    
+What is a Class?
+Class is a word derived from the word Classification.
+Any object which has properties required to be that particular object has been classified, grouping.
+Similar structures -> group.
+That entity where we can write various attributes and methods.
+
+----------------------------------------------------------------------
+
+First OOP Program:
+
+class Employee:
+    empid = 1
+    ename = ""
+    salary = 0
+    
+    def __init__(self, empid, ename, salary): # Parameterized Constructor
+        self.empid = empid
+        self.ename = ename
+        self.salary = salary
+    
+    def printEmp(self): # This acts as 'this' operator, Use this to call any method
+        print(f"EMPID: {self.empid}")
+        print(f"EMAIL: {self.ename}")
+        print(f"SALARY: {self.salary}")
+        
+e = Employee(1, "abc", 99000)
+e.printEmp()
+
+Output:
+EMPID: 1
+EMAIL: abc
+SALARY: 99000
+
+---------------------------------------------------------------------
+
+With Inheritance:
+
+class Employee:
+    empid = 1
+    ename = ""
+    salary = 0
+    
+    def __init__(self, empid, ename, salary): # Parameterized Constructor
+        self.empid = empid
+        self.ename = ename
+        self.salary = salary
+    
+    def printEmp(self): # This acts as 'this' operator, Use this to call any method
+        print(f"EMPID: {self.empid}")
+        print(f"EMAIL: {self.ename}")
+        print(f"SALARY: {self.salary}")
+        
+class Developer(Employee): # Child Class
+    
+    def __init__(self, empid, ename, salary, devAllowance):
+        super().__init__(empid, ename, salary)
+        self.devAllowance = devAllowance
+        
+    def printEmp(self):
+        super().printEmp()
+        print("ALLOWANCE: ", self.devAllowance)
+
+e = Employee(7, "james", 11000)
+e.printEmp()
+print("------------------------------")
+d = Developer(1, "abc", 99000, 11000)
+d.printEmp()       
+
+Output:
+
+EMPID: 7
+EMAIL: james
+SALARY: 11000
+------------------------------
+EMPID: 1
+EMAIL: abc
+SALARY: 99000
+ALLOWANCE:  11000
+
+----------------------------------------------------------------------
+
+Assignment:
+
+1. Create class Calculator with basic methods
+
+class Calculator:
+    
+    def __init__(self, num1, num2):
+        self.num1 = num1
+        self.num2 = num2
+        
+    def add(self):
+        print(f"Addition: {self.num1 + self.num2}")
+    def sub(self):
+        print(f"Subtraction: {self.num1 - self.num2}")
+    def multiply(self):
+        print(f"Multiplication: {self.num1 * self.num2}")
+    def divide(self):
+        print(f"Division: {self.num1 // self.num2}")
+
+c = Calculator(40, 20)
+c.add()
+c.sub()
+c.multiply()
+c.divide()
+
+Output:
+
+Addition: 60
+Subtraction: 20
+Multiplication: 800
+Division: 2
+
+------------------------------------------------------------------
+
+2. Create AdvCalculator subclass and add more methods and also show polymorphism
+
+class Calculator:
+    
+    def __init__(self, num1, num2 = 1):
+        self.num1 = num1
+        self.num2 = num2
+        
+    def add(self):
+        print(f"Addition: {self.num1 + self.num2}")
+    def sub(self):
+        print(f"Subtraction: {self.num1 - self.num2}")
+    def multiply(self):
+        print(f"Multiplication: {self.num1 * self.num2}")
+    def divide(self):
+        print(f"Division: {self.num1 // self.num2}")
+        
+class advanceCalculator(Calculator):
+    
+    def __init__(self, num1, num2, power):
+        super().__init__(num1, num2)
+        self.power = power
+        
+    def exponentiation(self):
+        super().add()
+        super().sub()
+        super().multiply()
+        super().divide()
+        print(f"Exponentiation: {pow(self.num1, self.power)}")
+        
+a = advanceCalculator(2, 3, 4)
+a.exponentiation()
+
+Output:
+Addition: 5
+Subtraction: -1
+Multiplication: 6
+Division: 0
+Exponentiation: 16
+
+------------------------------------------------------------------------------
+
 
 
 
