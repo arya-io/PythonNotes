@@ -499,3 +499,10 @@ People learn from mistakes. But do it fast.
 Best way to learn a language is to use it.
 e.g. We can speak our mother tongue effectively. Animals too have their own language.
 This is the key to be a better python programmer.
+
+-----------------------------------------------------------------------------------------------------------
+
+In interview, you have to explain with code, what is being asked.
+You have to prove that you are well versed with the concepts.
+Simply defining and giving an example won't land you a job.
+It can be achieved only through testing your conceptual coding skills.
