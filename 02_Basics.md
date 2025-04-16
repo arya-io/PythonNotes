@@ -3828,3 +3828,175 @@ print(list(map(factorial, a)))
 ```
 
 ---
+
+# 🔁 Functional Programming in Python: `map()` and `filter()` Examples
+
+---
+
+## 📌 01. Filter Palindromes
+
+```python
+# Use filter() to extract palindromes from a list
+def palindrome(string):
+    return string == string[::-1]
+
+palindrome_list = ["amma", "anna", "viraj", "arya", "racecar", "madam"]
+print(list(filter(palindrome, palindrome_list)))
+```
+
+**Output:**
+```
+['amma', 'anna', 'racecar', 'madam']
+```
+
+---
+
+## 📌 02. Sum of ASCII Values in Strings
+
+```python
+# Use map() to convert each string into the sum of ASCII values of its characters
+def sum_ascii(text):
+    return sum(ord(char) for char in text)
+
+stringList = ['a', 'b', 'AA']
+print(list(map(sum_ascii, stringList)))
+```
+
+**Output:**
+```
+[97, 98, 130]
+```
+
+---
+
+## 📌 03. Square of Odd Numbers
+
+```python
+# Use filter() to select odd numbers and map() to square them
+def is_odd(num):
+    return num % 2 != 0
+
+def square(num):
+    return num * num
+
+numbers = [2, 4, 64, 23, 543, 65, 7, 76, 34, 7, 865]
+print(list(map(square, filter(is_odd, numbers))))
+```
+
+**Output:**
+```
+[529, 294849, 4225, 49, 49, 748225]
+```
+
+---
+
+## 📌 04. Remove Blank Strings
+
+```python
+# Use filter() to remove blank or whitespace-only strings
+def is_not_blank(string):
+    return not string.isspace() and len(string) > 0
+
+stringList = ["hello", " ", "hi", " ", "bye", ""]
+print(list(filter(is_not_blank, stringList)))
+```
+
+**Output:**
+```
+['hello', 'hi', 'bye']
+```
+
+---
+
+## 📌 05. Extract Domain Names from Emails
+
+```python
+# Use map() to extract domain names after '@' in email addresses
+def domain_name(email):
+    return email[email.index('@') + 1:]
+
+urlList = ["abc@xyz.com", "abc@gmail.com"]
+print(list(map(domain_name, urlList)))
+```
+
+**Output:**
+```
+['xyz.com', 'gmail.com']
+```
+
+---
+
+## 📌 06. Capitalize Names Starting with Consonants
+
+```python
+# Capitalize names that start with consonants
+def capitalize_if_consonant(text):
+    return text.upper() if text[0].lower() not in "aeiou" else text
+
+wordList = ['hello', 'arya', 'mango', 'tree', 'icecream', "Horse"]
+print(list(map(capitalize_if_consonant, wordList)))
+```
+
+**Output:**
+```
+['HELLO', 'arya', 'MANGO', 'TREE', 'icecream', 'HORSE']
+```
+
+---
+
+## 📌 07. Convert Celsius to Fahrenheit and Filter > 100°F
+
+```python
+# Convert temperatures from °C to °F and filter values > 100°F
+def c_to_f(temp):
+    return (temp * 9/5) + 32
+
+def is_above_100(temp_f):
+    return temp_f > 100
+
+tempList = [32, 23, 45, 36, 22, 20, 10, 43, 47]
+print(list(filter(is_above_100, map(c_to_f, tempList))))
+```
+
+**Output:**
+```
+[113.0, 104.6, 116.6]
+```
+
+---
+
+## 📌 08. Filter Strong Passwords
+
+**Criteria:**  
+- Minimum 8 characters  
+- At least one uppercase, one lowercase, one digit, and one special character
+
+```python
+def is_strong_password(password):
+    if len(password) < 8:
+        return False
+
+    has_upper = has_lower = has_digit = has_special = False
+
+    for char in password:
+        if char.isupper():
+            has_upper = True
+        elif char.islower():
+            has_lower = True
+        elif char.isdigit():
+            has_digit = True
+        elif not char.isalnum():
+            has_special = True
+
+    return all([has_upper, has_lower, has_digit, has_special])
+
+passwordList = ["abc", "123", "Abc@123", "Abc.123_xyz", "HelloWorld@123#"]
+print(list(filter(is_strong_password, passwordList)))
+```
+
+**Output:**
+```
+['Abc.123_xyz', 'HelloWorld@123#']
+```
+
+---
