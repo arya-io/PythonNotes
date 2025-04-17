@@ -555,3 +555,223 @@ print("\nComparing Objects:")
 ```
 
 ---
+
+Abstract:
+
+Virtual, Imaginary
+
+Abstract Class: may contain abstract or non-abstract methods
+To use abstract classes, inheritance is required.
+Concrete Class: creation of object
+
+Why can't we create object of abstract class in most of the programming languages?
+
+from abc import ABC, abstractmethod # to make abstract class and abstract methods, we must import abc
+
+class Animal(ABC): # Defining Abstract Class # ABC stands for Abstract Base Class
+    
+    @abstractmethod  #This method in Python is known as decorator. In Java, this is known as Annotation. This is used to create abstract method.
+    def eat(self):
+        pass # pass is used to leave them without implementation
+    
+    @abstractmethod
+    def walk(self):
+        pass
+    @abstractmethod
+    def hello(self):
+        # pass
+        print("Hello World") # Though this class has implementation, but it will get override when called in child class
+    
+# Abstract methods must be implemented by the subclass (Cat in this case).
+
+class Cat(Animal):
+    def eat(self):
+        print("Cat eats...")
+        
+    def walk(self):
+        print("Cat walks...")
+        
+    def hello(self):
+        print("We are in child class")
+    
+# a = Animal() # This creation of object of Abstract Class will give error
+
+c = Cat()
+
+c.eat()
+c.walk()
+c.hello()
+
+
+Output:
+
+Cat eats...
+Cat walks...
+We are in child class
+
+------------------------------------------------------------------------
+
+Static keyword:
+It belongs to the class.
+There's no need to create an object to access that class.
+
+class Demo:
+    @staticmethod
+    def hello():
+        print("hello World")
+        
+Demo.hello()
+
+Output:
+
+hello World
+
+Why do we create static methods?
+Memory is allocated to only one object and not many objects
+
+class Demo:
+    
+    @staticmethod
+    def hello():
+        val_pi = 3.1416
+        return val_pi
+        
+print(Demo.hello())
+
+Output:
+3.1416
+
+-----------------
+
+class Demo:
+    
+    globalData = 123
+    
+    @staticmethod
+    def hello():
+        val_pi = 3.1416
+        return val_pi
+
+print(Demo.globalData)
+print(Demo.hello())
+
+Output:
+
+123
+3.1416
+
+---------------
+
+class Employee:
+    
+    def __init__(self, empid, ename, salary):
+        self.empid = empid
+        self.ename = ename
+        self.salary = salary
+        
+    def __str__(self):
+        return self.ename
+    
+    def __repr__(self):
+        return self.ename
+        
+e1 = Employee(1, 'abc', 100000)
+e2 = Employee(2, 'def', 200000)
+
+print(f"Employee: {str(e1)}")
+
+print(e1) # This won't work until we use __repr__ function
+
+# __str__ and __repr__ are very close in functionality
+
+Output:
+
+Employee: abc
+abc
+
+---------------------
+
+# MULTIPLE INHERITANCE
+
+print("MULTIPLE INHERITANCE:\n")
+
+class Parent1:
+    
+    def __init__(self, name):
+        self.name = name
+        
+    def hello1(self):
+        print(f"Hello I am Parent 1: {self.name}")
+
+class Parent2:
+    
+    def __init__(self, name):
+        self.name = name
+        
+    def hello2(self):
+        print(f"Hello I am Parent 2: {self.name}")
+
+class Child(Parent1, Parent2):
+    
+    def __init__(self, name):
+        self.name = name
+        
+    def hello(self):
+        print(f"Hello I am Child: {self.name}")
+        
+c = Child("Viraj")
+c.hello()
+c.hello1()
+c.hello2()
+
+# MULTI-LEVEL INHERITANCE
+
+print("\nMULTI-LEVEL INHERITANCE:\n")
+
+class Parent1:
+    
+    def __init__(self, name):
+        self.name = name
+        
+    def hello1(self):
+        print(f"Hello I am Parent 1: {self.name}")
+
+class Parent2(Parent1):
+    
+    def __init__(self, name):
+        self.name = name
+        
+    def hello2(self):
+        print(f"Hello I am Parent 2: {self.name}")
+
+class Child(Parent2):
+    
+    def __init__(self, name):
+        self.name = name
+        
+    def hello(self):
+        print(f"Hello I am Child: {self.name}")
+        
+c = Child("Viraj")
+c.hello()
+c.hello1()
+c.hello2()
+
+-------
+
+Output:
+
+MULTIPLE INHERITANCE:
+
+Hello I am Child: Viraj
+Hello I am Parent 1: Viraj
+Hello I am Parent 2: Viraj
+
+MULTI-LEVEL INHERITANCE:
+
+Hello I am Child: Viraj
+Hello I am Parent 1: Viraj
+Hello I am Parent 2: Viraj
+
+-----------------------------------------
+
