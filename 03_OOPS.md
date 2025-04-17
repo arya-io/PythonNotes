@@ -556,147 +556,221 @@ print("\nComparing Objects:")
 
 ---
 
-Abstract:
+# 🐍 Python Abstract Classes & Methods �
 
-Virtual, Imaginary
+## 🌌 Abstract Concepts
+- **Virtual**: Exists in effect but not in reality
+- **Imaginary**: Conceptual rather than concrete
 
-Abstract Class: may contain abstract or non-abstract methods
-To use abstract classes, inheritance is required.
-Concrete Class: creation of object
+## 🏗️ Class Types
+- **Abstract Class**:
+  - May contain both abstract **and** non-abstract methods
+  - Requires inheritance to be useful
+  - Cannot be instantiated directly
+- **Concrete Class**:
+  - Fully implemented class
+  - Can be instantiated (objects can be created)
 
-Why can't we create object of abstract class in most of the programming languages?
+## ❓ Why Can't We Instantiate Abstract Classes?
+In most programming languages (including Python):
+1. Abstract classes are **incomplete** by design
+2. They serve as **templates** for other classes
+3. Instantiation would lead to undefined behavior (since abstract methods have no implementation)
 
-from abc import ABC, abstractmethod # to make abstract class and abstract methods, we must import abc
+## 🛠️ Python Implementation
+```python
+from abc import ABC, abstractmethod  # Required imports
 
-class Animal(ABC): # Defining Abstract Class # ABC stands for Abstract Base Class
-    
-    @abstractmethod  #This method in Python is known as decorator. In Java, this is known as Annotation. This is used to create abstract method.
+class Animal(ABC):  # Abstract Base Class 🏗️
+    @abstractmethod  # Decorator for abstract methods
     def eat(self):
-        pass # pass is used to leave them without implementation
+        pass  # No implementation
     
     @abstractmethod
     def walk(self):
         pass
+    
     @abstractmethod
     def hello(self):
-        # pass
-        print("Hello World") # Though this class has implementation, but it will get override when called in child class
-    
-# Abstract methods must be implemented by the subclass (Cat in this case).
+        print("Hello World")  # Has implementation but will be overridden
+```
 
-class Cat(Animal):
+## 🐱 Concrete Implementation Example
+```python
+class Cat(Animal):  # Must implement all abstract methods
     def eat(self):
-        print("Cat eats...")
+        print("Cat eats...")  # 🐟 Concrete implementation
         
     def walk(self):
-        print("Cat walks...")
+        print("Cat walks...")  # 🐾 Concrete implementation
         
     def hello(self):
-        print("We are in child class")
-    
-# a = Animal() # This creation of object of Abstract Class will give error
+        print("We are in child class")  # Overrides parent implementation
+```
 
-c = Cat()
+## 🚫 Illegal vs ✅ Legal
+```python
+# a = Animal()  # ❌ TypeError: Can't instantiate abstract class
+c = Cat()       # ✅ Legal - Concrete class
+c.eat()         # Output: Cat eats...
+c.walk()        # Output: Cat walks...
+c.hello()       # Output: We are in child class
+```
 
-c.eat()
-c.walk()
-c.hello()
+## 💡 Key Observations from Your Code
+1. Even though `hello()` had an implementation in the abstract class, it **must still be overridden** in the concrete class
+2. The `@abstractmethod` decorator **forces** implementation in child classes
+3. Python's abstraction is more **flexible** than Java's (you can mix abstract/concrete methods)
+
+## � Common Pitfalls
+- Forgetting to implement **all** abstract methods → `TypeError`
+- Trying to use `super()` in abstract methods without proper implementation
+- Assuming abstract methods can't have any implementation (they can, but it's usually overridden)
+
+## 🆚 Java Comparison
+| Feature        | Python            | Java               |
+|---------------|-------------------|--------------------|
+| Annotation    | `@abstractmethod` | `abstract` keyword |
+| Base Class    | `ABC`             | `abstract class`   |
+| Enforcement   | Runtime           | Compile-time       |
 
 
-Output:
+---
 
-Cat eats...
-Cat walks...
-We are in child class
+# 🔄 **Static Methods in Python**  
+### *No Object Needed!*  
 
-------------------------------------------------------------------------
+### 🎯 **What is a Static Method?**  
+- Belongs to the **class**, not instances.  
+- Called **without creating an object**.  
+- Memory-efficient (**only one copy** exists).  
 
-Static keyword:
-It belongs to the class.
-There's no need to create an object to access that class.
-
+### 🛠 **Syntax**  
+```python
 class Demo:
-    @staticmethod
+    @staticmethod  # Decorator to define a static method
     def hello():
         print("hello World")
         
-Demo.hello()
-
-Output:
-
+Demo.hello()  # No object needed!
+```
+**Output:**  
+```
 hello World
+```
 
-Why do we create static methods?
-Memory is allocated to only one object and not many objects
+---
 
+### ❓ **Why Use Static Methods?**  
+1. **Memory Efficiency**: Only **one copy** exists (no per-object allocation).  
+2. **Utility Functions**: For logic **not dependent on instance data**.  
+3. **Namespace Organization**: Group related functions under a class.  
+
+### 📊 **Example: Returning a Value**  
+```python
 class Demo:
-    
     @staticmethod
     def hello():
-        val_pi = 3.1416
+        val_pi = 3.1416  # Local variable
         return val_pi
         
-print(Demo.hello())
-
-Output:
+print(Demo.hello())  # Access directly via class
+```
+**Output:**  
+```
 3.1416
+```
 
------------------
+---
 
+### 🌍 **Static Method + Class Variables**  
+```python
 class Demo:
-    
-    globalData = 123
+    globalData = 123  # Class variable (shared across all instances)
     
     @staticmethod
     def hello():
         val_pi = 3.1416
         return val_pi
 
-print(Demo.globalData)
-print(Demo.hello())
-
-Output:
-
+print(Demo.globalData)  # Access class variable
+print(Demo.hello())    # Access static method
+```
+**Output:**  
+```
 123
 3.1416
+```
 
----------------
+---
 
+# 🎭 **Special Methods: `__str__` vs `__repr__`**  
+### *String Representation of Objects*  
+
+### 📜 **`__str__` (Human-Readable)**  
+- Used by `print()` and `str()`.  
+- Meant for **end-users**.  
+
+### 📜 **`__repr__` (Developer-Friendly)**  
+- Used when object is **inspected** (e.g., in REPL).  
+- Meant for **debugging**.  
+
+### 🛠 **Example: Employee Class**  
+```python
 class Employee:
-    
     def __init__(self, empid, ename, salary):
         self.empid = empid
         self.ename = ename
         self.salary = salary
         
-    def __str__(self):
+    def __str__(self):  # Called by print()/str()
         return self.ename
     
-    def __repr__(self):
+    def __repr__(self):  # Called by repr()/REPL
         return self.ename
         
 e1 = Employee(1, 'abc', 100000)
 e2 = Employee(2, 'def', 200000)
 
-print(f"Employee: {str(e1)}")
-
-print(e1) # This won't work until we use __repr__ function
-
-# __str__ and __repr__ are very close in functionality
-
-Output:
-
+print(f"Employee: {str(e1)}")  # Uses __str__
+print(e1)  # Also uses __str__ (falls back to __repr__ if __str__ missing)
+```
+**Output:**  
+```
 Employee: abc
 abc
+```
+
+---
+
+### 🔍 **Key Differences**  
+| Method | Purpose | Called By |
+|--------|---------|-----------|
+| `__str__` | User-friendly output | `print()`, `str()` |
+| `__repr__` | Debugging/REPL | `repr()`, console inspection |  
+
+### 💡 **Best Practice**  
+- Always define **`__repr__`** (used as fallback if `__str__` is missing).  
+- `__str__` should be **readable**, `__repr__` should be **unambiguous**.  
+
+---
+
+### 🚀 **When to Use Static Methods?**  
+✔ **Math utilities** (e.g., `calculate_pi()`).  
+✔ **Global configurations** (e.g., `AppConfig.get_version()`).  
+✔ **Pure functions** (no instance data needed).
 
 ---------------------
 
-# MULTIPLE INHERITANCE
 
-print("MULTIPLE INHERITANCE:\n")
+# 🧬 **Inheritance in Python: Multiple vs Multi-Level**  
 
+## 🔄 **Multiple Inheritance**  
+### *(One child inherits from **multiple parents**)*  
+
+### 🛠 **Syntax & Behavior**  
+```python
 class Parent1:
-    
     def __init__(self, name):
         self.name = name
         
@@ -704,15 +778,13 @@ class Parent1:
         print(f"Hello I am Parent 1: {self.name}")
 
 class Parent2:
-    
     def __init__(self, name):
         self.name = name
         
     def hello2(self):
         print(f"Hello I am Parent 2: {self.name}")
 
-class Child(Parent1, Parent2):
-    
+class Child(Parent1, Parent2):  # Inherits from both Parent1 and Parent2
     def __init__(self, name):
         self.name = name
         
@@ -720,32 +792,69 @@ class Child(Parent1, Parent2):
         print(f"Hello I am Child: {self.name}")
         
 c = Child("Viraj")
-c.hello()
-c.hello1()
-c.hello2()
+c.hello()  # Calls Child's method
+c.hello1() # Calls Parent1's method
+c.hello2() # Calls Parent2's method
+```
+**Output:**  
+```
+Hello I am Child: Viraj  
+Hello I am Parent 1: Viraj  
+Hello I am Parent 2: Viraj  
+```
 
-# MULTI-LEVEL INHERITANCE
+### ⚠ **Key Rules**  
+1. **Method Resolution Order (MRO)**: Python checks methods left-to-right in inheritance list (`Child(Parent1, Parent2)` → `Parent1` first).  
+2. **Same Method Names**: If `Parent1` and `Parent2` have **same method**, the **leftmost parent** wins.  
+3. **Child Overrides Parents**: If the child defines the same method, it **overrides** all parents.  
 
-print("\nMULTI-LEVEL INHERITANCE:\n")
+---
 
+### 🔍 **Example: Conflicting Method Names**  
+```python
 class Parent1:
-    
+    def __hello__(self):
+        print("I am Parent Class 1")
+
+class Parent2:
+    def __hello__(self):
+        print("I am Parent Class 2")
+
+class Child(Parent2, Parent1):  # Parent2 comes first!
+    pass  # No __hello__ in Child
+
+c = Child("Arya")
+c.__hello__()  # Calls Parent2's method
+```
+**Output:**  
+```
+I am Parent Class 2: Arya  
+```
+**Why?**  
+- `Parent2` is listed **first** in `Child(Parent2, Parent1)`, so its method is prioritized.  
+
+---
+
+## 📶 **Multi-Level Inheritance**  
+### *(Child → Parent → Grandparent)*  
+
+### 🛠 **Syntax & Behavior**  
+```python
+class Parent1:
     def __init__(self, name):
         self.name = name
         
     def hello1(self):
         print(f"Hello I am Parent 1: {self.name}")
 
-class Parent2(Parent1):
-    
+class Parent2(Parent1):  # Parent2 inherits Parent1
     def __init__(self, name):
         self.name = name
         
     def hello2(self):
         print(f"Hello I am Parent 2: {self.name}")
 
-class Child(Parent2):
-    
+class Child(Parent2):  # Child inherits Parent2 (and indirectly Parent1)
     def __init__(self, name):
         self.name = name
         
@@ -753,25 +862,314 @@ class Child(Parent2):
         print(f"Hello I am Child: {self.name}")
         
 c = Child("Viraj")
-c.hello()
-c.hello1()
-c.hello2()
+c.hello()  # Child's method
+c.hello1() # Parent1's method (via Parent2)
+c.hello2() # Parent2's method
+```
+**Output:**  
+```
+Hello I am Child: Viraj  
+Hello I am Parent 1: Viraj  
+Hello I am Parent 2: Viraj  
+```
 
--------
+### ⚠ **Key Rules**  
+1. **Inheritance Chain**: `Child → Parent2 → Parent1`.  
+2. **Method Lookup**: Python searches up the chain (**child → parent → grandparent**).  
 
-Output:
+---
 
-MULTIPLE INHERITANCE:
+## 🎯 **Key Differences**  
+| Feature | Multiple Inheritance | Multi-Level Inheritance |  
+|---------|----------------------|-------------------------|  
+| **Structure** | One child, multiple parents | Child → Parent → Grandparent |  
+| **Use Case** | Combine unrelated features | Build hierarchical relationships |  
+| **MRO** | Left-to-right priority | Linear (child to ancestor) |  
 
-Hello I am Child: Viraj
-Hello I am Parent 1: Viraj
-Hello I am Parent 2: Viraj
+---
 
-MULTI-LEVEL INHERITANCE:
+## 💡 **When to Use Which?**  
+- **Multiple Inheritance**:  
+  - Combine **independent functionalities** (e.g., `LoggedUser`, `AdminUser`).  
+  - Risk: **Diamond problem** (complex MRO).  
+- **Multi-Level**:  
+  - Model **"is-a" hierarchies** (e.g., `Animal → Bird → Sparrow`).  
 
-Hello I am Child: Viraj
-Hello I am Parent 1: Viraj
-Hello I am Parent 2: Viraj
+---
 
------------------------------------------
+## 🚀 **Best Practices**  
+1. Avoid **deep inheritance chains** (hard to debug).  
+2. Use **`super()`** for consistent parent initialization.  
+3. Prefer **composition over inheritance** for complex cases.  
 
+---
+
+# 🍰 **Dessert Shop Checkout System**  
+### *Implementing Inheritance & Abstract Classes*  
+
+## 📝 **Assignment Overview**  
+Build a checkout system for a dessert shop that sells:  
+- **Candy** (by weight in grams)  
+- **Cookies** (by dozen)  
+- **Ice Cream** (fixed price)  
+- **Sundae** (ice cream + toppings)  
+
+---
+
+## 🏗 **Class Hierarchy**  
+### 1. **Abstract Base Class: `DessertItem`**  
+```python
+from abc import ABC, abstractmethod 
+
+class DessertItem(ABC):
+    def __init__(self, item_Name):
+        self.item_Name = item_Name
+
+    @abstractmethod
+    def itemCost(self):  # Must be implemented by subclasses
+        pass
+    
+    def itemName(self):  # Concrete method
+        return self.item_Name
+```
+**Key Points:**  
+- **`@abstractmethod`**: Forces subclasses to implement `itemCost()`.  
+- **`itemName()`**: Common logic for all dessert items.  
+
+---
+
+### 2. **Concrete Classes**  
+
+#### 🍬 **Candy (Price by Weight)**  
+```python
+class Candy(DessertItem):
+    def __init__(self, item_Name, weight):
+        super().__init__(item_Name)
+        self.weight = weight  # Weight in grams
+        
+    def itemCost(self):
+        return (self.weight * 0.1)  # Converts grams to cost (e.g., 200g → 20 Rs)
+```
+**Example:**  
+- `Candy("Fudge", 200)` → Cost = `200 * 0.1 = 20 Rs`.  
+
+#### 🍪 **Cookie (Price by Dozen)**  
+```python
+class Cookie(DessertItem):
+    def __init__(self, item_Name, units):
+        super().__init__(item_Name)
+        self.units = units  # Number of cookies
+        
+    def itemCost(self):
+        return (self.units * (100 / 12))  # 100 Rs/dozen → 8.33 Rs per cookie
+```
+**Example:**  
+- `Cookie("Chocolate Chip", 4)` → Cost = `4 * (100/12) ≈ 33.33 Rs`.  
+
+#### 🍦 **Ice Cream (Fixed Price)**  
+```python
+class IceCream(DessertItem):
+    def __init__(self, item_Name):
+        super().__init__(item_Name)
+        
+    def itemCost(self):
+        return 50  # Flat rate
+```
+
+#### 🍨 **Sundae (Ice Cream + Toppings)**  
+```python
+class Sundae(IceCream):
+    def __init__(self, item_Name, toppingsPrice):
+        super().__init__(item_Name)
+        self.toppingsPrice = toppingsPrice
+        
+    def itemCost(self):
+        return super().itemCost() + self.toppingsPrice  # IceCream cost + toppings
+```
+**Example:**  
+- `Sundae("Vanilla with Sprinkles", 25)` → Cost = `50 (base) + 25 = 75 Rs`.  
+
+---
+
+## � **Checkout System**  
+### **`Checkout` Class Features**  
+1. **Add items** to cart.  
+2. **Clear cart**.  
+3. **Get item count**.  
+4. **Calculate total cost**.  
+5. **Generate invoice**.  
+
+```python
+class Checkout():
+    def __init__(self):
+        self.cashRegister = list()  # Stores DessertItem objects
+    
+    def addItemToCart(self, *dessertItem):
+        for item in dessertItem:
+            self.cashRegister.append(item)
+    
+    def getNoOfItemsInCart(self):
+        return len(self.cashRegister)
+    
+    def getTotalCost(self):
+        return sum(item.itemCost() for item in self.cashRegister)
+    
+    def __repr__(self):  # Invoice generation
+        receipt = "\n".join([
+            f"{item.itemName()}: {item.itemCost()}"
+            for item in self.cashRegister
+        ])
+        return f"{receipt}\nTotal: {self.getTotalCost()}"
+```
+
+---
+
+## 🖥 **Output Example**  
+```python
+c = Checkout()
+ck = Cookie("Chocolate Cookie", 3)
+cd = Candy("Orange Candy", 250)
+ic = IceCream("Vanilla IceCream")
+sd = Sundae("Vanilla with Strawberry", 25)
+
+c.addItemToCart(ck, cd, ic, sd)
+print(c.getNoOfItemsInCart())  # Output: 4
+print(c.getTotalCost())       # Output: 175.0
+print(c)  # Prints invoice
+```
+**Invoice Output:**  
+```
+Chocolate Cookie: 25.0  
+Orange Candy: 25.0  
+Vanilla IceCream: 50  
+Vanilla with Strawberry: 75  
+Total: 175.0  
+```
+
+---
+
+## 🔧 **Areas for Improvement**  
+1. **Price Flexibility**:  
+   - Add **price per kg/dozen** as instance variables (e.g., `Candy(..., price_per_kg=50)`).  
+2. **Menu Class**:  
+   - Create a `Menu` class to list available items and prices.  
+3. **Error Handling**:  
+   - Validate inputs (e.g., negative weight/units).  
+
+---
+
+# 🏗 **Constructor Chaining in Python**  
+### *When One Constructor Calls Another*  
+
+### 🔑 **Key Points**  
+1. **Inheritance Requires Constructors**:  
+   - If a child class doesn’t define `__init__`, it inherits the parent’s constructor.  
+   - If both parent and child have `__init__`, the child **must** call the parent’s constructor explicitly using `super()`.  
+
+2. **Constructor Chaining**:  
+   - A constructor calling another constructor (e.g., parent → child).  
+
+### 🛠 **Example**  
+```python
+class Parent:
+    def __init__(self, name):
+        self.name = name
+        print("Parent constructor called")
+
+class Child(Parent):
+    def __init__(self, name, age):
+        super().__init__(name)  # Calls Parent's __init__
+        self.age = age
+        print("Child constructor called")
+
+c = Child("Alice", 10)
+```
+**Output:**  
+```
+Parent constructor called  
+Child constructor called  
+```
+
+---
+
+# 🕶 **Singleton Class**  
+### *Only One Instance Allowed*  
+
+### 🔑 **Key Points**  
+1. **Singleton Pattern**: Ensures a class has **only one instance** globally.  
+2. **Use Cases**:  
+   - Database connections.  
+   - Configuration managers.  
+
+### 🛠 **Implementation**  
+```python
+class Singleton:
+    __instance = None  # Private class variable
+
+    @staticmethod
+    def getInstance():
+        if Singleton.__instance is None:
+            Singleton()  # Calls __init__ once
+        return Singleton.__instance
+
+    def __init__(self):
+        if Singleton.__instance is not None:
+            raise Exception("Singleton class already initialized!")
+        Singleton.__instance = self
+
+# Usage
+s1 = Singleton.getInstance()
+s2 = Singleton.getInstance()
+print(s1 is s2)  # Output: True (same instance)
+```
+
+---
+
+# 🔒 **Access Specifiers in Python**  
+### *No Strict Privacy, Just Conventions*  
+
+### 🔑 **Key Points**  
+1. **Python Uses Naming Conventions**:  
+   - **Public**: No prefix (e.g., `name`).  
+   - **Protected**: Single underscore `_` (e.g., `_phone`).  
+     - Hint: "Should not be accessed outside."  
+   - **Private**: Double underscore `__` (e.g., `__phone`).  
+     - Name mangling: `__phone` becomes `_Demo__phone`.  
+
+2. **No Enforcement**: Python trusts developers to follow conventions.  
+
+### 🛠 **Example**  
+```python
+class Demo:
+    def __init__(self, name, phone):
+        self.name = name          # Public
+        self.__phone = phone      # Private (name-mangled)
+
+    def getPhone(self):           # Getter for private attribute
+        return self.__phone
+
+d = Demo("abc", 123)
+print(d.name)           # Works (public)
+print(d.getPhone())     # Works (via getter)
+print(d._Demo__phone)   # Works (but don't do this!)
+```
+**Output:**  
+```
+abc  
+123  
+123  
+```
+
+### ⚠ **Common Pitfalls**  
+- **No True Privacy**: Even "private" attributes can be accessed with name mangling.  
+- **Use Getters/Setters**: For controlled access to private data.  
+
+---
+
+## 🎯 **Key Takeaways**  
+1. **Constructor Chaining**: Use `super()` to call parent constructors.  
+2. **Singleton**: Override `__new__` or use a static method for single-instance control.  
+3. **Access Specifiers**:  
+   - Public: `var`  
+   - Protected: `_var` (convention only)  
+   - Private: `__var` (name-mangled)  
