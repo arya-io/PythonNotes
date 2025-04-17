@@ -96,9 +96,6 @@ print(total)               # Output: 10
 3. Prefer **built-in libraries** (e.g., `itertools`, `functools`) for efficiency.
 4. Engage with communities (e.g., Python's FP-focused forums) to learn idiomatic patterns.
 
----
-
-*Keep these notes for quick revision and refer back to code examples when practicing.*
 
 ---
 
@@ -163,12 +160,7 @@ An object has four pillars:
   - Focus on objects and their interactions.
   - Promotes reusability, maintainability, and cleaner code structure.
 
----*
-
-Here’s a refined, well-structured version of your Python OOP notes in markdown format. The goal is to make them clearer, more organized, and easier for future revision. I've preserved your original examples and outputs while enhancing the formatting, explanations, and readability.
-
 ---
-
 
 ## 🔹 What is a Class?
 
