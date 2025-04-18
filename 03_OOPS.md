@@ -1165,3 +1165,383 @@ abc
    - Public: `var`  
    - Protected: `_var` (convention only)  
    - Private: `__var` (name-mangled)  
+---
+
+# **📚 Python Exception Handling Notes**  
+
+## **1. 🚨 Understanding Errors in Python**  
+An **error** is any unusual behavior that:  
+- ➗ Deviates from expected program output  
+- ❌ Causes unexpected results  
+- ⚠️ May terminate the program abruptly (crash)  
+- 🔧 Can be caused by software or hardware issues  
+
+### **🔑 Key Concepts:**  
+- **🌐 Distributed Systems**: Python supports distributed computing (data stored across multiple nodes).  
+- **🛡️ Robust Languages**: Python and Java handle errors gracefully (fault-tolerant).  
+- **⚡ Fault Tolerance**: Ability to continue running despite human/logical errors.  
+
+---  
+
+## **2. 🛠️ Types of Error Handling**  
+### **A. 🔍 Procedural (Conditional) Approach**  
+Check for possible errors using `if-else` before execution.  
+
+### **B. 🐍 Exception Handling (Pythonic Way)**  
+Use `try-except` blocks to catch and handle runtime errors.  
+
+---  
+
+## **3. 💻 Practical Examples**  
+
+### **📌 Example 1: Division by Zero**  
+#### **🚫 Procedural Approach (Commented)**  
+```python
+a = int(input("Enter a number: "))
+# Procedural check (commented)
+# if(a/0):  # This would raise an error before the check
+#     print("Error")
+# else:
+#     print("Please learn Exception Handling")
+```  
+**❓ Problem**: Division by zero is inherently invalid—conditional checks can't prevent the error.  
+
+#### **✅ Exception Handling Approach**  
+```python
+try:
+    print(a/0)  # Attempt division  
+except:
+    print("Error")  # Execute if division fails  
+```  
+**🖥️ Output**:  
+```
+Enter a number: 5  
+Error  
+```  
+**📝 Explanation**:  
+- `try` runs the risky operation (`a/0`).  
+- `except` catches the `ZeroDivisionError` and prints a message.  
+
+---  
+
+### **📌 Example 2: List Index Out of Bounds**  
+#### **🚫 Exception Handling**  
+```python
+myList = [2, 5, 4, 6, 5, 6]  
+ind = int(input("Enter index: "))  
+
+try:
+    print(myList[ind])  # Try accessing the index  
+except:
+    print("Index Out of Bound")  
+```  
+
+#### **✅ Procedural Approach**  
+```python
+if(ind < len(myList)):  # Check if index is valid  
+    print(myList[ind])  
+else:
+    print("Cannot access element in list.")  
+```  
+**🖥️ Output**:  
+```
+Enter index: 10  
+Index Out of Bound  
+Cannot access element in list.  
+```  
+**📝 Explanation**:  
+- `try` fails for `ind=10` (list has only 6 elements).  
+- Procedural check avoids the error by validating the index first.  
+
+---  
+
+### **📌 Example 3: String-Integer Concatenation**  
+#### **🚫 Exception Handling**  
+```python
+try:
+    print("Hello" + 3)  # Incompatible types  
+except:
+    print("Cannot concatenate string and an integer")  
+```  
+
+#### **✅ Procedural Approach**  
+```python
+a = input("Enter string: ")  
+b = int(input("Enter integer: "))  
+
+if type(a) is type(b):  # Check if types match  
+    print(a + b)  
+else:
+    print("Cannot concatenate two different data types!")  
+```  
+**🖥️ Output**:  
+```
+Cannot concatenate string and an integer  
+Enter string: Text  
+Enter integer: 100  
+Cannot concatenate two different data types!  
+```  
+**📝 Explanation**:  
+- Python raises `TypeError` for `str + int`.  
+- Procedural check prevents this by verifying types beforehand.  
+
+---  
+
+## **4. 🎯 Key Takeaways**  
+- **🔍 Procedural Checks**: Best for predictable errors (e.g., index bounds).  
+- **🛡️ Exception Handling**: Ideal for unpredictable errors (e.g., division by zero).  
+- **✨ Pythonic Practice**: Prefer `try-except` for cleaner, more maintainable code.  
+
+### **📖 Terminology**  
+- **🚨 Exception**: A runtime error that disrupts normal program flow.  
+- **⚡ Fault Tolerance**: System resilience against failures.  
+- **🛡️ Robustness**: Language’s ability to handle errors gracefully.  
+
+---  
+
+**🔁 Revision Tip**: Practice by triggering different errors (e.g., `ValueError`, `KeyError`) and handling them with `try-except`.  
+
+------------------------------
+
+# **🚀 Exception Handling in Python**  
+
+## **1. ❓ What is Exception Handling?**  
+A mechanism to **gracefully manage runtime errors** without crashing the program.  
+
+### **📌 Example**  
+```python
+try:
+    print(5 / 0)  # Risky operation
+except:
+    print("Error handled!")  # Fallback action
+```  
+**Output**:  
+```
+Error handled!
+```  
+
+### **🆚 Exception vs Error**  
+| **Error** | **Exception** |  
+|-----------|--------------|  
+| Caused by **syntax/logical flaws** (e.g., `SyntaxError`) | **Runtime disruptions** (e.g., `ZeroDivisionError`) |  
+| **Prevents execution** entirely | **Can be caught and handled** |  
+
+---
+
+## **2. 🔑 Four Keywords in Exception Handling**  
+
+### **❶ `try`**  
+- **Defines a block** where exceptions might occur.  
+```python
+try:
+    print(10 / 2)  # No error → executes normally
+except:
+    print("Error")
+```  
+**Output**:  
+```
+5.0
+```  
+
+### **❷ `except`**  
+- **Catches and handles exceptions**.  
+```python
+try:
+    print(10 / 0)
+except ZeroDivisionError:
+    print("Can’t divide by zero!")
+```  
+**Output**:  
+```
+Can’t divide by zero!
+```  
+
+### **❸ `finally`**  
+- **Always executes**, whether an error occurs or not.  
+- Used for **cleanup** (e.g., closing files).  
+```python
+try:
+    print(5 / 0)
+except:
+    print("Error")
+finally:
+    print("This always runs!")
+```  
+**Output**:  
+```
+Error  
+This always runs!
+```  
+
+### **❹ `raise`**  
+- **Manually trigger exceptions**.  
+```python
+if age < 0:
+    raise ValueError("Age can’t be negative!")
+```  
+
+---
+
+## **3. 🎯 `try-except-else`**  
+- **`else` runs only if no exception occurs**.  
+```python
+try:
+    print(5 / 2)  # No error
+except:
+    print("Error")
+else:
+    print("Success!")  # Executes if try succeeds
+```  
+**Output**:  
+```
+2.5  
+Success!
+```  
+
+---
+
+## **4. 🔄 `finally` Block**  
+### **❓ Why Use It?**  
+- **Guaranteed execution** for critical tasks (e.g., releasing resources).  
+```python
+try:
+    file = open("demo.txt", "r")
+    print(file.read())
+except:
+    print("File error")
+finally:
+    file.close()  # Always closes the file
+    print("Resource freed!")
+```  
+
+---
+
+## **5. 🎯 Multiple `except` Blocks**  
+- **Handle different exceptions separately**.  
+```python
+a = input("Enter value a: ")
+b = input("Enter value b: ")
+
+try:
+    c = int(a) / int(b)
+except TypeError:
+    print("Use numbers only!")
+except ValueError:
+    print("Invalid conversion to int!")
+except ZeroDivisionError:
+    print("Denominator can’t be zero!")
+except:
+    print("Unknown error!")
+```  
+
+### **🖥️ Output Examples**  
+#### **Case 1: Valid Input**  
+```
+Enter value a: 6  
+Enter value b: 3  
+2.0  
+```  
+#### **Case 2: Invalid Input**  
+```
+Enter value a: 5  
+Enter value b: "hello"  
+Invalid conversion to int!  
+```  
+
+---
+
+## **6. 💡 Key Takeaways**  
+- **`try-except`**: Safely handle errors.  
+- **`else`**: Run code only on success.  
+- **`finally`**: Mandatory cleanup (e.g., closing files).  
+- **Multiple `except`**: Handle specific errors differently.  
+
+**🔧 Pro Tip**: Always order exceptions from **most specific to generic**!  
+
+```python
+except ValueError:  # Specific  
+except Exception:   # Generic (catches all)  
+```
+
+---
+
+# **💰 InsufficientFundsError in Python**  
+
+## **1. ❓ What is `InsufficientFundsError`?**  
+- A **custom exception** to handle cases where a transaction fails due to lack of funds.  
+- **Inherits** from Python’s base `Exception` class.  
+
+### **📌 Why Use It?**  
+- To **enforce business rules** (e.g., "Minimum balance required").  
+- Makes code **more readable** by using domain-specific errors.  
+
+---
+
+## **2. 🛠️ How to Define & Use It**  
+
+### **Step 1: Define the Custom Exception**  
+```python
+class InsufficientFundsError(Exception):  # Inherits from Exception
+    pass  # Empty class (uses default behavior)
+```
+
+### **Step 2: Raise the Exception**  
+```python
+balance = 7
+MIN_BALANCE = 5
+
+if balance < MIN_BALANCE:
+    raise InsufficientFundsError("Balance too low! Minimum required: 5")
+```
+
+### **🖥️ Output (When `balance = 3`)**  
+```
+InsufficientFundsError: Balance too low! Minimum required: 5
+```
+
+---
+
+## **3. 🎯 Practical Example**  
+### **Bank Transaction Simulation**  
+```python
+class InsufficientFundsError(Exception):
+    pass
+
+def withdraw(amount, balance):
+    if amount > balance:
+        raise InsufficientFundsError(f"Failed: You need {amount - balance} more!")
+    return balance - amount
+
+try:
+    print(withdraw(100, 50))  # Triggers error
+except InsufficientFundsError as e:
+    print(e)
+```
+
+**Output**:  
+```
+Failed: You need 50 more!
+```
+
+---
+
+## **4. 💡 Key Takeaways**  
+1. **Custom Exceptions** improve code clarity for domain-specific errors.  
+2. **`raise`** triggers the exception manually.  
+3. **`try-except`** handles these errors gracefully.  
+
+**🔧 Pro Tip**: Add helpful error messages to guide users!  
+
+```python
+raise InsufficientFundsError("Minimum balance: $5")  # Better than a generic error
+```
+
+**🎉 Now you can build financial apps safely!** 🚀  
+
+--- 
+
+This was an example of Custom Exception.
+
+There are two types of exceptions in Java:
+Checked and unchecked exceptions.
+What are in Python?
