@@ -1540,8 +1540,291 @@ raise InsufficientFundsError("Minimum balance: $5")  # Better than a generic err
 
 --- 
 
-This was an example of Custom Exception.
+# **🐍 Python vs. ☕ Java Exceptions**
 
-There are two types of exceptions in Java:
-Checked and unchecked exceptions.
-What are in Python?
+## **1. Python Exception Types**
+Python **doesn't have checked exceptions** like Java. All Python exceptions are **unchecked** (runtime exceptions). 
+
+### **📌 Python Exception Categories**
+| Type              | Description                          | Example Exceptions              |
+|-------------------|--------------------------------------|---------------------------------|
+| **Built-in**      | Predefined in Python                 | `ValueError`, `TypeError`, `IndexError` |
+| **User-defined**  | Custom exceptions (you create them)  | `InsufficientFundsError` (your example) |
+
+### **Example: Python's Unchecked Nature**
+```python
+# No compiler forces you to handle this!
+print(10 / 0)  # Raises ZeroDivisionError at runtime
+```
+
+---
+
+## **2. ☕ Java Exception Types**
+Java has **two** explicit types:
+
+| Type              | Description                          | Example                  | Handling Requirement      |
+|-------------------|--------------------------------------|--------------------------|--------------------------|
+| **Checked**       | Compiler-enforced exceptions         | `IOException`            | Must be caught or declared in method signature (`throws`) |
+| **Unchecked**     | Runtime exceptions                   | `NullPointerException`   | Optional handling        |
+
+### **Java Checked Exception Example**
+```java
+// Compiler ERROR if unhandled!
+try {
+    FileReader file = new FileReader("nonexistent.txt");
+} catch (IOException e) {  // Mandatory handling
+    System.out.println("File not found!");
+}
+```
+
+---
+
+## **3. Key Differences**
+| Feature           | Python            | Java               |
+|-------------------|-------------------|--------------------|
+| **Checked Exceptions** | ❌ Not supported | ✅ Supported (compiler enforced) |
+| **Unchecked Exceptions** | ✅ All exceptions are unchecked | ✅ Supported (e.g., `NullPointerException`) |
+| **Custom Exceptions** | ✅ Supported (e.g., `class MyError(Exception)`) | ✅ Supported |
+
+---
+
+## **4. Why No Checked Exceptions in Python?**
+- **Philosophy**: Python prefers **"easier to ask for forgiveness than permission"** (EAFP).
+- **Flexibility**: Avoids forcing developers to handle exceptions they can’t recover from.
+- **Example EAFP Style**:
+  ```python
+  try:
+      print(10 / 0)
+  except ZeroDivisionError:  # Handling is optional
+      print("Handled gracefully!")
+  ```
+
+---
+
+## **5. Practical Implications**
+### **When to Handle Exceptions in Python?**
+- **Recoverable Errors**: File I/O, network calls (e.g., `try-except` for `FileNotFoundError`).
+- **Unrecoverable Errors**: `MemoryError` (usually let it crash and log).
+
+### **Java-Style Workaround in Python**
+```python
+def read_file(filename):
+    try:
+        with open(filename) as f:
+            return f.read()
+    except FileNotFoundError as e:
+        raise RuntimeError("Must handle this!") from e  # Simulate "checked" behavior
+```
+
+---
+
+## **6. 🎯 Summary**
+- **Python**: All exceptions are **unchecked** (handling is optional).  
+- **Java**: **Checked + Unchecked** (compiler enforces some).  
+- **Custom Exceptions**: Work similarly in both (inherit from base `Exception`/`RuntimeException`).  
+
+**💡 Pythonic Approach**: Use `try-except` liberally for expected failures, but don’t overuse for control flow.  
+
+**🚀 Pro Tip**: Use `logging` to track unexpected exceptions instead of suppressing them!  
+
+```python
+import logging
+try:
+    risky_operation()
+except Exception as e:
+    logging.error(f"Unexpected error: {e}")
+    raise  # Re-raise if critical
+```
+---
+
+# **💾 Data Persistence in Python**
+
+## **1. ❓ What is Data Persistence?**  
+- **Definition**: Storing data *permanently* (beyond program execution).  
+- **Methods**: Files (e.g., `.txt`, `.csv`) and databases (e.g., SQLite, MySQL).  
+
+---
+
+## **2. 🏎️ Speed Comparison: In-Memory vs. Persistent Storage**  
+
+| **Storage Type**       | **Speed**               | **Persistence** | **Use Case**              |  
+|------------------------|-------------------------|------------------|---------------------------|  
+| **In-Memory (List/Dict)** | ⚡ *Fastest* (CPU cache/RAM) | ❌ Temporary     | Runtime calculations      |  
+| **SSD/HDD (Files/DB)**   | 🐢 *Slower* (I/O latency) | ✅ Permanent     | Long-term data retention  |  
+
+### **🔧 Technical Reasons**  
+- **In-Memory**:  
+  - Stored in **RAM/CPU cache** (nanosecond access).  
+  - Volatile (lost on program restart).  
+- **Files/Databases**:  
+  - Stored on **disk** (millisecond access, slower due to I/O).  
+  - Non-volatile (retained after shutdown).  
+
+---
+
+## **3. 📊 Why Use Files/Databases?**  
+### **When In-Memory Fails**  
+1. **Data Size**: RAM is limited (e.g., 16GB), while disks offer TBs.  
+2. **Durability**: Power loss won’t erase files/databases.  
+3. **Sharing**: Multiple programs/users can access the same file/DB.  
+
+### **Example**  
+```python
+# In-Memory (Volatile)  
+users = ["Alice", "Bob"]  # Lost when program exits  
+
+# File Storage (Persistent)  
+with open("users.txt", "w") as f:  
+    f.write("Alice, Bob")  # Saved permanently  
+```
+
+---
+
+## **4. ⚡ Speed Hierarchy**  
+**Fastest → Slowest**:  
+1. **CPU Registers** (e.g., variables in a loop)  
+2. **RAM** (e.g., `list`, `dict`)  
+3. **SSD** (e.g., SQLite database)  
+4. **HDD** (e.g., large CSV files)  
+5. **Network Storage** (e.g., cloud databases)  
+
+### **Real-World Analogy**  
+- **RAM** = Your desk (fast but limited space).  
+- **Disk** = Filing cabinet (slower but holds more).  
+
+---
+
+## **5. 🛠️ When to Use Each?**  
+| **Structure**  | **Persistence** | **Speed** | **Example Use Case**         |  
+|---------------|------------------|-----------|-------------------------------|  
+| `list`/`dict` | ❌ No           | ⚡ Fast   | Sorting real-time sensor data |  
+| File          | ✅ Yes          | 🐢 Slow   | Saving user preferences       |  
+| Database      | ✅ Yes          | 🐢 Slow   | Multi-user inventory system   |  
+
+---
+
+## **6. 💡 Key Takeaways**  
+- **Use In-Memory**: For temporary, high-speed operations.  
+- **Use Files/DBs**: For permanent, large-scale, or shared data.  
+- **Trade-off**: Speed vs. durability.  
+
+**🚀 Pro Tip**: For speed-critical apps, **cache** frequently used data in memory (e.g., Redis).  
+
+```python
+# Hybrid approach: Load data from disk to memory on startup  
+with open("data.json") as f:  
+    cache = json.load(f)  # Now fast to access!  
+``` 
+
+---
+
+# **📂 File Handling in Python**
+
+## **1. 🗺️ Path Types**
+| **Path Type**      | **Description**                          | **Example**                     |
+|--------------------|------------------------------------------|---------------------------------|
+| **Absolute Path**  | Full path from root directory            | `C:/Users/name/abc.txt` (Windows) or `/home/user/abc.txt` (Linux/Mac) |
+| **Relative Path**  | Path relative to current working directory | `./abc.txt` (same folder) or `../parent/abc.txt` (parent folder) |
+
+---
+
+## **2. 📜 Opening a File**
+### **Syntax**
+```python
+file = open("filepath", "mode")  # Modes: r (read), w (write), a (append), etc.
+```
+
+### **Example: Write Mode (`'w'`)**
+```python
+file = open("abc.txt", "w")  # Creates new file (or overwrites existing)
+file.write("Hello..!! This is the new file we created.")
+file.close()  # ⚠️ Always close files to free resources!
+```
+
+### **Example: Read Mode (`'r'`)**
+```python
+file = open("abc.txt", "r")  # File must exist
+data = file.read()  # Reads entire content
+file.close()
+print(data)
+```
+**Output**:
+```
+Hello..!! This is the new file we created.
+```
+
+---
+
+## **3. 🔐 Best Practices**
+### **A. Use `with` Blocks (Auto-Closes File)**
+```python
+with open("abc.txt", "r") as file:  # No need to manually close
+    data = file.read()
+print(data)
+```
+
+### **B. File Modes Cheatsheet**
+| **Mode** | **Description**                      | **File Exists?** |
+|----------|--------------------------------------|------------------|
+| `r`      | Read (default)                       | ✅ Yes           |
+| `w`      | Write (creates/overwrites)           | ❌ No → Creates  |
+| `a`      | Append (adds to end)                 | ❌ No → Creates  |
+| `x`      | Exclusive creation (fails if exists) | ❌ No → Creates  |
+| `b`      | Binary mode (e.g., `'rb'`)           | -               |
+
+### **C. Handling Paths Cross-Platform**
+```python
+import os
+file_path = os.path.join("folder", "abc.txt")  # Works on Windows/Linux/Mac
+with open(file_path, "w") as f:
+    f.write("Hello OS-agnostic path!")
+```
+
+---
+
+## **4. 🚨 Common Pitfalls**
+1. **Forgot to Close**:  
+   - ❌ `file = open("x.txt", "w")` (leaks resources)  
+   - ✅ Use `with` blocks.
+
+2. **FileNotFoundError**:  
+   ```python
+   try:
+       with open("nonexistent.txt", "r") as f:
+           print(f.read())
+   except FileNotFoundError:
+       print("File not found!")  # Graceful handling
+   ```
+
+3. **Encoding Issues**:  
+   ```python
+   with open("unicode.txt", "w", encoding="utf-8") as f:
+       f.write("こんにちは")  # Japanese text
+   ```
+
+---
+
+## **5. 📊 Summary**
+- **Absolute vs. Relative Paths**: Choose based on portability needs.  
+- **`with` Blocks**: Safer and cleaner than manual `close()`.  
+- **Modes Matter**: `w` overwrites, `a` appends, `r` reads.  
+
+**🔧 Pro Tip**: Use `pathlib` for modern path handling:
+```python
+from pathlib import Path
+data = Path("abc.txt").read_text()  # One-line read!
+```
+
+**🎯 Exercise**: Try creating a log file that appends timestamps!  
+```python
+import datetime
+with open("log.txt", "a") as f:
+    f.write(f"{datetime.datetime.now()} - Event occurred\n")
+```
+
+1. Copy file 'a' content in file 'b'
+2. Convert all the vowels of a file into flip the case
+3. You have a multiline file, create two files out of that.
+   First file should contain even lines and second should contain odd
+4. Remove duplicate lines from file
+
