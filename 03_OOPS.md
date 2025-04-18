@@ -1822,9 +1822,470 @@ with open("log.txt", "a") as f:
     f.write(f"{datetime.datetime.now()} - Event occurred\n")
 ```
 
-1. Copy file 'a' content in file 'b'
-2. Convert all the vowels of a file into flip the case
-3. You have a multiline file, create two files out of that.
-   First file should contain even lines and second should contain odd
-4. Remove duplicate lines from file
+---
+
+# **📂 File Handling Operations (Original Code + Explanations)**
+
+## **1. Copying File Contents**  
+### Original Code:
+```python
+a = open("a.txt", "w")
+a.write("This is File 'a'. We are copying text of this file 'a' in file 'b'.")
+a.close()
+
+a = open("a.txt", "r")
+data = a.read()
+print("Content of file 'a': ")
+print(data)
+b = open("b.txt", "w")
+b.write(data)
+a.close()
+b.close()
+
+b = open("b.txt", "r")
+data = b.read()
+print("\nContent of file 'b':")
+print(data)
+b.close()
+```
+### Key Improvements:
+1. **Use `with` blocks** (auto-closes files):
+```python
+with open("a.txt", "w") as a:
+    a.write("Original content")
+
+with open("a.txt", "r") as a, open("b.txt", "w") as b:
+    b.write(a.read())
+```
+
+---
+
+## **2. Flipping Vowel Cases**  
+### Original Code:
+```python
+a = open("a.txt", "w")
+a.write("This is File 'a'. We are copying text of this file 'a' in file 'b'.")
+a.close()
+
+a = open("a.txt", "r")
+data = a.read()
+print("Content of file 'a': ")
+print(data)
+
+flip_data = ""
+for i in data:
+    if i in "aeiou":
+        flip_data += i.upper()
+    elif i in "AEIOU":
+        flip_data += i.lower()
+    else:
+        flip_data += i
+        
+b = open("b.txt", "w")
+b.write(flip_data)
+a.close()
+b.close()
+
+b = open("b.txt", "r")
+data = b.read()
+print("\nModified content in 'b':")
+print(data)
+b.close()
+```
+### Optimized Approach:
+```python
+vowel_map = str.maketrans("aeiouAEIOU", "AEIOUaeiou")
+with open("a.txt", "r") as a, open("b.txt", "w") as b:
+    b.write(a.read().translate(vowel_map))
+```
+
+---
+
+## **3. Splitting Odd/Even Lines**  
+### Original Code:
+```python
+a = open("a.txt", "w")
+a.write("""This is File 'a'.
+We are copying text of this file 'a' in file 'b'.
+This is even file.
+This is odd line.
+This is fourth line.
+This is 5th line.""")
+a.close()
+
+a = open("a.txt", "r")
+data = a.read().split("\n")
+print("Original lines:", data)
+
+even, odd = [], []
+for i in range(len(data)):
+    if i % 2 == 0:
+        even.append(data[i])
+    else:
+        odd.append(data[i])
+        
+with open("even.txt", "w") as e, open("odd.txt", "w") as o:
+    e.write("\n".join(even))
+    o.write("\n".join(odd))
+```
+### Pro Tip:
+Use `enumerate()` for cleaner line numbering:
+```python
+for idx, line in enumerate(data, 1):  # Starts counting at 1
+    if idx % 2 == 0: ...
+```
+
+---
+
+## **4. Removing Duplicate Lines**  
+### Original Code:
+```python
+a = open("a.txt", "w")
+a.write("""This is File 'a'.
+This is File 'a'.
+We are copying text...
+[rest of original content]""")
+a.close()
+
+a = open("a.txt", "r")
+data = a.read().split("\n")
+ans = []
+for line in data:
+    if line not in ans:
+        ans.append(line)
+
+with open("deduped.txt", "w") as out:
+    out.write("\n".join(ans))
+```
+### Memory-Efficient Version (for large files):
+```python
+seen = set()
+with open("bigfile.txt", "r") as infile, open("out.txt", "w") as outfile:
+    for line in infile:
+        if line not in seen:
+            outfile.write(line)
+            seen.add(line)
+```
+
+---
+
+## **5. The `seek()` Function**  
+### Original Functionality Preserved:
+```python
+# Example of using seek() to reset file pointer
+with open("data.txt", "r+") as f:
+    print(f.read(5))  # Reads first 5 bytes
+    f.seek(0)         # Rewinds to start
+    print(f.read()))   # Reads entire file
+```
+### Common `seek()` Patterns:
+| Operation | Code | Description |
+|-----------|------|-------------|
+| Start | `f.seek(0)` | Beginning of file |
+| End | `f.seek(0, 2)` | Jump to end |
+| Relative | `f.seek(5, 1)` | Move 5 bytes forward |
+
+---
+
+## **Best Practices Summary**
+1. **Always close files** (use `with` blocks)
+2. **Specify encodings**: `open(..., encoding='utf-8')`
+3. **For large files**: Process line-by-line instead of loading all into memory
+4. **Binary files**: Use `'rb'`/`'wb'` modes
+
+```python
+# Example: Safe file writing
+with open("important.txt", "w", encoding="utf-8") as f:
+    f.write("Critical data")
+    f.flush()  # Force write to disk
+    os.fsync(f.fileno())  # Ensure OS buffer is flushed
+```
+---
+
+## **1. Copy File Content (with Exception Handling)**
+```python
+try:
+    # Writing to source file
+    a = open("a.txt", "w")
+    a.write("This is File 'a'. We are copying text of this file 'a' in file 'b'.")
+    a.close()
+
+    # Reading and copying
+    a = open("a.txt", "r")
+    data = a.read()
+    print("Content of file 'a':")
+    print(data)
+
+    b = open("b.txt", "w")
+    b.write(data)
+    a.close()
+    b.close()
+
+    # Verification
+    b = open("b.txt", "r")
+    data = b.read()
+    print("\nContent of file 'b':")
+    print(data)
+    b.close()
+
+except FileNotFoundError:
+    print("Error: File not found!")
+except PermissionError:
+    print("Error: No write permission!")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+```
+**Output (Success Case)**:
+```
+Content of file 'a':
+This is File 'a'. We are copying text of this file 'a' in file 'b'.
+
+Content of file 'b':
+This is File 'a'. We are copying text of this file 'a' in file 'b'.
+```
+**Output (Error Case - Missing File)**:
+```
+Error: File not found!
+```
+
+---
+
+## **2. Flip Vowel Cases (with Exception Handling)**
+```python
+try:
+    a = open("a.txt", "w")
+    a.write("This is File 'a'. We are copying text of this file 'a' in file 'b'.")
+    a.close()
+
+    a = open("a.txt", "r")
+    data = a.read()
+    print("Content of file 'a':")
+    print(data)
+
+    flip_data = ""
+    for i in data:
+        if i in "aeiou":
+            flip_data += i.upper()
+        elif i in "AEIOU":
+            flip_data += i.lower()
+        else:
+            flip_data += i
+        
+    b = open("b.txt", "w")
+    b.write(flip_data)
+    a.close()
+    b.close()
+
+    b = open("b.txt", "r")
+    data = b.read()
+    print("\nModified content in 'b':")
+    print(data)
+    b.close()
+
+except IOError as e:
+    print(f"File operation failed: {e}")
+except Exception as e:
+    print(f"Error: {e}")
+```
+**Output (Success Case)**:
+```
+Content of file 'a':
+This is File 'a'. We are copying text of this file 'a' in file 'b'.
+
+Modified content in 'b':
+ThIs Is FIlE 'A'. WE ArE cOpyIng tExt Of thIs fIlE 'A' In fIlE 'b'.
+```
+**Output (Error Case - Permission Denied)**:
+```
+File operation failed: [Errno 13] Permission denied: 'a.txt'
+```
+
+---
+
+## **3. Split Odd/Even Lines (with Exception Handling)**
+```python
+try:
+    a = open("a.txt", "w")
+    a.write("""This is File 'a'.
+We are copying text of this file 'a' in file 'b'.
+This is even file.
+This is odd line.
+This is fourth line.
+This is 5th line.""")
+    a.close()
+
+    a = open("a.txt", "r")
+    data = a.read().split("\n")
+    print("Original lines:")
+    print(data)
+
+    even, odd = [], []
+    for i in range(len(data)):
+        if i % 2 == 0:
+            even.append(data[i])
+        else:
+            odd.append(data[i])
+        
+    evenFile = open("even.txt", "w")
+    oddFile = open("odd.txt", "w")
+    evenFile.write("\n".join(even))
+    oddFile.write("\n".join(odd))
+    a.close()
+    evenFile.close()
+    oddFile.close()
+
+    # Verification
+    with open("even.txt", "r") as f:
+        print("\nEven lines:")
+        print(f.read())
+    with open("odd.txt", "r") as f:
+        print("\nOdd lines:")
+        print(f.read())
+
+except ValueError as e:
+    print(f"Data processing error: {e}")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+```
+**Output (Success Case)**:
+```
+Original lines:
+["This is File 'a'.", "We are copying...", ...]
+
+Even lines:
+This is File 'a'.
+This is even file.
+This is fourth line.
+
+Odd lines:
+We are copying text...
+This is odd line.
+This is 5th line.
+```
+
+---
+
+## **4. Remove Duplicate Lines (with Exception Handling)**
+```python
+try:
+    a = open("a.txt", "w")
+    a.write("""This is File 'a'.
+This is File 'a'.
+We are copying text...
+[rest of original content]""")
+    a.close()
+
+    a = open("a.txt", "r")
+    data = a.read().split("\n")
+    print("Original content with duplicates:")
+    print(data)
+
+    ans = []
+    for line in data:
+        if line not in ans:
+            ans.append(line)
+
+    outputFile = open("output.txt", "w")
+    outputFile.write("\n".join(ans))
+    outputFile.close()
+
+    # Verification
+    with open("output.txt", "r") as f:
+        print("\nAfter removing duplicates:")
+        print(f.read())
+
+except FileNotFoundError:
+    print("Error: File not found!")
+except MemoryError:
+    print("Error: File too large!")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+```
+**Output (Success Case)**:
+```
+Original content with duplicates:
+["This is File 'a'.", "This is File 'a'.", ...]
+
+After removing duplicates:
+This is File 'a'.
+We are copying text...
+...
+```
+
+---
+
+### **Key Exception Types Handled**
+| Error Type | When It Occurs |
+|------------|----------------|
+| `FileNotFoundError` | File doesn't exist |
+| `PermissionError` | No read/write access |
+| `IOError` | General I/O failures |
+| `MemoryError` | Insufficient RAM for large files |
+| `ValueError` | Data format issues |
+
+**Always handle exceptions specifically** before catching general `Exception`.  
+**Pro Tip**: Use `logging` for production code:
+```python
+import logging
+try:
+    # File operations
+except Exception as e:
+    logging.error(f"Failed: {e}", exc_info=True)
+```
+
+Always use finally block in Exception Handling. Why?
+
+Now, reading csv files:
+
+a = open("C:/Users/dbda.STUDENTSDC\Desktop/data.csv", "r")
+data = a.read()
+print("Content of file 'a': ")
+print("Data: ", data)
+
+Output:
+
+Content of file 'a':
+Data:  id, name, city, age
+1, "arya", "nagpur", 23
+2, "viraj", "kolhapur", 23
+3, "rishi", "pune", 25
+4, "amar", "latur", 23
+5, "yash", "nagpur", 23
+
+This was the CSV File we had created:
+
+id	 name	 city	 age
+1	 "arya"	 "nagpur"	23
+2	 "viraj"	 "kolhapur"	23
+3	 "rishi"	 "pune"	25
+4	 "amar"	 "latur"	23
+5	 "yash"	 "nagpur"	23
+
+This file was created on notepad and then saved as "data.csv".
+
+---
+
+Vector Databases
+RDBMS vs Spreadsheets
+Which is better for large datasets. Why?
+ACID Properties followed by SQL or NoSQL?
+ER Diagram was introduced in 1973. The same year C++ was launched.
+Databases is not only about RDBMS.
+
+We will be connecting SQL databases through programming.
+We will be doing this with Python.
+The way in which we opened a file with code, why can't we access a database with that simplicity?
+The number one reason is security.
+In file, we can make it read only or write only. No more security can be provided to the file.
+
+The second reason can be speed.
+They are extremely fast in read operations.
+Access speed in RDBMS is slow becaue it has to look for indices, partitions, constraints.
+
+Read Operations are generally slower in NoSQL than SQL.
+
+Our Mobile gets to know about the notification of a particular application through its port number.
+Socket Programming.
+Languages like Java and Python has libraries to implement this socket programming.
+
 
