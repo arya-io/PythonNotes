@@ -478,6 +478,281 @@ print("Coin flips:", coin_flips)
 
 ---
 
+# 📊 **Pandas Fundamentals - Complete Guide** 🐼
 
- 
+## 🔢 **1. Pandas Series (1D Data Structure)**
+### Basic Series Creation
+```python
+import pandas as pd
 
+# Create Series from list
+l = [10, 20, 30, 40, 50]
+a = pd.Series(l)
+print(a)
+```
+**Output:**
+```
+0    10
+1    20
+2    30
+3    40
+4    50
+dtype: int64
+```
+
+### Mixed Data Types
+```python
+mixed = [10, 20, 30, 40, 50, 'hello']
+s = pd.Series(mixed)
+print(s.dtype)  # object (parent class for all Python types)
+```
+
+### Key Series Features:
+- Indexed like a dictionary (default: 0-based integers)
+- Homogeneous data preferred (better performance)
+- dtype automatically inferred
+- Similar to NumPy array but with enhanced functionality
+
+---
+
+## 📈 **2. Pandas DataFrame (2D Data Structure)**
+### Basic DataFrame Creation
+```python
+emp_data = {
+    "empid": [1, 2, 3, 4],
+    "ename": ["abc", "arya", "rishi", "sagar"],
+    "Salary": [20000, 40000, 45000, 50000]
+}
+
+df = pd.DataFrame(emp_data)
+print(df)
+```
+**Output:**
+```
+   empid  ename  Salary
+0      1    abc   20000
+1      2   arya   40000
+2      3  rishi   45000
+3      4  sagar   50000
+```
+
+### DataFrame Indexing
+```python
+# Access column
+print(df['Salary'])
+
+# Access row by label
+print(df.loc[2])  # Access by index label
+
+# Access row by position
+print(df.iloc[0])  # Access by integer position
+```
+
+### Custom Index
+```python
+df_indexed = pd.DataFrame(emp_data, index=["one", "two", "three", "four"])
+print(df_indexed.loc["three"])
+```
+
+---
+
+## 🕰 **3. Time Series Data & Logs**
+### What is Time Series Data?
+- Data points indexed in time order (timestamps)
+- Examples: Stock prices, sensor readings, website visits
+
+### What are Logs?
+- Timestamped records of events
+- Typically contain: Timestamp, Event Type, Message
+- Used for debugging, auditing, and analysis
+
+---
+
+## 📂 **4. Working with CSV Files**
+```python
+df = pd.read_csv("Survey.csv")
+
+# Essential DataFrame Methods
+print(df.head())    # First 5 rows
+print(df.tail())    # Last 5 rows  
+print(df.info())    # Structure summary
+print(df.describe()) # Statistical summary
+```
+
+### Key CSV Operations:
+- `read_csv()`: Load data from CSV
+- `to_csv()`: Save DataFrame to CSV
+- Parameters:
+  - `index=False` (don't write row numbers)
+  - `header=False` (don't write column names)
+
+---
+
+## 🔍 **5. DataFrame Inspection Methods**
+| Method | Description | Useful For |
+|--------|-------------|------------|
+| `head(n)` | First n rows | Quick look |
+| `tail(n)` | Last n rows | Recent data |
+| `info()` | Data types & memory | Structure overview |
+| `describe()` | Statistical summary | Numeric columns |
+| `shape` | (rows, columns) | Size check |
+| `columns` | Column names | Reference |
+| `dtypes` | Data types per column | Type checking |
+
+---
+
+## 💡 **Key Concepts Explained**
+### 1. `loc` vs `iloc`
+- `loc`: Label-based indexing
+- `iloc`: Position-based indexing
+
+### 2. Why `object` dtype?
+- Pandas uses `object` for:
+  - Strings
+  - Mixed data types
+  - Python objects
+
+### 3. Handling Missing Data
+- Shown as `NaN` in output
+- Affects statistical calculations
+- Can be handled with:
+  - `dropna()`: Remove missing values
+  - `fillna()`: Replace missing values
+
+---
+
+## 🏆 **Best Practices**
+1. **Specify dtypes** when reading data for better memory usage
+2. **Use categoricals** for low-cardinality strings
+3. **Set meaningful indexes** for time series data
+4. **Always check** `info()` after loading data
+5. **Use vectorized operations** instead of loops
+
+
+---
+
+**Example: Why Pandas Beats Raw Python**
+```python
+# Calculate average salary by gender (1 line in Pandas)
+survey.groupby('Sex')['Salary'].mean()
+
+# Much more complex in pure Python!
+```
+
+This shows how Pandas simplifies complex data operations that would require many lines of Python code.
+
+ import pandas as pd
+
+df = pd.read_csv("C:/Datasets/Airquality.csv")
+
+# print(df)
+
+print(df[df['Ozone'] > 15])
+
+Output:
+
+     Ozone  Solar.R  Wind  Temp  Month  Day
+0     41.0    190.0   7.4    67      5    1
+1     36.0    118.0   8.0    72      5    2
+3     18.0    313.0  11.5    62      5    4
+5     28.0      NaN  14.9    66      5    6
+6     23.0    299.0   8.6    65      5    7
+..     ...      ...   ...   ...    ...  ...
+144   23.0     14.0   9.2    71      9   22
+145   36.0    139.0  10.3    81      9   23
+148   30.0    193.0   6.9    70      9   26
+151   18.0    131.0   8.0    76      9   29
+152   20.0    223.0  11.5    68      9   30
+
+[92 rows x 6 columns]
+
+---
+
+import pandas as pd
+
+df = pd.read_csv("C:/Datasets/Airquality.csv")
+
+print(df[df['Ozone'] > 15])
+print(df[df['Ozone'] < 15])
+print(df[df['Ozone'] == 15])
+print(df[df['Ozone'] != 36.0])
+
+Output:
+
+     Ozone  Solar.R  Wind  Temp  Month  Day
+0     41.0    190.0   7.4    67      5    1
+1     36.0    118.0   8.0    72      5    2
+3     18.0    313.0  11.5    62      5    4
+5     28.0      NaN  14.9    66      5    6
+6     23.0    299.0   8.6    65      5    7
+..     ...      ...   ...   ...    ...  ...
+144   23.0     14.0   9.2    71      9   22
+145   36.0    139.0  10.3    81      9   23
+148   30.0    193.0   6.9    70      9   26
+151   18.0    131.0   8.0    76      9   29
+152   20.0    223.0  11.5    68      9   30
+
+[92 rows x 6 columns]
+     Ozone  Solar.R  Wind  Temp  Month  Day
+2     12.0    149.0  12.6    74      5    3
+8      8.0     19.0  20.1    61      5    9
+10     7.0      NaN   6.9    74      5   11
+12    11.0    290.0   9.2    66      5   13
+13    14.0    274.0  10.9    68      5   14
+15    14.0    334.0  11.5    64      5   16
+17     6.0     78.0  18.4    57      5   18
+19    11.0     44.0   9.7    62      5   20
+20     1.0      8.0   9.7    59      5   21
+21    11.0    320.0  16.6    73      5   22
+22     4.0     25.0   9.7    61      5   23
+49    12.0    120.0  11.5    73      6   19
+50    13.0    137.0  10.3    76      6   20
+72    10.0    264.0  14.3    73      7   12
+75     7.0     48.0  14.3    80      7   15
+93     9.0     24.0  13.8    81      8    2
+113    9.0     36.0  14.3    72      8   22
+136    9.0     24.0  10.9    71      9   14
+137   13.0    112.0  11.5    71      9   15
+140   13.0     27.0  10.3    76      9   18
+143   13.0    238.0  12.6    64      9   21
+146    7.0     49.0  10.3    69      9   24
+147   14.0     20.0  16.6    63      9   25
+150   14.0    191.0  14.3    75      9   28
+Empty DataFrame
+Columns: [Ozone, Solar.R, Wind, Temp, Month, Day]
+Index: []
+     Ozone  Solar.R  Wind  Temp  Month  Day
+0     41.0    190.0   7.4    67      5    1
+2     12.0    149.0  12.6    74      5    3
+3     18.0    313.0  11.5    62      5    4
+4      NaN      NaN  14.3    56      5    5
+5     28.0      NaN  14.9    66      5    6
+..     ...      ...   ...   ...    ...  ...
+148   30.0    193.0   6.9    70      9   26
+149    NaN    145.0  13.2    77      9   27
+150   14.0    191.0  14.3    75      9   28
+151   18.0    131.0   8.0    76      9   29
+152   20.0    223.0  11.5    68      9   30
+
+[151 rows x 6 columns]
+
+---
+''' python
+import pandas as pd
+
+df = pd.read_csv("C:/Datasets/Airquality.csv")
+
+print(df[df['Ozone'] == 'NaN'])
+'''
+To joints two tables
+'''
+import pandas as pd
+
+
+df1 = pd.read_excel("C:/Datasets/Demo.xls","Sheet1")
+df2=pd.read_excel("C:/Datasets/Demo.xls","Sheet2")
+
+
+x=pd.merge(df1,df2,on="deptno",how="left")
+print(x)
+'''
