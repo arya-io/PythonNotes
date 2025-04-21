@@ -641,118 +641,144 @@ survey.groupby('Sex')['Salary'].mean()
 
 This shows how Pandas simplifies complex data operations that would require many lines of Python code.
 
- import pandas as pd
+---
 
+# 🔍 **Data Filtering in Pandas**
+
+## **1. Conditional Filtering**
+```python
+import pandas as pd
 df = pd.read_csv("C:/Datasets/Airquality.csv")
 
-# print(df)
+# Filter rows where Ozone > 15
+print(df[df['Ozone'] > 15].head())
+```
+**Output:**
+```
+   Ozone  Solar.R  Wind  Temp  Month  Day
+0   41.0    190.0   7.4    67      5    1
+1   36.0    118.0   8.0    72      5    2
+3   18.0    313.0  11.5    62      5    4
+5   28.0      NaN  14.9    66      5    6
+6   23.0    299.0   8.6    65      5    7
+```
 
-print(df[df['Ozone'] > 15])
+## **Multiple Conditions**
+```python
+# AND condition: Ozone > 15 AND Temp < 70
+print(df[(df['Ozone'] > 15) & (df['Temp'] < 70)].head())
 
-Output:
-
-     Ozone  Solar.R  Wind  Temp  Month  Day
-0     41.0    190.0   7.4    67      5    1
-1     36.0    118.0   8.0    72      5    2
-3     18.0    313.0  11.5    62      5    4
-5     28.0      NaN  14.9    66      5    6
-6     23.0    299.0   8.6    65      5    7
-..     ...      ...   ...   ...    ...  ...
-144   23.0     14.0   9.2    71      9   22
-145   36.0    139.0  10.3    81      9   23
-148   30.0    193.0   6.9    70      9   26
-151   18.0    131.0   8.0    76      9   29
-152   20.0    223.0  11.5    68      9   30
-
-[92 rows x 6 columns]
+# OR condition: Ozone < 10 OR Solar.R > 300
+print(df[(df['Ozone'] < 10) | (df['Solar.R'] > 300)].head())
+```
 
 ---
 
-import pandas as pd
+# 🤝 **Table Joins in Pandas**
+```python
+df1 = pd.read_excel("C:/Datasets/Demo.xls", "Sheet1")
+df2 = pd.read_excel("C:/Datasets/Demo.xls", "Sheet2")
 
-df = pd.read_csv("C:/Datasets/Airquality.csv")
+# Left join on 'deptno'
+merged = pd.merge(df1, df2, on="deptno", how="left")
+print(merged.head())
+```
 
-print(df[df['Ozone'] > 15])
-print(df[df['Ozone'] < 15])
-print(df[df['Ozone'] == 15])
-print(df[df['Ozone'] != 36.0])
-
-Output:
-
-     Ozone  Solar.R  Wind  Temp  Month  Day
-0     41.0    190.0   7.4    67      5    1
-1     36.0    118.0   8.0    72      5    2
-3     18.0    313.0  11.5    62      5    4
-5     28.0      NaN  14.9    66      5    6
-6     23.0    299.0   8.6    65      5    7
-..     ...      ...   ...   ...    ...  ...
-144   23.0     14.0   9.2    71      9   22
-145   36.0    139.0  10.3    81      9   23
-148   30.0    193.0   6.9    70      9   26
-151   18.0    131.0   8.0    76      9   29
-152   20.0    223.0  11.5    68      9   30
-
-[92 rows x 6 columns]
-     Ozone  Solar.R  Wind  Temp  Month  Day
-2     12.0    149.0  12.6    74      5    3
-8      8.0     19.0  20.1    61      5    9
-10     7.0      NaN   6.9    74      5   11
-12    11.0    290.0   9.2    66      5   13
-13    14.0    274.0  10.9    68      5   14
-15    14.0    334.0  11.5    64      5   16
-17     6.0     78.0  18.4    57      5   18
-19    11.0     44.0   9.7    62      5   20
-20     1.0      8.0   9.7    59      5   21
-21    11.0    320.0  16.6    73      5   22
-22     4.0     25.0   9.7    61      5   23
-49    12.0    120.0  11.5    73      6   19
-50    13.0    137.0  10.3    76      6   20
-72    10.0    264.0  14.3    73      7   12
-75     7.0     48.0  14.3    80      7   15
-93     9.0     24.0  13.8    81      8    2
-113    9.0     36.0  14.3    72      8   22
-136    9.0     24.0  10.9    71      9   14
-137   13.0    112.0  11.5    71      9   15
-140   13.0     27.0  10.3    76      9   18
-143   13.0    238.0  12.6    64      9   21
-146    7.0     49.0  10.3    69      9   24
-147   14.0     20.0  16.6    63      9   25
-150   14.0    191.0  14.3    75      9   28
-Empty DataFrame
-Columns: [Ozone, Solar.R, Wind, Temp, Month, Day]
-Index: []
-     Ozone  Solar.R  Wind  Temp  Month  Day
-0     41.0    190.0   7.4    67      5    1
-2     12.0    149.0  12.6    74      5    3
-3     18.0    313.0  11.5    62      5    4
-4      NaN      NaN  14.3    56      5    5
-5     28.0      NaN  14.9    66      5    6
-..     ...      ...   ...   ...    ...  ...
-148   30.0    193.0   6.9    70      9   26
-149    NaN    145.0  13.2    77      9   27
-150   14.0    191.0  14.3    75      9   28
-151   18.0    131.0   8.0    76      9   29
-152   20.0    223.0  11.5    68      9   30
-
-[151 rows x 6 columns]
+**Join Types:**
+| Join Type | How Parameter | Description |
+|-----------|---------------|-------------|
+| Inner | `how='inner'` | Only matching rows |
+| Left | `how='left'` | All left + matching right |
+| Right | `how='right'` | All right + matching left |
+| Outer | `how='outer'` | All rows from both |
 
 ---
-''' python
+
+# 📊 **Creating DataFrames**
+```python
 import pandas as pd
+import numpy as np
 
-df = pd.read_csv("C:/Datasets/Airquality.csv")
+a = [[1, 2, 3, 4],
+     [1, 2, 3, 4],
+     [5, 6, 7, 8],
+     [9, 10, 11, 12]]
 
-print(df[df['Ozone'] == 'NaN'])
-'''
-To joints two tables
-'''
-import pandas as pd
+df = pd.DataFrame(a, columns=["col1", "col2", "col3", "col4"])
+print(df)
+```
+**Output:**
+```
+   col1  col2  col3  col4
+0     1     2     3     4
+1     1     2     3     4
+2     5     6     7     8
+3     9    10    11    12
+```
 
+---
 
-df1 = pd.read_excel("C:/Datasets/Demo.xls","Sheet1")
-df2=pd.read_excel("C:/Datasets/Demo.xls","Sheet2")
+# 📈 **Data Visualization with Matplotlib**
+```python
+import matplotlib.pyplot as plt
 
+# Line Plot
+x = ["abc", "mno", "pqr", "www", "rrr"]
+y = [99, 89, 75, 12, 98]
+plt.plot(x, y)
+plt.title("Line Plot")
+plt.show()
 
-x=pd.merge(df1,df2,on="deptno",how="left")
-print(x)
-'''
+# Box Plot
+plt.boxplot(y)
+plt.title("Box Plot")
+plt.show()
+
+# Scatter Plot
+plt.scatter(x, y)
+plt.title("Scatter Plot")
+plt.show()
+```
+
+**Plotting from DataFrame:**
+```python
+# Scatter plot from DataFrame columns
+plt.scatter(df['col1'], df['col2'])
+plt.xlabel('Column 1')
+plt.ylabel('Column 2')
+plt.show()
+```
+
+---
+
+# 🧹 **Handling Null Values**
+```python
+# Drop rows with any null values
+cleaned_df = df.dropna()
+
+# Fill nulls with specific value
+filled_df = df.fillna(0)
+
+# Fill nulls with column mean
+df['Ozone'] = df['Ozone'].fillna(df['Ozone'].mean())
+
+# Forward fill
+df.fillna(method='ffill', inplace=True)
+```
+
+**Null Handling Methods:**
+| Method | Description |
+|--------|-------------|
+| `dropna()` | Remove missing values |
+| `fillna()` | Replace missing values |
+| `isna()` | Detect missing values |
+| `interpolate()` | Fill values using interpolation |
+
+---
+
+# 🏆 **Key Takeaways**
+1. **Filtering**: Use boolean conditions with `df[condition]`
+2. **Joins**: `pd.merge()` with different `how` parameters
+3. **Visualization**: Start with `plt.plot()`, `plt.scatter()`, `plt.boxplot()`
+4. **Null Values**: Always check with `df.isna().sum()` before analysis
+5. **DataFrames**: Can be created from lists, dicts, or NumPy arrays
