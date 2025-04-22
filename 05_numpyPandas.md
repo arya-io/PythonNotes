@@ -782,3 +782,205 @@ df.fillna(method='ffill', inplace=True)
 3. **Visualization**: Start with `plt.plot()`, `plt.scatter()`, `plt.boxplot()`
 4. **Null Values**: Always check with `df.isna().sum()` before analysis
 5. **DataFrames**: Can be created from lists, dicts, or NumPy arrays
+
+---
+
+# 📊 **Data Visualization & Web Scraping in Python**  
+
+## 🌟 **Seaborn**  
+
+Seaborn is a statistical data visualization library built on Matplotlib. It provides a high-level interface for creating attractive graphs.  
+
+### 🔹 **Installation**  
+```bash
+pip install seaborn
+```
+
+### 🔹 **Basic Plotting**  
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load built-in dataset
+tips = sns.load_dataset("tips")
+
+# Create a scatter plot with regression line
+sns.lmplot(x="total_bill", y="tip", data=tips, hue="smoker")
+plt.title("Total Bill vs Tip Amount")
+plt.show()
+```
+**Output:**  
+![Seaborn Scatter Plot](https://seaborn.pydata.org/_images/regression-1.png)  
+
+### 🔹 **Key Features**  
+- **Histograms & KDE Plots:**  
+  ```python
+  sns.histplot(tips["total_bill"], kde=True)
+  plt.title("Distribution of Total Bill")
+  plt.show()
+  ```
+  
+- **Box Plots:**  
+  ```python
+  sns.boxplot(x="day", y="total_bill", data=tips)
+  plt.title("Total Bill by Day")
+  plt.show()
+  ```
+
+- **Heatmaps:**  
+  ```python
+  corr = tips.corr()
+  sns.heatmap(corr, annot=True)
+  plt.title("Correlation Heatmap")
+  plt.show()
+  ```
+
+---
+
+## 📈 **Plotly**  
+
+Plotly is an interactive visualization library that works well in Jupyter notebooks and web apps.  
+
+### 🔹 **Installation**  
+```bash
+pip install plotly
+```
+
+### 🔹 **Basic Interactive Plot**  
+```python
+import plotly.express as px
+
+df = px.data.iris()  # Load built-in dataset
+fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species")
+fig.show()
+```
+**Output:**  
+![Plotly Scatter Plot](https://plotly.com/python/static/images/plotly-express-scatter-plot.png)  
+
+### 🔹 **Key Features**  
+- **Line Plot:**  
+  ```python
+  fig = px.line(df, x="sepal_width", y="sepal_length", color="species")
+  fig.show()
+  ```
+
+- **3D Scatter Plot:**  
+  ```python
+  fig = px.scatter_3d(df, x="sepal_width", y="sepal_length", z="petal_width", color="species")
+  fig.show()
+  ```
+
+- **Interactive Dashboards:**  
+  Plotly Dash can be used to build web-based dashboards.  
+
+---
+
+## 🌐 **Web Scraping in Python**  
+
+### 🔹 **Requests**  
+The `requests` library fetches HTML content from websites.  
+
+#### **Installation**  
+```bash
+pip install requests
+```
+
+#### **Basic Usage**  
+```python
+import requests
+
+url = "https://example.com"
+response = requests.get(url)
+
+print("Status Code:", response.status_code)  # 200 means success
+print("HTML Content:", response.text[:200])  # First 200 characters
+```
+**Output:**  
+```
+Status Code: 200  
+HTML Content: <!doctype html> <html> <head> <title>Example Domain</title> <meta charset="utf-8" /> <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <sty
+```
+
+---
+
+### 🍲 **BeautifulSoup**  
+BeautifulSoup parses HTML/XML and extracts data.  
+
+#### **Installation**  
+```bash
+pip install beautifulsoup4
+```
+
+#### **Basic Usage**  
+```python
+from bs4 import BeautifulSoup
+import requests
+
+url = "https://example.com"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, "html.parser")
+
+# Extract title
+title = soup.title.string
+print("Page Title:", title)
+
+# Extract all links
+links = [a["href"] for a in soup.find_all("a", href=True)]
+print("Links:", links[:3])  # First 3 links
+```
+**Output:**  
+```
+Page Title: Example Domain  
+Links: ['https://www.iana.org/domains/example', 'https://www.iana.org/domains/reserved', 'https://www.iana.org/domains/reserved']  
+```
+
+---
+
+### 🕷️ **Scrapy**  
+Scrapy is a powerful web scraping framework for large-scale projects.  
+
+#### **Installation**  
+```bash
+pip install scrapy
+```
+
+#### **Creating a Scrapy Spider**  
+1. **Create a project:**  
+   ```bash
+   scrapy startproject myproject
+   cd myproject
+   ```
+
+2. **Define a spider:**  
+   ```python
+   import scrapy
+
+   class ExampleSpider(scrapy.Spider):
+       name = "example"
+       start_urls = ["https://example.com"]
+
+       def parse(self, response):
+           title = response.css("title::text").get()
+           yield {"title": title}
+   ```
+
+3. **Run the spider:**  
+   ```bash
+   scrapy crawl example -o output.json
+   ```
+   **Output (output.json):**  
+   ```json
+   [{"title": "Example Domain"}]
+   ```
+
+---
+
+## 🔥 **Key Takeaways**  
+| Library | Purpose | Best For |
+|---------|---------|----------|
+| Seaborn | Statistical Visualization | Quick & elegant plots |
+| Plotly | Interactive Visualizations | Dashboards & 3D plots |
+| Requests | Fetching Web Pages | Simple HTTP requests |
+| BeautifulSoup | HTML Parsing | Small-scale scraping |
+| Scrapy | Full Web Scraping Framework | Large-scale projects |
+
